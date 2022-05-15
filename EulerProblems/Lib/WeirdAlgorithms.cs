@@ -25,5 +25,23 @@ namespace EulerProblems.Lib
             }
             return true;
         }
+        internal static long sumOfSquares(long n)
+        {
+            long sum = 0;
+            for (long i = 1; i <= n; i++)
+            {
+                sum += (long)Math.Pow(i, 2);
+            }
+            return sum;
+        }
+        internal static long squareOfSum(long n)
+        {
+            long sum = 0;
+            for (long i = 1; i <= n; i++)
+            {
+                sum += i;
+            }
+            return (long)Math.Pow(sum, 2);
+        }
     }
 }

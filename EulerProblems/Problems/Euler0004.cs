@@ -12,6 +12,7 @@ namespace EulerProblems.Problems
         {
             title = "Largest palindrome product";
             problemNumber = 4;
+            PrintTitle();
         }
         public override void Run()
         {

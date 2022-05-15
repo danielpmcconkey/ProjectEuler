@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EulerProblems.Lib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,27 +12,17 @@ namespace EulerProblems.Problems
         public Euler0006() : base()
         {
             title = "Sum square difference";
-            problemNumber = 4;
+            problemNumber = 6;
+            PrintTitle();
         }
         public override void Run()
         {
-            int lowest3DigitNumber = 100;
-            int highest3DigitNumber = 999;
-            int highestPalindromicNumber = -1;
+            long limit = 100;
+            long sumOfSquares = WeirdAlgorithms.sumOfSquares(limit);
+            long squareOfSum = WeirdAlgorithms.squareOfSum(limit);
 
-            for (int i = lowest3DigitNumber; i <= highest3DigitNumber; i++)
-            {
-                for (int j = lowest3DigitNumber; j <= highest3DigitNumber; j++)
-                {
-                    int candidate = i * j;
-                    if (Lib.WeirdAlgorithms.isIntPalindromic(candidate))
-                    {
-                        if (candidate > highestPalindromicNumber)
-                            highestPalindromicNumber = candidate;
-                    }
-                }
-            }
-            PrintSolution(highestPalindromicNumber.ToString());
+            long difference = squareOfSum - sumOfSquares;
+            PrintSolution(difference.ToString());
             return;
         }
 

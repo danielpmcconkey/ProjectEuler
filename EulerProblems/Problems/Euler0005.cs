@@ -33,6 +33,7 @@ namespace EulerProblems.Problems
         {
             title = "Smallest multiple";
             problemNumber = 5;
+            PrintTitle();
         }
         public override void Run()
         {

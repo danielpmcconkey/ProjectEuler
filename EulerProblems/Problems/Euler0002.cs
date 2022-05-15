@@ -12,6 +12,7 @@ namespace EulerProblems.Problems
         {
             title = "Even Fibonacci numbers";
             problemNumber = 2;
+            PrintTitle();
         }
         public override void Run()
         {

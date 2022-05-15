@@ -13,6 +13,7 @@ namespace EulerProblems.Problems
         {
             title = "Multiples of 3 or 5";
             problemNumber = 1;
+            PrintTitle();
         }
         
         public override void Run()

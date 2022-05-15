@@ -12,6 +12,7 @@ namespace EulerProblems.Problems
         {
             title = "Largest prime factor";
             problemNumber = 3;
+            PrintTitle();
         }
         public override void Run()
         {

@@ -18,7 +18,8 @@ namespace EulerProblems
         }
         public void Deconstructor()
         {
-            Console.WriteLine("Elapsed time: " + stopwatch.Elapsed.TotalMilliseconds.ToString() + "milliseconds");
+            Console.WriteLine(String.Format("Elapsed time: {0} milliseconds",
+                stopwatch.Elapsed.TotalMilliseconds));
         }
         public abstract void Run();
 
