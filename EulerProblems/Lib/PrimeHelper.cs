@@ -41,7 +41,7 @@ namespace EulerProblems.Lib
 				{
 					primes.Add(i);
 				}
-				if((i-1) % 1000 == 0) Console.WriteLine(String.Format("primes found up to {0}", i));
+				// if((i-1) % 1000 == 0) Console.WriteLine(String.Format("primes found up to {0}", i));
             }
 			return primes;
         }
