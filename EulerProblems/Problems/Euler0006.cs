@@ -18,8 +18,8 @@ namespace EulerProblems.Problems
         public override void Run()
         {
             long limit = 100;
-            long sumOfSquares = WeirdAlgorithms.sumOfSquares(limit);
-            long squareOfSum = WeirdAlgorithms.squareOfSum(limit);
+            long sumOfSquares = WeirdAlgorithms.SumOfSquares(limit);
+            long squareOfSum = WeirdAlgorithms.SquareOfSum(limit);
 
             long difference = squareOfSum - sumOfSquares;
             PrintSolution(difference.ToString());

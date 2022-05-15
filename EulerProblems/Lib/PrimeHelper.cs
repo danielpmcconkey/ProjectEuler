@@ -8,6 +8,24 @@ namespace EulerProblems.Lib
 {
     internal static class PrimeHelper
     {
+		internal static long[] GetFirstNPrimes(int n)
+        {
+			long[] primes = new long[n];
+			primes[0] = 2; // add 2 manually so I can easily skip all even numbers moving forward
+			int numPrimesFound = 1;
+			long i = 3;
+			while(true)
+            {
+				if(IsXPrime(i))
+                {
+					numPrimesFound++;
+					primes[numPrimesFound -1] = i;
+					if(numPrimesFound == n) return primes;
+				}
+				i++;
+            }
+			throw new Exception("n number of primes not found");
+		}
 		internal static List<long> GetPrimesUpToX(long x)
         {
 			// this will take a long time to run. Use the integer function if you can help it
@@ -77,8 +95,10 @@ namespace EulerProblems.Lib
 		}
         internal static bool IsXPrime(long x)
         {
+			if (x == 1) return false;
 			if (x == 2) return true;
 
+			const long bigNumber = -1;// 1000000;
 			/*
 			 * https://math.stackexchange.com/questions/663736/how-to-determine-if-a-large-number-is-prime
 			 * To test if some x is prime, we generally have to do divisibility 
@@ -88,10 +108,15 @@ namespace EulerProblems.Lib
 			 * and y would be greater than √x). But if z<√x, then we've already 
 			 * tested z in going up to √x!
 			 * */
-			long largestValuToCheck = (long)Math.Floor(Math.Sqrt(x));
-            for (long i = 3; i < x / largestValuToCheck; i += 2)
+			long largestValueToCheck = x;
+			// as the numbers get big, only check the square root of the number
+			if (x > bigNumber) largestValueToCheck = (long)Math.Ceiling(Math.Sqrt(x));
+            for (long i = 2; i <= largestValueToCheck; i++)
             {
-                if (x % i == 0) return false;
+				if (x % i == 0)
+				{
+					return false;
+				}
             }
             return true;
         }

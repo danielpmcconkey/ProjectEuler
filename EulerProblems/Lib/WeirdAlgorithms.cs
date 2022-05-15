@@ -8,7 +8,7 @@ namespace EulerProblems.Lib
 {
     internal static class WeirdAlgorithms
     {
-        internal static bool isIntPalindromic(int n)
+        internal static bool IsIntPalindromic(int n)
         {
             char[] intAsCharArray = n.ToString().ToCharArray();
             int numberOfDigits = intAsCharArray.Length;
@@ -25,7 +25,7 @@ namespace EulerProblems.Lib
             }
             return true;
         }
-        internal static long sumOfSquares(long n)
+        internal static long SumOfSquares(long n)
         {
             long sum = 0;
             for (long i = 1; i <= n; i++)
@@ -34,7 +34,7 @@ namespace EulerProblems.Lib
             }
             return sum;
         }
-        internal static long squareOfSum(long n)
+        internal static long SquareOfSum(long n)
         {
             long sum = 0;
             for (long i = 1; i <= n; i++)
