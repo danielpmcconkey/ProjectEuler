@@ -25,6 +25,11 @@ namespace EulerProblems.Lib
             }
             return true;
         }
+        public static bool IsPythagoreanTriplet(int a, int b, int c)
+        {
+            if (Math.Pow(a, 2) + Math.Pow(b, 2) == Math.Pow(c, 2)) return true;
+            return false;
+        }
         internal static long SumOfSquares(long n)
         {
             long sum = 0;
