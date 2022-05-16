@@ -20,10 +20,6 @@ namespace EulerProblems.Problems
 
             for(int i = startingPoint; i <= stoppingPoint; i++)
             {
-                //if(i == 113383)
-                //{
-                //    string burp = "true";
-                //}
                 long chainLength = HowLongIsTheCollatzChainForN(i);
                 if(chainLength > longestChain)
                 {
@@ -39,7 +35,7 @@ namespace EulerProblems.Problems
         }
         private long HowLongIsTheCollatzChainForN(int n)
         {
-            long currentVal = n;
+            long currentVal = n;   // needs to be a long because some values will overrun an int
             long chainLength = 1;
             while (currentVal != 1)
             {
@@ -53,11 +49,7 @@ namespace EulerProblems.Problems
                 {
                     currentVal = (currentVal * 3) + 1;
                 }
-                chainLength++;
-                //if (n == 113383)
-                //{
-                //    Console.WriteLine(n.ToString());
-                //}
+                chainLength++;                
             }
             return chainLength;
         }
