@@ -134,16 +134,17 @@ namespace EulerProblems.Problems
 
             List<int> result = new List<int>();
             // go right to left and add up the numbers in each column
-            for(int column = gridWidth - 1; column >= 0; column--)
+            for (int column = gridWidth - 1; column >= 0; column--)
             {
                 int sumThisColumn = currentRemainder;
-                for(int row = 0; row < gridHeight; row++)
+                for (int row = 0; row < gridHeight; row++)
                 {
                     int value = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row, column)];
                     sumThisColumn += value;
                 }
                 // add the last digit to the stack
-                (int lastPlace, int remainder) colunmnResult = GetColumnPositionValAndRemainder(sumThisColumn);
+                (int lastPlace, int remainder) colunmnResult = WeirdAlgorithms
+                    .GetLastPositionValAndRemainder(sumThisColumn);
                 result.Add(colunmnResult.lastPlace);
                 currentRemainder = colunmnResult.remainder;
             }
@@ -151,7 +152,7 @@ namespace EulerProblems.Problems
             // done going through the columns, now handle the final remainder
             char[] remainderAsCharArray = currentRemainder.ToString().ToCharArray();
             // go right to left and pop any digits onto the list
-            for(int i = remainderAsCharArray.Length - 1; i >= 0; i--)
+            for (int i = remainderAsCharArray.Length - 1; i >= 0; i--)
             {
                 int valueAtPlace = int.Parse(remainderAsCharArray[i].ToString());
                 result.Add(valueAtPlace);
@@ -159,27 +160,16 @@ namespace EulerProblems.Problems
 
             // finally, go through the result list and get the last 10 values in reverse order
             string answer = "";
-            for(int i = result.Count - 1; i >= result.Count - 10; --i)
+            for (int i = result.Count - 1; i >= result.Count - 10; --i)
             {
                 answer += result[i].ToString();
             }
 
 
-            
+
 
             PrintSolution(answer);
             return;
         }
-        (int lastPlace, int remainder) GetColumnPositionValAndRemainder(int columnSum)
-        {
-            string sumAsString = columnSum.ToString();
-            int length = sumAsString.Length;
-            string lastPlaceString = sumAsString.Substring(length - 1, 1);
-            string remainderString = sumAsString.Substring(0, length - 1);
-            int lastPlace = int.Parse(lastPlaceString);
-            int remainder = int.Parse(remainderString);
-            return(lastPlace, remainder);
-        }
-
     }
 }

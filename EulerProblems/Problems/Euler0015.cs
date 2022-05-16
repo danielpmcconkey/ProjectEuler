@@ -30,7 +30,7 @@ namespace EulerProblems.Problems
              * bottom.
              * 
              * So we need to know all the "possible" binary
-             * numbers of n + m digits. I'm pretture sure some
+             * numbers of n + m digits. I'm pretty sure some
              * awesome bitwise arithematic would work like
              * lightning here, but it'd be very hard to read
              * and maintain moving forward.
@@ -58,32 +58,31 @@ namespace EulerProblems.Problems
              *   14	    40,116,600
              *   15	    155,117,520
              *   
-             *   I took it into Google sheets and tried to find
-             *   the pattern. After about 20 minutes I stumbled
-             *   upon the pattern that you'll see below. Basically,
-             *   I divided each answer by the one previous and saw
-             *   that that result was approaching 4. So I took
-             *   that number that was approaching 4 and multiplied
-             *   it by n. That gave me an integer that rose by
-             *   4 with every iteration of n. It turned out to
-             *   be (n * 4) / 2. From there, figuring out the
-             *   order of operations was easy
-             *   
-             *   Did I cheat? Yeah. Probably. But I don't know a
-             *   better way to do it. I'll check the forum for the
-             *   elegant solution.
+             * I took it into Google sheets and tried to find
+             * the pattern. After about 20 minutes I stumbled
+             * upon the pattern that you'll see below. Basically,
+             * I divided each answer by the one previous and saw
+             * that that result was approaching 4. So I took
+             * that number that was approaching 4 and multiplied
+             * it by n. That gave me an integer that rose by
+             * 4 with every iteration of n. It turned out to
+             * be (n * 4) / 2. From there, figuring out the
+             * order of operations was easy
+             * 
+             * Did I cheat? Yeah. Probably. But I don't know a
+             * better way to do it. I'll check the forum for the
+             * elegant solution.
              * 
              * */
 
             int gridWidth = 20;
-            double mysteryCoefficient = 0;
             int startN = 3;
             long priorAnswer = 6;   // the answer at n = 2
             long numberOfPossibleRoutes = 0;
 
             for (int n = startN; n <= gridWidth; n++)
             {
-                mysteryCoefficient = (n * 4) - 2;
+                double mysteryCoefficient = (n * 4) - 2;
                 double multiplier = mysteryCoefficient / n;
                 numberOfPossibleRoutes = (long)Math.Round(priorAnswer * multiplier, 0);
                 priorAnswer = numberOfPossibleRoutes;
