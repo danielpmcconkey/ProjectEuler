@@ -1,5 +1,4 @@
-﻿using EulerProblems.Lib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,9 +37,6 @@ namespace EulerProblems.Problems
         }
         public override void Run()
         {
-            PrintSolution(SmallestByPrimeFactors(20).ToString());
-            return;
-
             long numerator = 20;
 
             while (true)
@@ -67,49 +63,5 @@ namespace EulerProblems.Problems
             return true;
         }
 
-        long SmallestByPrimeFactors(int maxFactor)
-        {
-            Dictionary<int, int> factors = new Dictionary<int, int>();
-            int[] primes = PrimeHelper.GetPrimesUpToN(20);
-
-            foreach (int prime in primes)
-            {
-                factors[prime] = 0;
-            }
-
-            // For each number up to 20
-            for (int number = 2; number <= maxFactor; number++)
-            {
-                int workingNumber = number;
-
-                // Get its prime factorization
-                for (int primeIndex = 0; primeIndex < primes.Length; primeIndex++)
-                {
-                    int numOfThisPrime = 0;
-
-                    // For each prime, while divisible, keep track of that
-                    while (workingNumber % primes[primeIndex] == 0)
-                    {
-                        workingNumber /= primes[primeIndex];
-                        numOfThisPrime++;
-                    }
-
-                    // If this prime was used more than previously
-                    if (numOfThisPrime > factors[primes[primeIndex]])
-                    {
-                        factors[primes[primeIndex]] = numOfThisPrime;
-                        //Console.WriteLine("Prime " + primes[primeIndex] + " now occurs " + numOfThisPrime + " times!");
-                    }
-                }
-            }
-
-            // Calculate Result
-            double result = 1;
-            foreach (int key in factors.Keys)
-            {
-                result *= Math.Pow(key, factors[key]);
-            }
-            return (long)result;
-        }
     }
 }
