@@ -14,7 +14,7 @@ namespace EulerProblems.Problems
         public override void Run()
         {
             int finalExponent = 1000;
-            string valueAsString = "2";
+            int[] valueAsString = new int[] { 2 };
             for(int currentExponent = 2; currentExponent <= finalExponent; currentExponent++)
             {
                 valueAsString = MathHelper.AddTwoLargeNumbers(valueAsString, valueAsString);
