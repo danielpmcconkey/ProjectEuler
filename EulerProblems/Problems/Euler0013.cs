@@ -13,7 +13,7 @@ namespace EulerProblems.Problems
         }
         public override void Run()
         {
-            string numbersAsString = @"
+            const string input = @"
                 37107287533902102798797998220837590246510135740250
                 46376937677490009712648124896970078050417018260538
                 74324986199524741059474233309513058123726617309629
@@ -115,58 +115,34 @@ namespace EulerProblems.Problems
                 20849603980134001723930671666823555245252804609722
                 53503534226472524250874054075591789781264330331690
             ";
-            // remove white space and convert to an array of chars
-            char[] numbersAsCharArray = Regex.Replace(numbersAsString, @"[\r\n\s\t]", "").ToCharArray();
-            // now convert to numbers so we can do mathematical operations on them
-            short[] numbersArray = new short[numbersAsCharArray.Length];
-            for (int i = 0; i < numbersAsCharArray.Length; i++)
+            // remove white space and convert to an int[][]
+            string numbersAsString = Regex.Replace(input, @"[ \t]", "");
+            string[] numberLines = numbersAsString.Split(Environment.NewLine);
+            // remove the first and last because of the line breaks I put in to make it pretty
+            numberLines = numberLines[1..(numberLines.Length - 1)];
+            int[][] numbersArray = new int[numberLines.Length][];
+            for(int i = 0; i < numberLines.Length; i++)
             {
-                numbersArray[i] = Int16.Parse(numbersAsCharArray[i].ToString());
-            }
-
-            // it's back to elementary school, boys
-            // just like long form addition, add up the 
-            // columns. 
-
-            int gridWidth = 50;
-            int gridHeight = 100;
-            int currentRemainder = 0;
-
-            List<int> result = new List<int>();
-            // go right to left and add up the numbers in each column
-            for (int column = gridWidth - 1; column >= 0; column--)
-            {
-                int sumThisColumn = currentRemainder;
-                for (int row = 0; row < gridHeight; row++)
+                int[] thisArray = new int[numberLines[i].Length];
+                for (int j = 0; j < numberLines[i].Length; j++)
                 {
-                    int value = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row, column)];
-                    sumThisColumn += value;
+                    thisArray[j] = Int16.Parse(numberLines[i][j].ToString());
                 }
-                // add the last digit to the stack
-                (int lastPlace, int remainder) colunmnResult = WeirdAlgorithms
-                    .GetLastPositionValAndRemainder(sumThisColumn);
-                result.Add(colunmnResult.lastPlace);
-                currentRemainder = colunmnResult.remainder;
+                numbersArray[i] = thisArray;
             }
-
-            // done going through the columns, now handle the final remainder
-            char[] remainderAsCharArray = currentRemainder.ToString().ToCharArray();
-            // go right to left and pop any digits onto the list
-            for (int i = remainderAsCharArray.Length - 1; i >= 0; i--)
+            int[] answerArray = new int[] { 0 };
+            for (int i = 0; i < numbersArray.Length; i++)
             {
-                int valueAtPlace = int.Parse(remainderAsCharArray[i].ToString());
-                result.Add(valueAtPlace);
+                answerArray = MathHelper.AddTwoLargeNumbers(answerArray, numbersArray[i]);
             }
+            
 
             // finally, go through the result list and get the last 10 values in reverse order
             string answer = "";
-            for (int i = result.Count - 1; i >= result.Count - 10; --i)
+            for (int i = 0; i < 10; i++)
             {
-                answer += result[i].ToString();
+                answer += answerArray[i].ToString();
             }
-
-
-
 
             PrintSolution(answer);
             return;
