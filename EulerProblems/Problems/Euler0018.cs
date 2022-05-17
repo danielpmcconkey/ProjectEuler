@@ -32,6 +32,7 @@ namespace EulerProblems.Problems
         public override void Run()
         {
             // convert the string to an array of arrays
+            // okay, I used lists, but only because I'm lazy
             string[] stringRows = input.Split(Environment.NewLine);
             List<List<int>> intRows = new List<List<int>>();
             foreach (var row in stringRows)
