@@ -9,11 +9,11 @@ namespace EulerProblems.Lib
     internal static class MathHelper
     {
         #region inteface methods
-        internal static int[] AddTwoLargeNumbers(int[] a, int[] b)
+        /// <summary>
+        /// long-form way of adding two ridiculuosly large numbers just like elementary school
+        /// </summary>
+        internal static int[] LongFormAddition(int[] a, int[] b)
         {
-            // long-form way of adding two ridiculuosly large numbers
-            // just like elementary school
-
             // first pad the shorter string with zeros so they're both
             // the same length
             var normalizedArrays = NormalizeIntArrays(new int[][] { a, b });
@@ -52,67 +52,105 @@ namespace EulerProblems.Lib
 
             return returnArray;
         }
-        internal static string AddTwoLargeNumbers(string a, string b)
+        /// <summary>
+        /// long-form way of multiplying two ridiculuosly large numbers just like elementary school
+        /// </summary>
+        internal static int[] LongFormMultiplication(int[] a, int[] b)
         {
-            // long-form way of adding two ridiculuosly large numbers
-            // assumes the strings contain only numbers. no commas or
-            // periods
-            // just like elementary school
+            /* 
+             *            492
+             *     *       33
+             *    ------------
+             *           1476
+             *     +    14760
+             *    ------------
+             *          16236
+             *          
+             *    (there were remainders carried over not shown above)
+             * 
+             * */
+            
 
-            // first pad the shorter string with zeros so they're both
-            // the same length
-            int length = (a.Length > b.Length) ? a.Length : b.Length;
-            a = a.PadLeft(length, '0');
-            b = b.PadLeft(length, '0');
+            // start with the right-most digit of b and multiply it by each 
+            
+            
+            List<int[]> allRows = new List<int[]>();
+            int powerOf10 = 0;  // used to add the right number of zeros based on which place we're in
 
-            // convert to an array of numbers
-            var aAsChars = a.ToCharArray();
-            var bAsChars = b.ToCharArray();
-            var aAsNums = new short[length];
-            var bAsNums = new short[length];
-            for (int i = 0; i < length; i++)
+            for(int i = b.Length - 1; i >= 0; --i)
             {
-                aAsNums[i] = Int16.Parse(aAsChars[i].ToString());
-                bAsNums[i] = Int16.Parse(bAsChars[i].ToString());
-            }
+                List<int> currentRowResult = new List<int>();
+                int currentRemainder = 0;
 
-            // now go right to left and add the two like elementary school
-            int currentRemainder = 0;
-            List<int> result = new List<int>();
-
-            for (int position = length - 1; position >= 0; position--)
-            {
-                int sumThisPosition = currentRemainder;
-                sumThisPosition += aAsNums[position];
-                sumThisPosition += bAsNums[position];
-
-                // add the last digit to the stack
-                (int lastPlace, int remainder) positionResult = GetLastPositionValAndRemainder(sumThisPosition);
-                result.Add(positionResult.lastPlace);
-                currentRemainder = positionResult.remainder;
-            }
-
-            // done going through the columns, now handle the final remainder
-            if (currentRemainder > 0)
-            {
-                char[] remainderAsCharArray = currentRemainder.ToString().ToCharArray();
-                // go right to left and pop any digits onto the list
-                for (int i = remainderAsCharArray.Length - 1; i >= 0; i--)
+                // add the placeholder zeros for the 10s, 100s, whatever space
+                for (int k = 0; k < powerOf10; ++k)
                 {
-                    int valueAtPlace = int.Parse(remainderAsCharArray[i].ToString());
-                    result.Add(valueAtPlace);
+                    currentRowResult.Add(0);
                 }
+                for (int j = a.Length - 1; j >= 0; --j)
+                {
+                    int productAtPoint = (b[i] * a[j]) + currentRemainder;
+                    (int lastPlace, int remainder) valAndRemainder = 
+                        GetLastPositionValAndRemainder(productAtPoint);
+                    currentRemainder = valAndRemainder.remainder;
+                    currentRowResult.Add(valAndRemainder.lastPlace);
+                }
+                // add the current remainder in reverse order
+                if (currentRemainder > 0)
+                {
+                    char[] remainderAsCharArray = currentRemainder.ToString().ToCharArray();
+                    // go right to left and pop any digits onto the list
+                    for (int k = remainderAsCharArray.Length - 1; k >= 0; k--)
+                    {
+                        int valueAtPlace = int.Parse(remainderAsCharArray[k].ToString());
+                        currentRowResult.Add(valueAtPlace);
+                    }
+                }
+                // and now move the power of ten up
+                powerOf10++;
+
+                // reverse current row and add it to the all rows list
+                int[] currentRowResultArray = currentRowResult.ToArray();
+                currentRowResultArray = currentRowResultArray.Reverse().ToArray();
+                allRows.Add(currentRowResultArray);
             }
 
-            // finally, go through the result list in reverse order to produce your final string
-            string answer = "";
-            for (int i = result.Count - 1; i >= 0; --i)
+            int[] answer = new int[] { 0 };
+            foreach(var row in allRows)
             {
-                answer += result[i].ToString();
+                answer = LongFormAddition(answer, row);
+            }
+
+            return answer;
+        }
+        /// <summary>
+        /// used to get factorials when you know the result
+        /// will be too large for a long to hold
+        /// </summary>
+        internal static int[] GetFactorialOfN(long n)
+        {
+            int[] answer = new int[] { 1 };
+            for(long i = n; i > 0; i--)
+            {
+                int[] multiplier = LongToIntArray(i);
+                answer = LongFormMultiplication(answer, multiplier);
             }
             return answer;
         }
-        internal static List<long> GetFactorsOfN(long n)
+        /// <summary>
+        /// returns a list of all proper divisors ordered least to greatest.
+        /// a proper divisor is a number less than n which divide evenly into n
+        /// </summary>
+        internal static long[] GetProperDivisorsOfN(long n)
+        {
+            long[] factors = MathHelper.GetFactorsOfN(n);
+            long[] properDivisors = factors
+                .Where(x => x != n)
+                .OrderBy(y => y)
+                .ToArray();
+            return properDivisors;
+        }
+        internal static long[] GetFactorsOfN(long n)
         {
             if (n <= 0) throw new ArgumentException("n must be greater than 0");
 
@@ -120,7 +158,7 @@ namespace EulerProblems.Lib
             if (n == 1)
             {
                 factors.Add(1);
-                return factors;
+                return factors.ToArray();
             }
 
             long maxVal = (long)Math.Floor(n * .5); // no sense looking at anything above half
@@ -128,28 +166,67 @@ namespace EulerProblems.Lib
 
             for (long i = 1; i <= maxVal; i++)
             {
-                if (i >= lowestOppositeFactor) return factors;
+                if (i >= lowestOppositeFactor) return factors.ToArray();
                 if (n % i == 0)
                 {
                     factors.Add(i);
                     // also add the opposite factor
                     long oppositeFactor = n / i;
-                    factors.Add(oppositeFactor);
+                    if (oppositeFactor != i)
+                    {
+                        factors.Add(oppositeFactor);
+                    }
                     lowestOppositeFactor = oppositeFactor;
                 }
             }
-            return factors;
+            return factors.ToArray();
+        }
+        /// <summary>
+        /// takes an int and turns it into an array of integers
+        /// representing each of the digits in the original
+        /// number. Used for doing long form arithematic
+        /// </summary>
+        internal static int[] IntToIntArray(int n)
+        {
+            return LongToIntArray((long)n);
+        }
+        /// <summary>
+        /// takes a long and turns it into an array of integers
+        /// representing each of the digits in the original
+        /// number. Used for doing long form arithematic
+        /// </summary>
+        internal static int[] LongToIntArray(long n)
+        {
+            int ordersOfMagnitudeToSupport = 12;
+            List<int> digitsInReverse = new List<int>();
+            for (int i = 0; i < ordersOfMagnitudeToSupport; i++)
+            {
+                if(n >= Math.Pow(10, i))
+                {
+                    digitsInReverse.Add(
+                       (int) (Math.Floor(
+                            n % Math.Pow(10, i + 1)
+                            /
+                            Math.Pow(10, i)
+                            )));
+                }
+            }
+            // now turn it to an array and reverse
+            return digitsInReverse.ToArray().Reverse().ToArray();
         }
         #endregion
 
 
         #region private methods
+        /// <summary>
+        /// splits a number between its right-most digit (last place)
+        /// and the rest (its remainder). Used for long-form
+        /// addition like when you're adding two very large numbers
+        /// together
+        /// </summary>        
         private static (int lastPlace, int remainder) GetLastPositionValAndRemainder(int n)
         {
-            // splits a number between its right-most digit (last place)
-            // and the rest (its remainder). Used for long-form
-            // addition like when you're adding two very large numbers
-            // together
+            
             string sumAsString = n.ToString();
             int length = sumAsString.Length;
             string lastPlaceString = sumAsString.Substring(length - 1, 1);

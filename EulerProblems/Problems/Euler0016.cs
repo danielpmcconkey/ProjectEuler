@@ -17,7 +17,7 @@ namespace EulerProblems.Problems
             int[] valueAsString = new int[] { 2 };
             for(int currentExponent = 2; currentExponent <= finalExponent; currentExponent++)
             {
-                valueAsString = MathHelper.AddTwoLargeNumbers(valueAsString, valueAsString);
+                valueAsString = MathHelper.LongFormAddition(valueAsString, valueAsString);
             }
 
             // now that we have the 2 ^ n result, sum up the digits

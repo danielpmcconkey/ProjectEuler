@@ -133,7 +133,7 @@ namespace EulerProblems.Problems
             int[] answerArray = new int[] { 0 };
             for (int i = 0; i < numbersArray.Length; i++)
             {
-                answerArray = MathHelper.AddTwoLargeNumbers(answerArray, numbersArray[i]);
+                answerArray = MathHelper.LongFormAddition(answerArray, numbersArray[i]);
             }
             
 
