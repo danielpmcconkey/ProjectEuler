@@ -31,6 +31,81 @@ namespace EulerProblems.Lib
             }
             return listSorted.ToArray();
         }
+        /// <summary>
+		/// recursive function for determining all the permutations of
+		/// an array of integers
+		/// </summary>        
+		internal static int[][] GetAllPermutationsOfIntArray(int[] orderedNumerals)
+        {
+            if (orderedNumerals.Length == 1)
+            {
+                // just return it back
+                return new int[][] { new int[] { orderedNumerals[0] } };
+            }
+            if (orderedNumerals.Length == 2)
+            {
+                // too small for the below algorithm to work. do it manually
+                return new int[][] {
+                    new int[] { orderedNumerals[0], orderedNumerals[1] },
+                    new int[] { orderedNumerals[1], orderedNumerals[0] }
+                };
+            }
+
+            List<int[]> returnList = new List<int[]>();
+
+            for (int i = 0; i < orderedNumerals.Length; i++)
+            {
+                int[] newOrderedList = new int[orderedNumerals.Length - 1];
+                for (int k = 0; k < orderedNumerals.Length; k++)
+                {
+                    if (orderedNumerals[k] == orderedNumerals[i])
+                    {
+                        // do nothing; don't add it because you only want to add the other digits
+                    }
+                    else if (orderedNumerals[k] < orderedNumerals[i])
+                    {
+                        newOrderedList[k] = orderedNumerals[k];
+                    }
+                    else if (orderedNumerals[k] > orderedNumerals[i])
+                    {
+                        newOrderedList[k - 1] = orderedNumerals[k];
+                    }
+                }
+                int[][] subordinateLists = GetAllPermutationsOfIntArray(newOrderedList);
+                foreach (var subordinate in subordinateLists)
+                {
+                    List<int> thisList = new List<int>();
+                    thisList.Add(orderedNumerals[i]);
+                    thisList.AddRange(subordinate);
+                    returnList.Add(thisList.ToArray());
+                }
+            }
+            return returnList.ToArray();
+        }
+        /// <summary>
+        /// gets the value in the Fibonacci sequence at position N
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        internal static long GetFinoacciSequenceValueAtPositionN(int n)
+        {
+            /* 
+             * formula used is here 
+             * https://www.calculatorsoup.com/calculators/discretemathematics/fibonacci-calculator.php
+             * 
+             * Fn = ( (1 + √5)^n - (1 - √5)^n ) / (2^n × √5)
+             * 
+             * */
+
+            double squareRootOf5 = Math.Pow(5, 0.5);
+
+            double numerator = (
+                    Math.Pow((1 + squareRootOf5), n)
+                  - Math.Pow((1 - squareRootOf5), n));
+            double denominator = Math.Pow(2, n) * squareRootOf5;
+
+            return (long)Math.Round((numerator / denominator),0);
+        }
         internal static bool IsAmicableNumber(long n)
         {
             // using a and b makes it easier to think through the logic

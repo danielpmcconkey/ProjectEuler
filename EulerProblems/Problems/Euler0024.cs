@@ -13,7 +13,7 @@ namespace EulerProblems.Problems
         }
         public override void Run()
         {
-            /*
+			/*
              * I just want to show off the rad SQL I wrote
              * to first solve this problem. I wrote a linq
              * version of this, but it never finished. The
@@ -125,7 +125,7 @@ namespace EulerProblems.Problems
 			#endregion
 
 			int[] numerals = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; 
-			int[][] permutations = GetAllThePermutations(numerals);
+			int[][] permutations = WeirdAlgorithms.GetAllPermutationsOfIntArray(numerals);
 
 			string answer = string.Empty;
 			for (int i = 0; i < 10; i++)
@@ -136,57 +136,6 @@ namespace EulerProblems.Problems
             PrintSolution(answer.ToString());
             return;
         }
-		/// <summary>
-		/// recursive function for determining all the permutations of
-		/// an array of integers
-		/// </summary>        
-		private int[][] GetAllThePermutations(int[] orderedNumerals)
-		{
-			if (orderedNumerals.Length == 1)
-			{
-				// just return it back
-				return new int[][] { new int[] { orderedNumerals[0] } };
-			}
-			if (orderedNumerals.Length == 2)
-			{
-				// too small for the below algorithm to work. do it manually
-				return new int[][] { 
-					new int[] { orderedNumerals[0], orderedNumerals[1] },
-					new int[] { orderedNumerals[1], orderedNumerals[0] }
-				};
-			}
-
-			List<int[]> returnList = new List<int[]>();
-			
-			for (int i = 0; i < orderedNumerals.Length; i++)
-			{
-				int[] newOrderedList = new int[orderedNumerals.Length - 1];
-				for (int k = 0; k < orderedNumerals.Length; k++)
-                {
-					if(orderedNumerals[k] == orderedNumerals[i])
-                    {
-						// do nothing; don't add it because you only want to add the other digits
-                    }
-					else if(orderedNumerals[k] < orderedNumerals[i])
-                    {
-						newOrderedList[k] = orderedNumerals[k];
-                    }
-					else if (orderedNumerals[k] > orderedNumerals[i])
-					{
-						newOrderedList[k - 1] = orderedNumerals[k];
-					}
-				}
-				int[][] subordinateLists = GetAllThePermutations(newOrderedList);
-				foreach(var subordinate in subordinateLists)
-                {
-					List<int> thisList = new List<int>();
-					thisList.Add(orderedNumerals[i]);
-					thisList.AddRange(subordinate);
-					returnList.Add(thisList.ToArray());
-                }
-				
-			}
-			return returnList.ToArray();
-		}
+		
 	}
 }

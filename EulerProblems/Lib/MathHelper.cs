@@ -124,10 +124,20 @@ namespace EulerProblems.Lib
             return answer;
         }
         /// <summary>
+        /// used for standard factorials on tame numbers
+        /// if nubers are large, use the long form function
+        /// </summary>
+        internal static long GetFactorialOfN(int n)
+        {
+            if (n == 0) return 1;
+            return (long)n * GetFactorialOfN(n - 1);
+
+        }
+        /// <summary>
         /// used to get factorials when you know the result
         /// will be too large for a long to hold
         /// </summary>
-        internal static int[] GetFactorialOfN(long n)
+        internal static int[] GetFactorialOfNLongForm(long n)
         {
             int[] answer = new int[] { 1 };
             for(long i = n; i > 0; i--)
