@@ -15,8 +15,8 @@ namespace EulerProblems.Problems
         {
             int n = 100;
 
-            int[] factorial = MathHelper.GetFactorialOfNLongForm(n);
-            int answer = factorial.Sum(x => x);
+            BigNumber factorial = MathHelper.GetFactorialOfNLongForm(n);
+            int answer = factorial.digits.Sum(x => x);
             
 
             PrintSolution(answer.ToString());

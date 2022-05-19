@@ -120,20 +120,16 @@ namespace EulerProblems.Problems
             string[] numberLines = numbersAsString.Split(Environment.NewLine);
             // remove the first and last because of the line breaks I put in to make it pretty
             numberLines = numberLines[1..(numberLines.Length - 1)];
-            int[][] numbersArray = new int[numberLines.Length][];
+            BigNumber[] numbersArray = new BigNumber[numberLines.Length];
             for(int i = 0; i < numberLines.Length; i++)
             {
-                int[] thisArray = new int[numberLines[i].Length];
-                for (int j = 0; j < numberLines[i].Length; j++)
-                {
-                    thisArray[j] = Int16.Parse(numberLines[i][j].ToString());
-                }
-                numbersArray[i] = thisArray;
+                BigNumber thisNumber = new BigNumber(numberLines[i]);
+                numbersArray[i] = thisNumber;
             }
-            int[] answerArray = new int[] { 0 };
+            BigNumber answerNum = new BigNumber(new int[] { 0 });
             for (int i = 0; i < numbersArray.Length; i++)
             {
-                answerArray = MathHelper.LongFormAddition(answerArray, numbersArray[i]);
+                answerNum = BigNumberCalculator.Add(answerNum, numbersArray[i]);
             }
             
 
@@ -141,7 +137,7 @@ namespace EulerProblems.Problems
             string answer = "";
             for (int i = 0; i < 10; i++)
             {
-                answer += answerArray[i].ToString();
+                answer += answerNum.digits[i].ToString();
             }
 
             PrintSolution(answer);

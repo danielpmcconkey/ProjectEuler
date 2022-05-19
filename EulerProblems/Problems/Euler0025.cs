@@ -13,16 +13,26 @@ namespace EulerProblems.Problems
 		}
 		public override void Run()
 		{
-			for(int i = 0; i < problemNumber; i++)
+			Run_bruteForce();
+		}
+		private void Run_bruteForce()
+        {
+			BigNumber penultimate = new BigNumber(0);
+			BigNumber ultimate = new BigNumber(1);
+			int position = 2;
+			while(true)
             {
-				Console.WriteLine(WeirdAlgorithms.GetFinoacciSequenceValueAtPositionN(i));
-
-			}
-			string answer = string.Empty;
-			
-
-			PrintSolution(answer.ToString());
-			return;
+				BigNumber currentAnswer = BigNumberCalculator.Add(penultimate, ultimate);
+				if(currentAnswer.digits.Length > 999)
+                {
+					PrintSolution(position.ToString());
+					return;
+				}
+				// Console.WriteLine(string.Format("{0}{1}", position.ToString().PadRight(10), currentAnswer.ToString()));
+				penultimate = ultimate;
+				ultimate = currentAnswer;
+				position++;
+            }			
 		}
 		
 

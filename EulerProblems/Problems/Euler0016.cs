@@ -14,18 +14,18 @@ namespace EulerProblems.Problems
         public override void Run()
         {
             int finalExponent = 1000;
-            int[] valueAsString = new int[] { 2 };
+            BigNumber valueAsString = new BigNumber(new int[] { 2 });
             for(int currentExponent = 2; currentExponent <= finalExponent; currentExponent++)
             {
-                valueAsString = MathHelper.LongFormAddition(valueAsString, valueAsString);
+                valueAsString = BigNumberCalculator.Add(valueAsString, valueAsString);
             }
 
             // now that we have the 2 ^ n result, sum up the digits
             long sumOfDigits = 0;
             
-            for(int i = 0; i < valueAsString.Length; i++)
+            for(int i = 0; i < valueAsString.digits.Length; i++)
             {
-                sumOfDigits += Int16.Parse(valueAsString[i].ToString());
+                sumOfDigits += Int16.Parse(valueAsString.digits[i].ToString());
             }
 
             PrintSolution(sumOfDigits.ToString());
