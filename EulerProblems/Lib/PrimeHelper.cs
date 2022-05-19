@@ -120,5 +120,50 @@ namespace EulerProblems.Lib
             }
             return true;
         }
+
+		/// <summary>
+		/// Calculate primes using the Sieve of Eratosthenes. 
+		/// </summary>
+		/// <param name="n">The upper bound to compute primes to.</param>
+		/// <returns></returns>
+		internal static int[] GetPrimesUpToN(int n)
+		{
+			//https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+			bool[] arrIsPrime = new bool[n];
+			List<int> liPrimes = new List<int>();
+
+			for (int i = 0; i < n; i++)
+			{
+				arrIsPrime[i] = true;
+			}
+
+			int p = 2;
+
+			// Until you go through all numbers
+			while (p < n)
+			{
+				// p is prime
+				liPrimes.Add(p);
+
+				// Mark all multiples of p as non-prime
+				for (int i = 2 * p; i < n; i += p)
+				{
+					arrIsPrime[i] = false;
+					//Console.WriteLine("Marked " + i + " as not prime");
+				}
+
+				// Always move at least 1
+				p++;
+
+				// Get p to a non-marked value
+				while (arrIsPrime.Length > p && !arrIsPrime[p])
+				{
+					p++;
+				}
+			}
+
+
+			return liPrimes.ToArray();
+		}
 	}
 }
