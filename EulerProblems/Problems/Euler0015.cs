@@ -42,22 +42,25 @@ namespace EulerProblems.Problems
              * back and forth between strings and numbers. Still,
              * I was able to run it up to a 15 x 15 grid
              * 
-             *   n	    answer
-             *   2	    6
-             *   3	    20
-             *   4	    70
-             *   5	    252
-             *   6	    924
-             *   7	    3,432
-             *   8	    12,870
-             *   9	    48,620
-             *   10	    184,756
-             *   11	    705,432
-             *   12	    2,704,156
-             *   13	    10,400,600
-             *   14	    40,116,600
-             *   15	    155,117,520
-             *   
+             *  ___________________________
+             *  |  n	 |   answer       |
+             *  |--------|----------------|
+             *  |  2	 |   6            |
+             *  |  3	 |   20           |
+             *  |  4	 |   70           |
+             *  |  5	 |   252          |
+             *  |  6	 |   924          |
+             *  |  7	 |   3,432        |
+             *  |  8	 |   12,870       |
+             *  |  9	 |   48,620       |
+             *  |  10	 |   184,756      |
+             *  |  11	 |   705,432      |
+             *  |  12	 |   2,704,156    |
+             *  |  13	 |   10,400,600   |
+             *  |  14	 |   40,116,600   |
+             *  |  15	 |   155,117,520  |
+             *  ---------------------------  
+             *  
              * I took it into Google sheets and tried to find
              * the pattern. After about 20 minutes I stumbled
              * upon the pattern that you'll see below. Basically,

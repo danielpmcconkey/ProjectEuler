@@ -27,7 +27,7 @@ namespace EulerProblems.Problems
              * possibilities
              * 
              * so, first, create a cartesian join of the list 
-             * and itself. that gives you all teh possible pairs.
+             * and itself. that gives you all the possible pairs.
              * Then create a third list of all the sums and 
              * deduplicate.
              * 

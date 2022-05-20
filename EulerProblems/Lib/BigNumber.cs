@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace EulerProblems.Lib
 {
+    /// <summary>
+    /// BigNumber. Just like System.Numeric.BigInteger only
+    /// someday, this will be able to handle negatives and
+    /// decimals
+    /// </summary>
     public class BigNumber : IComparable
     {
         public int[] digits;
@@ -41,7 +46,6 @@ namespace EulerProblems.Lib
         /// converts a string of integers into a BigNumber
         /// Assumes positive and no decimals
         /// </summary>
-        /// <param name="s"></param>
         public BigNumber(string s)
         {
             digits = new int[s.Length];
