@@ -14,14 +14,15 @@ namespace EulerProblems.Problems
 		}
 		public override void Run()
 		{
-			Run_bruteForce();
+			//Run_bruteForce();
 			Run_elegant();
 		}
 		private void Run_elegant()
         {
 			// todo: write a log centered version of problem 25
 			// see https://www.mathblog.dk/project-euler-25-fibonacci-sequence-1000-digits/
-
+			var answer = Math.Log10(Math.Pow(10, 99));
+			PrintSolution(answer.ToString());
 		}
 		private void Run_bruteForce()
         {
