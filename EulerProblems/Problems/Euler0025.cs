@@ -79,6 +79,12 @@ namespace EulerProblems.Problems
 		}
 		private void Run_bruteForce()
         {
+			// this was my first take at the solution. It got the right answer
+			// but felt like I'd left with this problem still having something
+			// to teach me. See the elegant solution and my journey to 
+			// remembering what I'm guessing is something I haven't had to use
+			// since 10th grade
+
 			BigNumber penultimate = new BigNumber(0);
 			BigNumber ultimate = new BigNumber(1);
 			int position = 2;
