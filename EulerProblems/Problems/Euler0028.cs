@@ -34,7 +34,7 @@ namespace EulerProblems.Problems
 			 *	easy to calculate the relationships to the other
 			 *	corners.
 			 *	
-			 *	n    |      ur       dr        dl        ul
+			 *	n    |      ur       lr        ll        ul
 			 *	--------------------------------------------
 			 *	1    |       1        1         1         1  
 			 *	3    |       9        3         5         7  

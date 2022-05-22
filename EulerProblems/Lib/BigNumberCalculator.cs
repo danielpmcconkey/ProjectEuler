@@ -52,6 +52,22 @@ namespace EulerProblems.Lib
             return new BigNumber(returnArray);
         }
         /// <summary>
+        /// raises a to the power of x. only supports x that are integers and greater than 0
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        internal static BigNumber Exponent(int a, int x)
+        {
+            BigNumber answer = new BigNumber(a);
+            BigNumber multiplier = new BigNumber(a);
+            for (int i = 2; i <= x; i++)
+            {
+                answer = Multiply(answer, multiplier);
+            }
+            return answer;
+        }
+        /// <summary>
         /// long-form way of multiplying two ridiculuosly large numbers just like elementary school
         /// </summary>
         internal static BigNumber Multiply(BigNumber a, BigNumber b)

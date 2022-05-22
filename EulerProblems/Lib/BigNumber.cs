@@ -11,7 +11,7 @@ namespace EulerProblems.Lib
     /// someday, this will be able to handle negatives and
     /// decimals
     /// </summary>
-    public class BigNumber : IComparable
+    public class BigNumber : IComparable, IEquatable<BigNumber>
     {
         public int[] digits;
         /// <summary>
@@ -59,54 +59,6 @@ namespace EulerProblems.Lib
         public BigNumber(int n)
         {
             ConvertFromLong((long)n);
-        }
-        public int CompareTo(object? other)
-        {
-            /*
-             * less than zero means that this should preceed other in an ascending sort
-             * zero means the two are equal
-             * greater than zero means that this should follow other in an ascending sort
-             * */
-
-            if (other == null) return 1;    // does null go first in ascending query?
-
-            BigNumber otherBigNumber = (BigNumber)other;
-
-            // check signs
-            if (this.isPositive && !otherBigNumber.isPositive) return 1;
-            if (!this.isPositive && otherBigNumber.isPositive) return -1;
-            // check order of magnitude
-            int thisOOM = this.orderOfMagnitude;
-            int otherOOM = otherBigNumber.orderOfMagnitude;
-            if (thisOOM > otherOOM) return 1;
-            if (thisOOM < otherOOM) return -1;
-            /*
-             * check digits
-             * find the "start" position and check left to right
-             *  ex 1: { 0, 0, 1, 2, 3, 4 }; dec cnt is 0; oom is 3; 1s pos is 5; start pos is 2
-             *  ex 2: { 6, 7, 8, 9, 1, 0 }; dec cnt is 2; oom is 3; 1s pos is 3; start pos is 0
-             *  ex 3: { 0, 7, 8, 9, 1, 0 }; dec cnt is 4; oom is 0; 1s pos is 1; start pos is 1
-             *  ex 4: { 0, 0, 1, 2, 3, 4 }; dec cnt is 5; oom is -2; 1s pos is 0; start pos is 0
-             *  ex 5: { 0, 0, 1, 2, 3, 4 }; dec cnt is 4; oom is -1; 1s pos is 1; start pos is 1
-             * */
-            int onesPosThis = this.digits.Length - this.decimalDigitCount - 1;
-            int startPosThis = (thisOOM < 0) ? onesPosThis : onesPosThis - thisOOM;
-            
-            int onesPosOther = otherBigNumber.digits.Length - otherBigNumber.decimalDigitCount - 1;
-            int startPosOther = (otherOOM < 0) ? onesPosOther : onesPosOther - otherOOM;
-            
-            for(int i = 0; i < Math.Max(this.digits.Length, otherBigNumber.digits.Length); i++)
-            {
-                int thisValAtPos = ((startPosThis + i) > this.digits.Length -1) ?
-                    0 : this.digits[startPosThis + i];
-
-                int otherValAtPos = ((startPosOther + i) > otherBigNumber.digits.Length - 1) ?
-                    0 : otherBigNumber.digits[startPosOther + i];
-
-                if(thisValAtPos > otherValAtPos) return 1;
-                if (thisValAtPos < otherValAtPos) return -1;
-            }
-            return 0;   // both are even
         }
         public override string ToString()
         {
@@ -183,5 +135,61 @@ namespace EulerProblems.Lib
             
         }
 
+        #region Interface requirements
+        public int CompareTo(object? other)
+        {
+            /*
+             * less than zero means that this should preceed other in an ascending sort
+             * zero means the two are equal
+             * greater than zero means that this should follow other in an ascending sort
+             * */
+
+            if (other == null) return 1;    // does null go first in ascending query?
+
+            BigNumber otherBigNumber = (BigNumber)other;
+
+            // check signs
+            if (this.isPositive && !otherBigNumber.isPositive) return 1;
+            if (!this.isPositive && otherBigNumber.isPositive) return -1;
+            // check order of magnitude
+            int thisOOM = this.orderOfMagnitude;
+            int otherOOM = otherBigNumber.orderOfMagnitude;
+            if (thisOOM > otherOOM) return 1;
+            if (thisOOM < otherOOM) return -1;
+            /*
+             * check digits
+             * find the "start" position and check left to right
+             *  ex 1: { 0, 0, 1, 2, 3, 4 }; dec cnt is 0; oom is 3; 1s pos is 5; start pos is 2
+             *  ex 2: { 6, 7, 8, 9, 1, 0 }; dec cnt is 2; oom is 3; 1s pos is 3; start pos is 0
+             *  ex 3: { 0, 7, 8, 9, 1, 0 }; dec cnt is 4; oom is 0; 1s pos is 1; start pos is 1
+             *  ex 4: { 0, 0, 1, 2, 3, 4 }; dec cnt is 5; oom is -2; 1s pos is 0; start pos is 0
+             *  ex 5: { 0, 0, 1, 2, 3, 4 }; dec cnt is 4; oom is -1; 1s pos is 1; start pos is 1
+             * */
+            int onesPosThis = this.digits.Length - this.decimalDigitCount - 1;
+            int startPosThis = (thisOOM < 0) ? onesPosThis : onesPosThis - thisOOM;
+
+            int onesPosOther = otherBigNumber.digits.Length - otherBigNumber.decimalDigitCount - 1;
+            int startPosOther = (otherOOM < 0) ? onesPosOther : onesPosOther - otherOOM;
+
+            for (int i = 0; i < Math.Max(this.digits.Length, otherBigNumber.digits.Length); i++)
+            {
+                int thisValAtPos = ((startPosThis + i) > this.digits.Length - 1) ?
+                    0 : this.digits[startPosThis + i];
+
+                int otherValAtPos = ((startPosOther + i) > otherBigNumber.digits.Length - 1) ?
+                    0 : otherBigNumber.digits[startPosOther + i];
+
+                if (thisValAtPos > otherValAtPos) return 1;
+                if (thisValAtPos < otherValAtPos) return -1;
+            }
+            return 0;   // both are even
+        }
+        public bool Equals(BigNumber? other)
+        {
+            if (CompareTo(other) == 0) return true;
+            return false;
+        } 
+        #endregion
     }
+
 }
