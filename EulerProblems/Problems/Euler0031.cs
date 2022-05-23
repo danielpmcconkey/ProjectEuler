@@ -1,11 +1,14 @@
 ﻿using EulerProblems.Lib;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace EulerProblems.Problems
 {
 	internal class Euler0031 : Euler
 	{
-
+		
+		private int counter = 0;
+		StringBuilder sb;
 
 		public Euler0031() : base()
 		{
@@ -15,10 +18,43 @@ namespace EulerProblems.Problems
 		}
 		public override void Run()
 		{
-
-			Run_bruteForce();
-
+			/* 
+			 * Run_bruteForce() and Run_elegant both take about 
+			 * the same time to run. Elegant looks a lot prettier
+			 * */
+			//Run_bruteForce();	
+			Run_elegant();
 		}
+		private void Run_elegant()
+        {
+			int target = 200;
+			int[] allCoins = { 200, 100, 50, 20, 10, 5, 2, 1 };
+			int howMany = HowManyWaysToSpendWhatsLeft(target, allCoins);
+			PrintSolution(howMany.ToString());
+			return;
+		}
+				
+		private int HowManyWaysToSpendWhatsLeft(int whatsLeft, int[] coinArray)
+        {
+			if (coinArray.Length == 1) return 1;
+			int tally = 0;
+			for(int i = 0; i < coinArray.Length; i++)
+            {
+				int remainder = whatsLeft - coinArray[i];
+				if (remainder == 0)
+                {
+					tally++;
+                }
+				if(remainder > 0)
+                {
+					int[] newCoinArray = coinArray[i..coinArray.Length];
+					tally += HowManyWaysToSpendWhatsLeft(remainder, newCoinArray);
+                }
+            }
+					
+			return tally;
+		}
+		
 		private void Run_bruteForce()
 		{
 			int target = 200;
