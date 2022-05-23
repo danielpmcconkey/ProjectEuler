@@ -77,11 +77,41 @@ namespace EulerProblems.Lib
             }
             return factors.ToArray();
         }
-        
-        
+        internal static int[] GetFactorsOfN(int n)
+        {
+            if (n <= 0) throw new ArgumentException("n must be greater than 0");
+
+            List<int> factors = new List<int>();
+            if (n == 1)
+            {
+                factors.Add(1);
+                return factors.ToArray();
+            }
+
+            long maxVal = (int)Math.Floor(n * .5); // no sense looking at anything above half
+            long lowestOppositeFactor = n;
+
+            for (int i = 1; i <= maxVal; i++)
+            {
+                if (i >= lowestOppositeFactor) return factors.ToArray();
+                if (n % i == 0)
+                {
+                    factors.Add(i);
+                    // also add the opposite factor
+                    int oppositeFactor = n / i;
+                    if (oppositeFactor != i)
+                    {
+                        factors.Add(oppositeFactor);
+                    }
+                    lowestOppositeFactor = oppositeFactor;
+                }
+            }
+            return factors.ToArray();
+        }
+
         #endregion
 
 
-        
+
     }
 }

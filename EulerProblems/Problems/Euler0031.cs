@@ -22,6 +22,7 @@ namespace EulerProblems.Problems
 			 * Run_bruteForce() and Run_elegant both take about 
 			 * the same time to run. Elegant looks a lot prettier
 			 * */
+
 			//Run_bruteForce();	
 			Run_elegant();
 		}
