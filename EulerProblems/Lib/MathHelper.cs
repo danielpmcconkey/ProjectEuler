@@ -107,7 +107,7 @@ namespace EulerProblems.Lib
                 }
             }
             return factors.ToArray();
-        }
+        }        
 
         #endregion
 
