@@ -124,8 +124,10 @@ namespace EulerProblems.Problems
 				";
 			#endregion
 
-			int[] numerals = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; 
-			int[][] permutations = WeirdAlgorithms.GetAllPermutationsOfIntArray(numerals);
+			int[] numerals = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			int[][] permutations = WeirdAlgorithms.GetAllLexicographicPermutationsOfIntArray(numerals);
+			
+			Console.WriteLine(permutations.Length);
 
 			string answer = string.Empty;
 			for (int i = 0; i < 10; i++)

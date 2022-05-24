@@ -93,7 +93,63 @@ namespace EulerProblems.Lib
 			}
 			return primes;
 		}
-        internal static bool IsXPrime(long x)
+		/// <summary>
+		/// tells you if a number is a circular prime. https://en.wikipedia.org/wiki/Circular_prime
+		/// </summary>
+		/// <param name="primeToCheck">A number that you already know is prime</param>
+		/// <param name="primes">array of ints you already know are primes</param>
+		/// <returns></returns>
+		internal static bool IsCircularPrime(long primeToCheck, long[] primes)
+		{
+			if (primeToCheck == 2) return true; // the lower part of this algorithm would throw out 2
+			if (primeToCheck == 5) return true; // the lower part of this algorithm would throw out 2
+
+			// turn the prime to check into an array of digits
+			char[] primeToCheckAsChars = primeToCheck.ToString().ToCharArray();
+			int[] oldArray = new int[primeToCheckAsChars.Length];
+			for (int i = 0; i < primeToCheckAsChars.Length; i++)
+            {
+				oldArray[i] = int.Parse(primeToCheckAsChars[i].ToString());
+            }
+			
+			// throw out any number with a 2, 4, 6, 8, 0, or 5 in it
+			// this is because any number with a 2, would have a
+			// rotation with 2 as the last number and any number 
+			// with 2 as its last digit is divisible by 2. Same logic
+			// for 4, 6, 8, or 0. Any number with a 5 in it would be
+			// divisible by 5
+			if (oldArray.Contains(2)) return false;
+			if (oldArray.Contains(4)) return false;
+			if (oldArray.Contains(6)) return false;
+			if (oldArray.Contains(8)) return false;
+			if (oldArray.Contains(0)) return false;
+			if (oldArray.Contains(5)) return false;
+
+			// still here? create the rotations
+			for(int i = 1; i < oldArray.Length; ++i)
+            {
+				// 1 9 9 3 7
+				// 7 1 9 9 3
+				// 3 7 1 9 9
+				// 9 3 7 1 9
+				// 9 9 3 7 1
+				int[] newArray = new int[oldArray.Length]; 
+				// take the last number and make it the first number
+				newArray[0] = oldArray[oldArray.Length - 1];
+				// now move forward and take the j + 1 value and put it in the j position
+				for(int j = 1; j < newArray.Length; ++j)
+                {
+					newArray[j] = oldArray[j - 1];
+				}
+				// check for prime of the new array
+				int newArrayAsNumber = MathHelper.ConvertIntArrayToInt(newArray);
+				if (!primes.Contains(newArrayAsNumber)) return false;
+				// make the old array the new array
+				oldArray = newArray;
+			}
+			return true;
+		}
+		internal static bool IsXPrime(long x)
         {
 			if (x == 1) return false;
 			if (x == 2) return true;

@@ -9,6 +9,16 @@ namespace EulerProblems.Lib
     internal static class MathHelper
     {
         #region inteface methods
+        internal static int ConvertIntArrayToInt(int[] array)
+        {
+            int outVal = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                int pow = array.Length - i - 1;
+                outVal += array[i] * (int)(Math.Pow(10, pow));
+            }
+            return outVal;
+        }
         /// <summary>
         /// used for standard factorials on tame numbers
         /// if nubers are large, use the long form function

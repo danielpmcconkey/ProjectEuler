@@ -31,11 +31,24 @@ namespace EulerProblems.Lib
             }
             return listSorted.ToArray();
         }
-        /// <summary>
+        internal static T[] ArraySwap<T>(T[] array, int indexOfSwap1, int indexOfSwap2)
+        {
+            T valueAtSwap1 = array[indexOfSwap1];
+            T valueAtSwap2 = array[indexOfSwap2];
+            T[] newArray = new T[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i == indexOfSwap1) newArray[i] = valueAtSwap2;
+                else if (i == indexOfSwap2) newArray[i] = valueAtSwap1;
+                else newArray[i] = array[i];
+            }
+            return newArray;
+        }
+       /// <summary>
 		/// recursive function for determining all the permutations of
-		/// an array of integers
+		/// an array of integers, returning them in order
 		/// </summary>        
-		internal static int[][] GetAllPermutationsOfIntArray(int[] orderedNumerals)
+		internal static int[][] GetAllLexicographicPermutationsOfIntArray(int[] orderedNumerals)
         {
             if (orderedNumerals.Length == 1)
             {
@@ -71,7 +84,7 @@ namespace EulerProblems.Lib
                         newOrderedList[k - 1] = orderedNumerals[k];
                     }
                 }
-                int[][] subordinateLists = GetAllPermutationsOfIntArray(newOrderedList);
+                int[][] subordinateLists = GetAllLexicographicPermutationsOfIntArray(newOrderedList);
                 foreach (var subordinate in subordinateLists)
                 {
                     List<int> thisList = new List<int>();
@@ -81,6 +94,51 @@ namespace EulerProblems.Lib
                 }
             }
             return returnList.ToArray();
+        }
+        /// <summary>
+        /// Generate permutations using Heap's Algorithm. This can accept an array
+        /// whose values are not distict and also doesn't require the array to be
+        /// sorted
+        /// </summary>        
+        internal static T[][] HeapsAlgorithm<T>(T[] array)
+        {
+            int n = array.Length;
+
+            List<T[]> permutations = new List<T[]>();
+            int[] c = new int[n];
+
+            for (int j = 0; j < n; j++)
+            {
+                c[j] = 0;
+            }
+            //displayPermutation(array);
+            permutations.Add(array);
+
+            int i = 0;
+            while (i < n)
+            {
+                if (c[i] < i)
+                {
+                    if (i % 2 == 0)
+                    {
+                        array = ArraySwap(array, 0, i);
+                    }
+                    else
+                    {
+                        array = ArraySwap(array, c[i], i);
+                    }
+                    //displayPermutation(array);
+                    permutations.Add(array);
+                    c[i] = c[i] + 1;
+                    i = 0;
+                }
+                else
+                {
+                    c[i] = 0;
+                    i++;
+                }
+            }
+            return permutations.ToArray();
         }
         /// <summary>
         /// gets the value in the Fibonacci sequence at position N
