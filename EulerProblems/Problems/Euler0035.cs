@@ -26,14 +26,9 @@ namespace EulerProblems.Problems
 
 			int howManyPrimes = 78498;
 			long[] primes = PrimeHelper.GetFirstNPrimes(howManyPrimes);
-			// PrimeHelper.IsCircularPrime(19937, primes);
 			int answer = 0;
 			for (int i = 0; i < primes.Length; i++)
 			{
-				//if(primes[i] == 13)
-    //            {
-				//	string burp = "true";
-    //            }
 				if(PrimeHelper.IsCircularPrime(primes[i], primes))
                 {
 					Console.WriteLine(primes[i]);

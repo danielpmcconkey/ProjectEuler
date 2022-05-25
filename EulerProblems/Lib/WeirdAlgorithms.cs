@@ -201,6 +201,24 @@ namespace EulerProblems.Lib
             }
             return true;
         }
+        internal static bool IsIntPalindromicInBinary(int n)
+        {
+            string binaryString = Convert.ToString(n, 2);
+            char[] intAsCharArray = binaryString.ToCharArray();
+            int numberOfDigits = intAsCharArray.Length;
+            int halfWayPoint = (numberOfDigits / 2) + 1;
+
+            for (int i = 0; i < halfWayPoint; i++)
+            {
+                char checkLeft = intAsCharArray[i];
+                char checkRight = intAsCharArray[numberOfDigits - i - 1];
+                if (checkLeft != checkRight)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public static bool IsPythagoreanTriplet(int a, int b, int c)
         {
             if (Math.Pow(a, 2) + Math.Pow(b, 2) == Math.Pow(c, 2)) return true;

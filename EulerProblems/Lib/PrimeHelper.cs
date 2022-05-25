@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace EulerProblems.Lib
 {
+	internal enum Direction { LEFT, RIGHT }
     internal static class PrimeHelper
     {
 		internal static long[] GetFirstNPrimes(int n)
@@ -149,6 +150,11 @@ namespace EulerProblems.Lib
 			}
 			return true;
 		}
+		internal static bool IsTruncatablePrime(long primeToCheck, long[] primes)
+        {
+			if (primeToCheck < 10) return false;
+			return IsTruncatableAndPrime(primeToCheck, primes);
+        }
 		internal static bool IsXPrime(long x)
         {
 			if (x == 1) return false;
@@ -176,5 +182,53 @@ namespace EulerProblems.Lib
             }
             return true;
         }
+
+		/// <summary>
+		/// recurrsive function to check if a value is truncatable and prime
+		/// splits left and right truncation into two recurrsive paths
+		/// </summary>
+		/// <param name="valueToCheck">any number; isn't expected to be prime</param>
+		/// <param name="primes">a list of pre-known primes</param>
+		/// <param name="direction">if null, then go both left and right. 
+		/// should be reserved reserved for the top level call</param>
+		/// <returns></returns>
+		internal static bool IsTruncatableAndPrime(long valueToCheck, long[] primes, Direction? direction = null)
+		{
+			if (!primes.Contains(valueToCheck)) return false;
+			if (valueToCheck < 10) return primes.Contains(valueToCheck);
+
+			int[] digits = MathHelper.ConvertLongToIntArray(valueToCheck);
+			
+
+			// check some easy throw-out values.
+			for(int i = 0; i < digits.Length; i++)
+            {
+				// any occurance of a 4, 6, 8, or 0 will eventually result
+				// in a truncated value that is divisible by 2. You cannot
+				// say the same for 2 or 5 because they're both prime by 
+				// themselves. However, for 2 and 5, if they're in the 
+				// middle, you'll eventually get a number that ends in 2
+				// that isn't prime
+				if (digits[i] == 4 || digits[i] == 6 || digits[i] == 8 || digits[i] == 0) return false;
+				if (digits[i] == 2 && i != 0 && i != digits.Length - 1) return false;
+				if (digits[i] == 5 && i != 0 && i != digits.Length - 1) return false;
+			}
+
+
+			if (direction == null || direction == Direction.LEFT)
+			{
+				// shave off the left and check
+				int leftCheck = MathHelper.ConvertIntArrayToInt(digits[1..(digits.Length)]);
+				if (!IsTruncatableAndPrime(leftCheck, primes, Direction.LEFT)) return false;
+			}
+			if (direction == null || direction == Direction.RIGHT)
+			{ 
+				// shave off the right and check
+				int rightCheck = MathHelper.ConvertIntArrayToInt(digits[0..(digits.Length - 1)]);
+				if (!IsTruncatableAndPrime(rightCheck, primes, Direction.RIGHT)) return false;
+			}
+
+			return true;
+		}
 	}
 }

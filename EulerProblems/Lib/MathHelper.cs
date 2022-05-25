@@ -19,6 +19,46 @@ namespace EulerProblems.Lib
             }
             return outVal;
         }
+        internal static int[] ConvertIntToIntArray(int n)
+        {
+            int ordersOfMagnitudeToSupport = 12;
+            List<int> digitsInReverse = new List<int>();
+            for (int i = 0; i < ordersOfMagnitudeToSupport; i++)
+            {
+                if (n >= Math.Pow(10, i))
+                {
+                    digitsInReverse.Add(
+                       (int)(Math.Floor(
+                            n % Math.Pow(10, i + 1)
+                            /
+                            Math.Pow(10, i)
+                            )));
+                }
+            }
+            // now turn it to an array and reverse
+            int[] digits = digitsInReverse.ToArray().Reverse().ToArray();
+            return digits;
+        }
+        internal static int[] ConvertLongToIntArray(long n)
+        {
+            int ordersOfMagnitudeToSupport = 12;
+            List<int> digitsInReverse = new List<int>();
+            for (int i = 0; i < ordersOfMagnitudeToSupport; i++)
+            {
+                if (n >= Math.Pow(10, i))
+                {
+                    digitsInReverse.Add(
+                       (int)(Math.Floor(
+                            n % Math.Pow(10, i + 1)
+                            /
+                            Math.Pow(10, i)
+                            )));
+                }
+            }
+            // now turn it to an array and reverse
+            int[] digits = digitsInReverse.ToArray().Reverse().ToArray();
+            return digits;
+        }
         /// <summary>
         /// used for standard factorials on tame numbers
         /// if nubers are large, use the long form function
