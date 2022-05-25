@@ -169,6 +169,11 @@ namespace EulerProblems.Lib
             }
             return factors.ToArray();
         }        
+        internal static bool IsPerfectSquare(int n)
+        {
+            double result = Math.Sqrt(n);
+            return (result % 1 == 0);
+        }
 
         #endregion
 
