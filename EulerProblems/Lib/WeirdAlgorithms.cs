@@ -219,6 +219,24 @@ namespace EulerProblems.Lib
             }
             return true;
         }
+        internal static bool IsPandigital(long n)
+        {
+            int[] digits = MathHelper.ConvertLongToIntArray(n);
+            if (digits.Length != 9) return false;
+            if (digits.Contains(1))
+                if (digits.Contains(2))
+                    if (digits.Contains(3))
+                        if (digits.Contains(4))
+                            if (digits.Contains(5))
+                                if (digits.Contains(6))
+                                    if (digits.Contains(7))
+                                        if (digits.Contains(8))
+                                            if (digits.Contains(9))
+                                            {
+                                                return true;
+                                            }
+            return false;
+        }
         public static bool IsPythagoreanTriplet(int a, int b, int c)
         {
             if (Math.Pow(a, 2) + Math.Pow(b, 2) == Math.Pow(c, 2)) return true;

@@ -83,6 +83,17 @@ namespace EulerProblems.Lib
             }
             return answer;
         }
+        internal static int GetOrderOfMagnitudeOfInt(int n)
+        {
+            int numOOMSupported = 4;
+            int currentOOM = -1;
+            for (int i = 0; i <= numOOMSupported; i++)
+            {
+                if (n > Math.Pow(10, i)) currentOOM++;
+                else return currentOOM;
+            }
+            return currentOOM;
+        }
         /// <summary>
         /// returns a list of all proper divisors ordered least to greatest.
         /// a proper divisor is a number less than n which divide evenly into n

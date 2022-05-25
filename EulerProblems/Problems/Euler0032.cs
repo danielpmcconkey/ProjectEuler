@@ -97,22 +97,19 @@ namespace EulerProblems.Problems
 		}
 		private bool IsPandigital(int a, int b, int product)
         {
-			char[] chars = (a.ToString() + b.ToString() + product.ToString()).ToCharArray();
-			if (chars.Length != 9) return false;
-			if (chars.Contains('1'))
-					if (chars.Contains('2'))
-						if (chars.Contains('3'))
-							if (chars.Contains('4'))
-								if (chars.Contains('5'))
-									if (chars.Contains('6'))
-										if (chars.Contains('7'))
-											if (chars.Contains('8'))
-												if (chars.Contains('9'))
-												{
-													return true;
-												}
-			return false;
+			int productOOM = MathHelper.GetOrderOfMagnitudeOfInt(product);
+			int aOOM = MathHelper.GetOrderOfMagnitudeOfInt(a);
+			int bOOM = MathHelper.GetOrderOfMagnitudeOfInt(b);
+			
+			long checkLong = (long)(
+				product 
+				+ b * Math.Pow(10, productOOM + 1)
+				+ a * Math.Pow(10, productOOM + bOOM + 2)
+				);
+			
+			return WeirdAlgorithms.IsPandigital(checkLong);
         }
+
 
 
 
