@@ -5,6 +5,8 @@ namespace EulerProblems.Problems
 {
     internal class Euler0015 : Euler
     {
+        Dictionary<(int a, int b), long> cache;
+
         public Euler0015() : base()
         {
             title = "Lattice paths";
@@ -13,6 +15,13 @@ namespace EulerProblems.Problems
         }
         public override void Run()
         {
+            Run_recurrsion();
+            // Run_originalSolution();
+            // Run_bruteForce();
+        }
+        public void Run_originalSolution()
+        {
+            
             /*
              * Every traversal has the same number of steps. If
              * n is the number wide and m is the number tall,
@@ -122,6 +131,106 @@ namespace EulerProblems.Problems
 
             PrintSolution(numberOfPossibleRoutes.ToString());
             return;
+        }
+        public void Run_recurrsion()
+        {
+            /*
+             *      I--|--|--|
+             *      I  |  |  |
+             *      I--|--|--|
+             *      I  |  |  |
+             *      I--|--|--|
+             *      I  |  |  |
+             *      I==|==|==|
+             *    
+             * 3 x 3 has 6 moves. 3 left and 3 right. this can be modeled as a 
+             * 6-digit binary number with 3 1s (representing right-ward 
+             * movement) and 3 0s (representing down-ward movement).
+             * 
+             * how many possible permutations of that are there?
+             * 
+             *      0 0 0 1 1 1 <-- this is the picture above with 3 downs, followed by 3 rights
+             *      0 0 1 0 1 1
+             *      0 0 1 1 0 1
+             *      0 0 1 1 1 0
+             *      0 1 0 0 1 1
+             *      0 1 0 1 0 1
+             *      0 1 0 1 1 0
+             *      0 1 1 0 0 1
+             *      0 1 1 0 1 0
+             *      0 1 1 1 0 0
+             *      1 0 0 0 1 1
+             *      1 0 0 1 0 1
+             *      1 0 0 1 1 0
+             *      1 0 1 0 0 1
+             *      1 0 1 0 1 0
+             *      1 0 1 1 0 0
+             *      1 1 0 0 0 1
+             *      1 1 0 0 1 0
+             *      1 1 0 1 0 0
+             *      1 1 1 0 0 0 
+             *      
+             * A 3 x 3 grid has a total of 20 possible permutations. is there 
+             * a relationship to the total number of a 2 x 2 grid?
+             * 
+             *      0 0 1 1
+             *      0 1 0 1
+             *      0 1 1 0
+             *      1 0 0 1
+             *      1 0 1 0
+             *      1 1 0 0
+             *      
+             *  a 2 x 2 grid has 6 possibilities. I'll not keep printing the 
+             *  different binary routes yet, but it's not hard to open a 
+             *  spreadsheet and see the following:
+             *  
+             *       _______________________
+             *       | n x n  | possibile  |
+             *       | square | routes     |
+             *       |--------|------------|
+             *       | 2      | 6          |
+             *       | 3      | 20         |
+             *       | 4      | 70         |
+             *       -----------------------
+             *  
+             *  it becomes really interesting, when you stop trying to model a
+             *  square
+             *       ____________________________
+             *       |    |    |  possibile     |
+             *       | a  | b  |  routes        |
+             *       |----|----|----------------|
+             *       | 2  | 2  |  6             |
+             *       | 2  | 3  |  10            |
+             *       | 3  | 2  |  10            |
+             *       | 3  | 3  |  20            |
+             *       | 3  | 4  |  35            |
+             *       | 4  | 3  |  35            |
+             *       | 4  | 4  |  70            |
+             *       ----------------------------
+             *  
+             *  so there you go. The number of routes in an A x B square is 
+             *  equal to the number of routes in an (A - 1) x B rectangle plus 
+             *  the number of routes in an A x (B - 1) rectangle
+             * 
+             * */
+            cache = new Dictionary<(int a, int b), long>();
+            long numberOfPossibleRoutes = CountRoutes(20, 20);
+            PrintSolution(numberOfPossibleRoutes.ToString());
+            return;
+        }    
+        /// <summary>
+        /// a recurrsive function that figures out the paths by figuring out 
+        /// the possible paths of smaller rectangles
+        /// </summary>
+        private long CountRoutes(int a, int b)
+        {
+            if (a == 0 || b == 0) return 1;
+            if(cache.ContainsKey((a, b)))
+            {
+                return cache[(a, b)];
+            }
+            cache.Add((a, b), CountRoutes(a - 1, b) + CountRoutes(a, b - 1));
+            return cache[(a, b)];
         }
     }
 }

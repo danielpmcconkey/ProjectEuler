@@ -3,7 +3,7 @@ using EulerProblems.Problems;
 using System.Diagnostics;
 
 
-var euler = new Euler0039();
+var euler = new Euler0015();
 euler.Run();
 euler.Deconstructor();
 
