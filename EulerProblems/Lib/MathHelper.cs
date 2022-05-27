@@ -85,11 +85,12 @@ namespace EulerProblems.Lib
         }
         internal static int GetOrderOfMagnitudeOfInt(int n)
         {
-            int numOOMSupported = 4;
+            if(n == 0 || n == 1) return 0;
+            int numOOMSupported = 12;
             int currentOOM = -1;
             for (int i = 0; i <= numOOMSupported; i++)
             {
-                if (n > Math.Pow(10, i)) currentOOM++;
+                if (n >= Math.Pow(10, i)) currentOOM++;
                 else return currentOOM;
             }
             return currentOOM;

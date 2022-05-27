@@ -16,7 +16,7 @@ namespace EulerProblems.Problems
         public override void Run()
         {
             Run_recurrsion();
-            // Run_originalSolution();
+            //Run_originalSolution();
             // Run_bruteForce();
         }
         public void Run_originalSolution()
@@ -98,8 +98,8 @@ namespace EulerProblems.Problems
                 double multiplier = mysteryCoefficient / n;
                 numberOfPossibleRoutes = (long)Math.Round(priorAnswer * multiplier, 0);
                 priorAnswer = numberOfPossibleRoutes;
-                string numRoutsStr = numberOfPossibleRoutes.ToString("#,###").PadLeft(20);
-                Console.WriteLine(string.Format("{0}{1}", n, numRoutsStr));
+                string numRoutesStr = numberOfPossibleRoutes.ToString("#,###").PadLeft(20);
+                Console.WriteLine(string.Format("{0}{1}", n, numRoutesStr));
             }
             Console.WriteLine();
 
@@ -218,6 +218,7 @@ namespace EulerProblems.Problems
             PrintSolution(numberOfPossibleRoutes.ToString());
             return;
         }    
+        
         /// <summary>
         /// a recurrsive function that figures out the paths by figuring out 
         /// the possible paths of smaller rectangles
