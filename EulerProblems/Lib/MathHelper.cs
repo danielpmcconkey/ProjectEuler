@@ -19,6 +19,16 @@ namespace EulerProblems.Lib
             }
             return outVal;
         }
+        internal static long ConvertIntArrayToLong(int[] array)
+        {
+            long outVal = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                int pow = array.Length - i - 1;
+                outVal += array[i] * (long)(Math.Pow(10, pow));
+            }
+            return outVal;
+        }
         internal static int[] ConvertIntToIntArray(int n)
         {
             int ordersOfMagnitudeToSupport = 12;
