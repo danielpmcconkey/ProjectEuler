@@ -180,7 +180,7 @@ namespace EulerProblems.Lib
             }
             return factors.ToArray();
         }        
-        internal static bool IsPerfectSquare(int n)
+        internal static bool IsPerfectSquare(long n)
         {
             double result = Math.Sqrt(n);
             return (result % 1 == 0);

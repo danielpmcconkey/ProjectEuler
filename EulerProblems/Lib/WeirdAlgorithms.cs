@@ -162,16 +162,25 @@ namespace EulerProblems.Lib
                   - Math.Pow((1 - squareRootOf5), n));
             double denominator = Math.Pow(2, n) * squareRootOf5;
 
-            return (long)Math.Round((numerator / denominator),0);
+            return (long)Math.Round((numerator / denominator), 0);
         }
         public static long[] GetFirstNPentagonalNumbers(int n)
         {
             long[] pentagonalNumbers = new long[n];
-            for(long i = 1; i <= n; i++)
+            for (long i = 1; i <= n; i++)
             {
                 pentagonalNumbers[i - 1] = (long)Math.Round((i * ((3 * i) - 1)) * 0.5f, 0);
             }
             return pentagonalNumbers;
+        }
+        public static long[] GetFirstNTriangularNumbers(int n)
+        {
+            long[] triangularNumbers = new long[n];
+            for (long i = 1; i <= n; i++)
+            {
+                triangularNumbers[i - 1] = (long)Math.Round((i * ((1 * i) + 1)) * 0.5f, 0);
+            }
+            return triangularNumbers;
         }
         /// <summary>
         /// returns the position of a letter in a zero-indexed alphabet array
@@ -214,10 +223,10 @@ namespace EulerProblems.Lib
 
             long[] properDivisorsB = MathHelper.GetProperDivisorsOfN(b);
             long sumOfDivisorsB = properDivisorsB.Sum();
-            
+
             if (a == b) return false;
 
-            if(sumOfDivisorsB == a) return true;
+            if (sumOfDivisorsB == a) return true;
 
             return false;
         }
@@ -274,9 +283,51 @@ namespace EulerProblems.Lib
                                             }
             return false;
         }
+        internal static bool IsPentagonal(long n)
+        {
+            // https://www.divye.in/2012/07/how-do-you-determine-if-number-n-is.html
+            /* this isn't working. it shows way more pentagonal numbers than it should
+            * run this code to see
+                * 
+                * 
+                var pents = WeirdAlgorithms.GetFirstNPentagonalNumbers(100);
+                List<long> otherPents = new List<long>();
+                int numFound = 0;
+                long i = 1; 
+                while (numFound <= 100)
+                {
+                    if(WeirdAlgorithms.IsPentagonal((int)i))
+                    {
+                        otherPents.Add(i);
+                        numFound++;
+
+
+                    }
+                    i++;
+                }
+                for(int j = 0; j < 100; j++)
+                {
+                    Console.WriteLine(string.Format("{0}{1}", pents[j].ToString().PadRight(10), otherPents[j].ToString()));
+                }
+            */
+
+            long x = 1 + (24 * n);
+            if (MathHelper.IsPerfectSquare(x))
+            {
+                //if(x % 6 == 5) 
+                return true;
+            }
+            return false;
+        }
         public static bool IsPythagoreanTriplet(int a, int b, int c)
         {
             if (Math.Pow(a, 2) + Math.Pow(b, 2) == Math.Pow(c, 2)) return true;
+            return false;
+        }
+        internal static bool IsTriangular(long n)
+        {
+            // https://en.wikipedia.org/wiki/Triangular_number
+            if (MathHelper.IsPerfectSquare(1 + (8 * n))) return true;
             return false;
         }
         internal static long SumOfSquares(long n)

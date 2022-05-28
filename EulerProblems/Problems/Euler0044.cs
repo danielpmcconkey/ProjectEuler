@@ -21,8 +21,7 @@ namespace EulerProblems.Problems
 			long largestPentagonalNumber = pentagonalNumbers[pentagonalNumbers.Length - 1];
 			bool[] pentagonalBools = new bool[largestPentagonalNumber + 1];
 			foreach(var p in pentagonalNumbers) pentagonalBools[p] = true;
-			List<long> allMatchingDiffs = new List<long>();
-
+			
 			// Now go through every combo of pentagonal numbers.
 			// I didn't know how many I had to go up to. adding a variable maximum was
 			// a way to gradually expand without previously knowing how large the lists 
@@ -55,9 +54,7 @@ namespace EulerProblems.Problems
 					}
 				}
 				variableMax += 1000;
-			}
-			
-		}
-		
+			}			
+		}		
 	}
 }
