@@ -13,33 +13,6 @@ namespace EulerProblems.Problems
 		}
 		public override void Run()
 		{
-            Dictionary<char, int> alphabet = new Dictionary<char, int>();
-			alphabet.Add('A', 1);
-			alphabet.Add('B', 2);
-			alphabet.Add('C', 3);
-			alphabet.Add('D', 4);
-			alphabet.Add('E', 5);
-			alphabet.Add('F', 6);
-			alphabet.Add('G', 7);
-			alphabet.Add('H', 8);
-			alphabet.Add('I', 9);
-			alphabet.Add('J', 10);
-			alphabet.Add('K', 11);
-			alphabet.Add('L', 12);
-			alphabet.Add('M', 13);
-			alphabet.Add('N', 14);
-			alphabet.Add('O', 15);
-			alphabet.Add('P', 16);
-			alphabet.Add('Q', 17);
-			alphabet.Add('R', 18);
-			alphabet.Add('S', 19);
-			alphabet.Add('T', 20);
-			alphabet.Add('U', 21);
-			alphabet.Add('V', 22);
-			alphabet.Add('W', 23);
-			alphabet.Add('X', 24);
-			alphabet.Add('Y', 25);
-			alphabet.Add('Z', 26);
 			// read the names
 			string fileContents = File.ReadAllText(filePath);
 			fileContents = fileContents.Replace("\"", "");
@@ -68,7 +41,7 @@ namespace EulerProblems.Problems
 				int sum = 0;
 				foreach(char c in chars)
                 {
-					sum += alphabet[c];
+					sum += WeirdAlgorithms.GetIndexOfLetterInAlphabet(c) + 1; // the +1 is due to the zero-indexing of teh function
                 }
 				if (triangles.Contains(sum))
 				{

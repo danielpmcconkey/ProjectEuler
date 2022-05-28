@@ -44,7 +44,7 @@ namespace EulerProblems.Lib
             }
             return newArray;
         }
-       /// <summary>
+        /// <summary>
 		/// recursive function for determining all the permutations of
 		/// an array of integers, returning them in order
 		/// </summary>        
@@ -163,6 +163,34 @@ namespace EulerProblems.Lib
             double denominator = Math.Pow(2, n) * squareRootOf5;
 
             return (long)Math.Round((numerator / denominator),0);
+        }
+        /// <summary>
+        /// returns the position of a letter in a zero-indexed alphabet array
+        /// </summary>
+        internal static int GetIndexOfLetterInAlphabet(char letter)
+        {
+            /*
+             * in UTF-16, you have the following hexadecimal encodings:
+             *    A = 0041
+             *    B = 0042
+             *    ...
+             *    Z = 005a
+             *    a = 0061
+             *    b = 0062
+             *    ...
+             *    z = 007a
+             *    
+             * so, converting to decimal, you have capital letters ranging from
+             * 65 to 90 and you have lower case letters ranging from 97 to 122
+             * 
+             * */
+            int index = (int)letter;
+            if (index >= 65 && index <= 90) return index - 65;
+            if (index >= 97 && index <= 122) return index - 97;
+
+            // anything else is unsupported
+            throw new ArgumentException(
+                String.Format("Value of {0} is not supported for alphabetical indexing.", letter.ToString()));
         }
         internal static bool IsAmicableNumber(long n)
         {
