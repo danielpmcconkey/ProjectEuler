@@ -4,13 +4,7 @@ namespace EulerProblems.Problems
 {
 	internal class Euler0045 : Euler
 	{
-		long currentTripVal = 1;
-		long currentPentVal = 1;
-		long currentHexVal = 1;
-		long currentTripN = 1;
-		long currentPentN = 1;
-		long currentHexN = 1;
-		long[] knownWinVals;
+		
 		public Euler0045() : base()
 		{
 			title = "Triangular, pentagonal, and hexagonal";
@@ -18,6 +12,34 @@ namespace EulerProblems.Problems
 			PrintTitle();
 		}
 		public override void Run()
+        {
+			//Run_incrementing();     // runs in 11ms
+			Run_checking();	// runs in 14 ms
+		}
+		public void Run_checking()
+        {
+			/* according to wikipedia
+			 *      Every hexagonal number is a triangular number
+			 * 
+			 * so we only need to increment every hexagonal number and check to 
+			 * see if it is also pentagonal. The first that is (after the 
+			 * initial 40755 given in the problem) is our answer.
+			 * 
+			 * */
+
+			int n = 144;
+			while (true)
+            {
+				long h_n = n * ((2 * n) - 1);
+				if(WeirdAlgorithms.IsPentagonal(h_n))
+                {
+					PrintSolution(h_n.ToString());
+					return;
+				}
+				n++;
+            }
+        }
+		public void Run_incrementing()
 		{
 			/*
 			 * this approach has us increment the triangular, pentagonal, and 
@@ -49,65 +71,62 @@ namespace EulerProblems.Problems
 			 * runs.
 			 * 
 			 * */
-			knownWinVals = new long[] { 1, 40755 }; // win states that are <= 40755
-			while (true)
-            {
-				if (isWinState())
-				{
-					PrintSolution(currentTripVal.ToString());
-					return;
-				}
-				incrementTrip();
-				if (isWinState())
-				{
-					PrintSolution(currentTripVal.ToString());
-					return;
-				}
-				incrementPent();
-				if (isWinState())
-				{
-					PrintSolution(currentTripVal.ToString());
-					return;
-				}
-				incrementHex();				
-			}
-		}
-		private void incrementTrip()
-		{
-			do
-			{
-				currentTripN++;
-				currentTripVal = (long)(currentTripN * ((currentTripN + 1) / 2d));
-			}
-			while (currentTripVal < currentPentVal || currentTripVal < currentHexVal);
-		}
-		private void incrementPent()
-		{
-			do {
-				currentPentN++;
-				currentPentVal = (long)(currentPentN * (((3 * currentPentN) - 1) / 2d));
-			}
-			while (currentPentVal < currentTripVal || currentPentVal < currentHexVal) ;
-		}
-		private void incrementHex()
-		{
-			do {
-				currentHexN++;
-				currentHexVal = currentHexN * ((2 * currentHexN) - 1);
-			}
-			while (currentHexVal < currentTripVal || currentHexVal < currentPentVal) ;
-		}
-		private bool isWinState()
-        {
-			if (currentTripVal == currentPentVal && currentPentVal == currentHexVal)
-			{
-				if (!knownWinVals.Contains(currentHexVal))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
+			long currentTripVal = 40755;
+			long currentPentVal = 40755;
+			long currentHexVal = 41328; // the next value after the problem starts
+			long currentTripN = 285;
+			long currentPentN = 165;
+			long currentHexN = 144; // the next value after the problem starts
+			bool isProblemSolved = false;
 
+			while (!isProblemSolved)
+            {
+				// check for win
+				if (currentTripVal == currentPentVal && currentPentVal == currentHexVal)
+				{
+					isProblemSolved = true;
+					break;
+				}
+				// increment the trip
+				do
+				{
+					currentTripN++;
+					currentTripVal = (long)(currentTripN * ((currentTripN + 1) / 2d));
+				}
+				while (currentTripVal < currentPentVal || currentTripVal < currentHexVal);
+				
+				
+				// check for win
+				if (currentTripVal == currentPentVal && currentPentVal == currentHexVal)
+				{
+					isProblemSolved = true;
+					break;
+				}
+				// increment the pent
+				do
+				{
+					currentPentN++;
+					currentPentVal = (long)(currentPentN * (((3 * currentPentN) - 1) / 2d));
+				}
+				while (currentPentVal < currentTripVal || currentPentVal < currentHexVal);
+				
+				
+				// check for win
+				if (currentTripVal == currentPentVal && currentPentVal == currentHexVal)
+				{
+					isProblemSolved = true;
+					break;
+				}
+				// increment the hex
+				do
+				{
+					currentHexN++;
+					currentHexVal = currentHexN * ((2 * currentHexN) - 1);
+				}
+				while (currentHexVal < currentTripVal || currentHexVal < currentPentVal);
+			}
+			PrintSolution(currentTripVal.ToString());
+			return;
+		}
 	}
 }

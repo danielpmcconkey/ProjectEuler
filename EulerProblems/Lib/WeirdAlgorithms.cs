@@ -314,8 +314,10 @@ namespace EulerProblems.Lib
             long x = 1 + (24 * n);
             if (MathHelper.IsPerfectSquare(x))
             {
-                //if(x % 6 == 5) 
-                return true;
+                if (Math.Sqrt(x) % 6 == 5)
+                {
+                    return true;
+                }
             }
             return false;
         }
