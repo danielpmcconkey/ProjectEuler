@@ -35,7 +35,7 @@ namespace EulerProblems.Problems
                 if(initialValue % checkLowFactor == 0)
                 {
                     long highFactor = initialValue / checkLowFactor;
-                    if(Lib.PrimeHelper.IsXPrime(highFactor))
+                    if(Lib.PrimeHelper.IsPrime(highFactor))
                     {
                         isSolved = true;
                         PrintSolution(highFactor.ToString());

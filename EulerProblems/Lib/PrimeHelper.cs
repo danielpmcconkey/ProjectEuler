@@ -17,7 +17,7 @@ namespace EulerProblems.Lib
 			long i = 3;
 			while(true)
             {
-				if(IsXPrime(i))
+				if(IsPrime(i))
                 {
 					numPrimesFound++;
 					primes[numPrimesFound -1] = i;
@@ -38,7 +38,7 @@ namespace EulerProblems.Lib
 			}
 			for (long i = 3; i < x; i += 2)
             {
-				if (IsXPrime(i))
+				if (IsPrime(i))
 				{
 					primes.Add(i);
 				}
@@ -155,7 +155,7 @@ namespace EulerProblems.Lib
 			if (primeToCheck < 10) return false;
 			return IsTruncatableAndPrime(primeToCheck, primes);
         }
-		internal static bool IsXPrime(long x)
+		internal static bool IsPrime(long x)
         {
 			if (x == 1) return false;
 			if (x == 2) return true;
