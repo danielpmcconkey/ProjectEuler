@@ -3,7 +3,7 @@ using System.Text;
 
 //CreateNewProblemFilesFromTemplate(45, 100);
 
-var euler = new Euler0043();
+var euler = new Euler0044();
 euler.Run();
 euler.Deconstructor();
 

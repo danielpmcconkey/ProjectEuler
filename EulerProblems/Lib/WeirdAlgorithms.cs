@@ -164,6 +164,15 @@ namespace EulerProblems.Lib
 
             return (long)Math.Round((numerator / denominator),0);
         }
+        public static long[] GetFirstNPentagonalNumbers(int n)
+        {
+            long[] pentagonalNumbers = new long[n];
+            for(long i = 1; i <= n; i++)
+            {
+                pentagonalNumbers[i - 1] = (long)Math.Round((i * ((3 * i) - 1)) * 0.5f, 0);
+            }
+            return pentagonalNumbers;
+        }
         /// <summary>
         /// returns the position of a letter in a zero-indexed alphabet array
         /// </summary>
