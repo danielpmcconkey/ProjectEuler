@@ -283,37 +283,14 @@ namespace EulerProblems.Lib
                                             }
             return false;
         }
-        internal static bool IsPentagonal(long n)
+        internal static bool IsPentagonal(long n, bool isGeneral = false)
         {
             // https://www.divye.in/2012/07/how-do-you-determine-if-number-n-is.html
-            /* this isn't working. it shows way more pentagonal numbers than it should
-            * run this code to see
-                * 
-                * 
-                var pents = WeirdAlgorithms.GetFirstNPentagonalNumbers(100);
-                List<long> otherPents = new List<long>();
-                int numFound = 0;
-                long i = 1; 
-                while (numFound <= 100)
-                {
-                    if(WeirdAlgorithms.IsPentagonal((int)i))
-                    {
-                        otherPents.Add(i);
-                        numFound++;
-
-
-                    }
-                    i++;
-                }
-                for(int j = 0; j < 100; j++)
-                {
-                    Console.WriteLine(string.Format("{0}{1}", pents[j].ToString().PadRight(10), otherPents[j].ToString()));
-                }
-            */
-
+            
             long x = 1 + (24 * n);
             if (MathHelper.IsPerfectSquare(x))
             {
+                if (isGeneral) return true;
                 if (Math.Sqrt(x) % 6 == 5)
                 {
                     return true;
