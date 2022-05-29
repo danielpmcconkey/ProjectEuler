@@ -18,9 +18,9 @@ namespace EulerProblems.Problems
         public override void Run()
         {
             long x = 2000000;
-            List<long> primes = CommonAlgorithms.GetPrimesUpToN(x);
+            long[] primes = CommonAlgorithms.GetPrimesUpToN(x);
             long sum = 0;
-            for (int i = 0; i < primes.Count; i++)
+            for (int i = 0; i < primes.Length; i++)
             {
                 if(primes[i] <= x) sum += primes[i];
             }

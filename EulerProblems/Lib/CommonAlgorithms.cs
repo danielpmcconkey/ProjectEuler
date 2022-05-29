@@ -400,7 +400,7 @@ namespace EulerProblems.Lib
             }
             return currentOOM;
         }
-        internal static List<long> GetPrimesUpToN(long n)
+        internal static long[] GetPrimesUpToN(long n)
         {
             // this will take a long time to run. Use the integer function if you can help it
             List<long> primes = new List<long>();
@@ -417,9 +417,9 @@ namespace EulerProblems.Lib
                 }
                 // if((i-1) % 1000 == 0) Console.WriteLine(String.Format("primes found up to {0}", i));
             }
-            return primes;
+            return primes.ToArray();
         }
-        internal static List<int> GetPrimesUpToN(int n)
+        internal static int[] GetPrimesUpToN(int n)
         {
             // https://www.baeldung.com/cs/prime-number-algorithms
             // https://kalkicode.com/sieve-of-sundaram
@@ -429,7 +429,7 @@ namespace EulerProblems.Lib
             if (n <= 1)
             {
                 //When n are invalid to prime number 
-                return primes;
+                return new int[0];
             }
             //Calculate the number of  prime of given n
             int limit = ((n - 2) / 2) + 1;
@@ -469,7 +469,7 @@ namespace EulerProblems.Lib
                     primes.Add((int)((i * 2) + 1));
                 }
             }
-            return primes;
+            return primes.ToArray();
         }
         /// <summary>
         /// returns a list of all proper divisors ordered least to greatest.

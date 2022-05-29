@@ -12,7 +12,7 @@ namespace EulerProblems.Problems
 		}
 		public override void Run()
 		{
-			int[] primes = CommonAlgorithms.GetPrimesUpToN(1000000).ToArray();
+			int[] primes = CommonAlgorithms.GetPrimesUpToN(1000000);
 			long[] squares = CommonAlgorithms.GetFirstNPerfectSquares(
 				(int)(Math.Floor(Math.Pow(int.MaxValue, 0.5))));
 			for (long i = 33; true; i += 2)	// only check odd numbers
