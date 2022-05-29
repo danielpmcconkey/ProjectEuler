@@ -6,7 +6,7 @@ namespace EulerProblems.Problems
 	{
 		public Euler0047() : base()
 		{
-			title = "Template";
+			title = "Distinct primes factors";
 			problemNumber = 47;
 			PrintTitle();
 		}

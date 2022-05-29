@@ -26,7 +26,7 @@ namespace EulerProblems.Problems
             {
                 triangleSum += i;
                 
-                long[] factors = MathHelper.GetFactorsOfN(triangleSum);
+                long[] factors = CommonAlgorithms.GetFactors(triangleSum);
                 int numFactors = factors.Length;
                 if (numFactors > victoryNumOfFactors)    // the problem says to have more than this many
                 {

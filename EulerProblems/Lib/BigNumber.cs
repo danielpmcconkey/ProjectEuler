@@ -95,7 +95,7 @@ namespace EulerProblems.Lib
         }
         private void ConvertFromLong(long n)
         {            
-            this.digits = MathHelper.ConvertLongToIntArray(n);
+            this.digits = CommonAlgorithms.ConvertLongToIntArray(n);
             decimalDigitCount = 0;
             isPositive = (n > 0) ? true : false;
         }

@@ -62,10 +62,10 @@ namespace EulerProblems.Problems
             {
                 for (int column = 0; column < gridWidth - howManyToConnect; column++)
                 {
-                    short val1 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row, column)];
-                    short val2 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row, column + 1)];
-                    short val3 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row, column + 2)];
-                    short val4 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row, column + 3)];
+                    short val1 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row, column)];
+                    short val2 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row, column + 1)];
+                    short val3 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row, column + 2)];
+                    short val4 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row, column + 3)];
 
                     int currentProduct = val1 * val2 * val3 * val4;
                     if (currentProduct > greatestProduct) greatestProduct = currentProduct;
@@ -76,10 +76,10 @@ namespace EulerProblems.Problems
             {
                 for (int row = 0; row < gridHeight - howManyToConnect; row++)
                 {
-                    short val1 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row, column)];
-                    short val2 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row + 1, column)];
-                    short val3 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row + 2, column)];
-                    short val4 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row + 3, column)];
+                    short val1 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row, column)];
+                    short val2 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row + 1, column)];
+                    short val3 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row + 2, column)];
+                    short val4 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row + 3, column)];
 
                     int currentProduct = val1 * val2 * val3 * val4;
                     if (currentProduct > greatestProduct) greatestProduct = currentProduct;
@@ -90,10 +90,10 @@ namespace EulerProblems.Problems
             {
                 for (int column = 0; column < gridWidth - howManyToConnect; column++)
                 {
-                    short val1 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row, column)];
-                    short val2 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row + 1, column + 1)];
-                    short val3 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row + 2, column + 2)];
-                    short val4 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row + 3, column + 3)];
+                    short val1 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row, column)];
+                    short val2 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row + 1, column + 1)];
+                    short val3 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row + 2, column + 2)];
+                    short val4 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row + 3, column + 3)];
 
                     int currentProduct = val1 * val2 * val3 * val4;
                     if (currentProduct > greatestProduct) greatestProduct = currentProduct;
@@ -104,10 +104,10 @@ namespace EulerProblems.Problems
             {
                 for (int column = 0; column < gridWidth - howManyToConnect; column++)
                 {
-                    short val1 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row, column)];
-                    short val2 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row - 1, column + 1)];
-                    short val3 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row - 2, column + 2)];
-                    short val4 = numbersArray[GridHelper.GetGridOrdinalFromPosition(gridWidth, row - 3, column + 3)];
+                    short val1 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row, column)];
+                    short val2 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row - 1, column + 1)];
+                    short val3 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row - 2, column + 2)];
+                    short val4 = numbersArray[CommonAlgorithms.GetGridOrdinalFromPosition(gridWidth, row - 3, column + 3)];
 
                     int currentProduct = val1 * val2 * val3 * val4;
                     if (currentProduct > greatestProduct) greatestProduct = currentProduct;

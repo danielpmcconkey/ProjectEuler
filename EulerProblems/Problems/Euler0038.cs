@@ -82,7 +82,7 @@ namespace EulerProblems.Problems
 			List<int> numbersWithoutRubbish = new List<int>();
 			foreach(int n in numbers)
             {
-				int[] nAsArray = MathHelper.ConvertIntToIntArray(n);
+				int[] nAsArray = CommonAlgorithms.ConvertIntToIntArray(n);
 				// first, throw out any with a 0 in it
 				if (!nAsArray.Contains(0))	
                 {
@@ -133,8 +133,8 @@ namespace EulerProblems.Problems
              * zero means the two are equal
              * greater than zero means that this should follow other in an ascending sort
              * */
-			int aOOM = MathHelper.GetOrderOfMagnitudeOfInt(a);
-			int bOOM = MathHelper.GetOrderOfMagnitudeOfInt(b);
+			int aOOM = CommonAlgorithms.GetOrderOfMagnitude(a);
+			int bOOM = CommonAlgorithms.GetOrderOfMagnitude(b);
 			if (aOOM == bOOM) return (a > b) ? -1 : 1;
 			// pad 0s to the smaller number
 			if(aOOM > bOOM)
@@ -162,7 +162,7 @@ namespace EulerProblems.Problems
 			{
 				int product = candidate * i;
 				products.Add(product);
-				productOOMs.Add(MathHelper.GetOrderOfMagnitudeOfInt(product));
+				productOOMs.Add(CommonAlgorithms.GetOrderOfMagnitude(product));
 				if(i >= minNumberOfPruducts)
 				{
 					// check the number of digits
@@ -186,7 +186,7 @@ namespace EulerProblems.Problems
 							}
 							checkVal += (products[j] * (long)Math.Pow(10, powerOf10));							
 						}
-						if (WeirdAlgorithms.IsPandigital(checkVal))
+						if (CommonAlgorithms.IsPandigital(checkVal))
 						{
 							pandigital = checkVal;
 							return true;

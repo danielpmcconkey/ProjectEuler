@@ -125,7 +125,7 @@ namespace EulerProblems.Problems
 			#endregion
 
 			int[] numerals = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-			int[][] permutations = WeirdAlgorithms.GetAllLexicographicPermutationsOfIntArray(numerals);
+			int[][] permutations = CommonAlgorithms.GetAllLexicographicPermutationsOfIntArray(numerals);
 			
 			Console.WriteLine(permutations.Length);
 

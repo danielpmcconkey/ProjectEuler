@@ -21,7 +21,7 @@ namespace EulerProblems.Problems
 
             // now sort. List is large, so sorting normally takes a while
             // use a faster algorithm
-            string[] namesSorted = WeirdAlgorithms.AlphabeticalSort(names);
+            string[] namesSorted = CommonAlgorithms.AlphabeticalSort(names);
 
 
             // now that they're sorted, let's total the names scores

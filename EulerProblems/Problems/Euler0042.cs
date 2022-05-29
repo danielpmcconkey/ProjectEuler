@@ -41,7 +41,7 @@ namespace EulerProblems.Problems
 				int sum = 0;
 				foreach(char c in chars)
                 {
-					sum += WeirdAlgorithms.GetIndexOfLetterInAlphabet(c) + 1; // the +1 is due to the zero-indexing of teh function
+					sum += CommonAlgorithms.GetIndexOfLetterInAlphabet(c) + 1; // the +1 is due to the zero-indexing of teh function
                 }
 				if (triangles.Contains(sum))
 				{

@@ -19,8 +19,8 @@ namespace EulerProblems.Lib
         public void Reduce()
         {
             // greatest common factor method
-            int[] numeratorFactors = MathHelper.GetFactorsOfN(numerator);
-            int[] denominatorFactors = MathHelper.GetFactorsOfN(denominator);
+            int[] numeratorFactors = CommonAlgorithms.GetFactors(numerator);
+            int[] denominatorFactors = CommonAlgorithms.GetFactors(denominator);
 
             int gcf = 0;
             Array.Sort(numeratorFactors);

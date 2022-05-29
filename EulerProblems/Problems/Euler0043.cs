@@ -13,7 +13,7 @@ namespace EulerProblems.Problems
 		public override void Run()
 		{
 			int[] numerals = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-			int[][] permutations = WeirdAlgorithms.HeapsAlgorithm(numerals);
+			int[][] permutations = CommonAlgorithms.GetAllPermutationsOfArray(numerals);
 			//int[][] permutations = new int[1][];
 			//permutations[0] = new int[] { 1, 4, 0, 6, 3, 5, 7, 2, 8, 9 };
 			long answer = 0;
@@ -46,7 +46,7 @@ namespace EulerProblems.Problems
 										if (((p[7] * 100) + (p[8] * 10) + p[9]) % 17 == 0)
 										{
 											// winner, winner, chicken dinner!
-											long pNum = MathHelper.ConvertIntArrayToLong(p);
+											long pNum = CommonAlgorithms.ConvertIntArrayToLong(p);
 											answer += pNum;
 										}
 									}

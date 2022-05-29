@@ -14,7 +14,7 @@ namespace EulerProblems.Problems
 		{
 			const int howManyToGenerate = 10000;
 			// first generate an array of all the pentagonal numbers
-			var pentagonalNumbers = WeirdAlgorithms.GetFirstNPentagonalNumbers(howManyToGenerate);
+			var pentagonalNumbers = CommonAlgorithms.GetFirstNPentagonalNumbers(howManyToGenerate);
 			// because Array.Contains is slow, turn that into an array of bools 0 to the
 			// largest pentagonal you just generated. Only the array indices of
 			// pentagonal numbers will be true

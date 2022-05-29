@@ -25,7 +25,7 @@ namespace EulerProblems.Problems
                 for (int j = lowest3DigitNumber; j <= highest3DigitNumber; j++)
                 {
                     int candidate = i * j;
-                    if(Lib.WeirdAlgorithms.IsIntPalindromic(candidate))
+                    if(Lib.CommonAlgorithms.IsIntPalindromic(candidate))
                     {
                         if(candidate > highestPalindromicNumber)
                             highestPalindromicNumber = candidate;

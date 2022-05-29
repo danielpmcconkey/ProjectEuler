@@ -29,7 +29,7 @@ namespace EulerProblems.Problems
 			// checks. So I first grabbed the first 12989 primes and learned
 			// that there are 1547 prime numbers <= 12989. so now my prime
 			// sieve only looks for the first 1547 prime numbesr
-			primes = PrimeHelper.GetFirstNPrimes(1548);
+			primes = CommonAlgorithms.GetFirstNPrimes(1548);
 
 
 #if DEBUG

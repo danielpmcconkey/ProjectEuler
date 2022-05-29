@@ -26,7 +26,7 @@ namespace EulerProblems.Problems
 					int bSquared = b * b;
 					int cSquared = aSquared + bSquared;
 					// is cSquared a perfect square?
-					if(MathHelper.IsPerfectSquare(cSquared))
+					if(CommonAlgorithms.IsPerfectSquare(cSquared))
                     {
 						// we have a pythagorean triple of integers
 						int c = (int)Math.Sqrt(cSquared);

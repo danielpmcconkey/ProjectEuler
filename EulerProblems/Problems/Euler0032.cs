@@ -31,7 +31,7 @@ namespace EulerProblems.Problems
 				if(!DoesIntHaveDuplicates(product))
                 {
 					// check the factors
-					int[] factors = MathHelper.GetFactorsOfN(product);
+					int[] factors = CommonAlgorithms.GetFactors(product);
 					foreach(int factorA in factors)
                     {
 						if(!DoesIntHaveDuplicates(factorA))
@@ -97,9 +97,9 @@ namespace EulerProblems.Problems
 		}
 		private bool IsPandigital(int a, int b, int product)
         {
-			int productOOM = MathHelper.GetOrderOfMagnitudeOfInt(product);
-			int aOOM = MathHelper.GetOrderOfMagnitudeOfInt(a);
-			int bOOM = MathHelper.GetOrderOfMagnitudeOfInt(b);
+			int productOOM = CommonAlgorithms.GetOrderOfMagnitude(product);
+			int aOOM = CommonAlgorithms.GetOrderOfMagnitude(a);
+			int bOOM = CommonAlgorithms.GetOrderOfMagnitude(b);
 			
 			long checkLong = (long)(
 				product 
@@ -107,7 +107,7 @@ namespace EulerProblems.Problems
 				+ a * Math.Pow(10, productOOM + bOOM + 2)
 				);
 			
-			return WeirdAlgorithms.IsPandigital(checkLong);
+			return CommonAlgorithms.IsPandigital(checkLong);
         }
 
 

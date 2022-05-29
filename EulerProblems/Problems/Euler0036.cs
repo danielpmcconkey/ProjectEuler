@@ -40,7 +40,7 @@ namespace EulerProblems.Problems
 			// all 1-digit numbers are palindromes
 			for(int i = 1; i < 10; i += 2)
             {
-				if (WeirdAlgorithms.IsIntPalindromicInBinary(i))
+				if (CommonAlgorithms.IsIntPalindromicInBinary(i))
 				{
 					answer += i;
 				}
@@ -50,7 +50,7 @@ namespace EulerProblems.Problems
 			// the multiples of 11
 			for (int i = 11; i < 100; i += 11)
 			{
-				if (WeirdAlgorithms.IsIntPalindromicInBinary(i))
+				if (CommonAlgorithms.IsIntPalindromicInBinary(i))
 				{
 					answer += i;
 				}
@@ -63,7 +63,7 @@ namespace EulerProblems.Problems
 				for (int b = 0; b < 10; b++)
 				{
 					int base10Palindrome = (a * 100) + (b * 10) + a;
-					if (WeirdAlgorithms.IsIntPalindromicInBinary(base10Palindrome))
+					if (CommonAlgorithms.IsIntPalindromicInBinary(base10Palindrome))
 					{
 						answer += base10Palindrome;
 					}
@@ -77,7 +77,7 @@ namespace EulerProblems.Problems
 				for (int b = 0; b < 10; b++)
 				{
 					int base10Palindrome = (a * 1000) + (b * 100) + (b * 10) + a;
-					if (WeirdAlgorithms.IsIntPalindromicInBinary(base10Palindrome))
+					if (CommonAlgorithms.IsIntPalindromicInBinary(base10Palindrome))
 					{
 						answer += base10Palindrome;
 					}
@@ -92,7 +92,7 @@ namespace EulerProblems.Problems
 					for (int c = 0; c < 10; c++)
 					{
 						int base10Palindrome = (a * 10000) + (b * 1000) + (c * 100) + (b * 10) + a;
-						if (WeirdAlgorithms.IsIntPalindromicInBinary(base10Palindrome))
+						if (CommonAlgorithms.IsIntPalindromicInBinary(base10Palindrome))
 						{
 							answer += base10Palindrome;
 						}
@@ -110,7 +110,7 @@ namespace EulerProblems.Problems
 						int base10Palindrome = (a * 100000) + (b * 10000) + (c * 1000) 
 							+ (c * 100) + (b * 10) + a; 
 						;
-						if (WeirdAlgorithms.IsIntPalindromicInBinary(base10Palindrome))
+						if (CommonAlgorithms.IsIntPalindromicInBinary(base10Palindrome))
 						{
 							answer += base10Palindrome;
 						}
@@ -142,9 +142,9 @@ namespace EulerProblems.Problems
 
 			for (int i = min; i <= max; i += 2)
 			{
-				if (WeirdAlgorithms.IsIntPalindromic(i))
+				if (CommonAlgorithms.IsIntPalindromic(i))
 				{
-					if (WeirdAlgorithms.IsIntPalindromicInBinary(i))
+					if (CommonAlgorithms.IsIntPalindromicInBinary(i))
 					{
 						answer += i;
 					}

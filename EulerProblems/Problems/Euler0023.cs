@@ -116,7 +116,7 @@ namespace EulerProblems.Problems
         }
         private long GetSumOfDivisors(long n)
         {
-            long[] divisors = MathHelper.GetProperDivisorsOfN(n);
+            long[] divisors = CommonAlgorithms.GetProperDivisors(n);
             return divisors.Sum();
         }
         

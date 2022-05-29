@@ -15,7 +15,7 @@ namespace EulerProblems.Problems
             int[] numerals = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			for (int i = numerals.Length - 1; i > 0; i--)
 			{
-				int[][] permutations = WeirdAlgorithms
+				int[][] permutations = CommonAlgorithms
 					.GetAllLexicographicPermutationsOfIntArray(numerals[0..(i + 1)]);
 
 				// reverse the order to start with largest first
@@ -30,8 +30,8 @@ namespace EulerProblems.Problems
 					int lastDigit = permutations[j][i];
 					if(lastDigit == 1 || lastDigit == 3 || lastDigit == 7  || lastDigit == 9)
                     {
-						int candidate = MathHelper.ConvertIntArrayToInt(permutations[j]);
-						if(PrimeHelper.IsPrime(candidate))
+						int candidate = CommonAlgorithms.ConvertIntArrayToInt(permutations[j]);
+						if(CommonAlgorithms.IsPrime(candidate))
                         {
 							PrintSolution(candidate.ToString());
 							return;

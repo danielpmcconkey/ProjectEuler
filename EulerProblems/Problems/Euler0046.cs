@@ -12,12 +12,12 @@ namespace EulerProblems.Problems
 		}
 		public override void Run()
 		{
-			int[] primes = PrimeHelper.GetPrimesUpToX(1000000).ToArray();
-			long[] squares = WeirdAlgorithms.GetFirstNPerfectSquares(
+			int[] primes = CommonAlgorithms.GetPrimesUpToN(1000000).ToArray();
+			long[] squares = CommonAlgorithms.GetFirstNPerfectSquares(
 				(int)(Math.Floor(Math.Pow(int.MaxValue, 0.5))));
 			for (long i = 33; true; i += 2)	// only check odd numbers
             {
-				if(WeirdAlgorithms.IsComposite(i))
+				if(CommonAlgorithms.IsComposite(i))
                 {
 					bool canBeWritten = false;
 					long[] squaresLessThan = squares.Where(x => x < (i * 0.5)).ToArray();

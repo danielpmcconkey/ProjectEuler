@@ -166,8 +166,8 @@ namespace EulerProblems.Problems
 
             foreach (int target in checkVals)
             {
-                int targetOOM = MathHelper.GetOrderOfMagnitudeOfInt(target);
-                int numDigitsLastNumber = MathHelper.GetOrderOfMagnitudeOfInt(lastNumber) + 1;
+                int targetOOM = CommonAlgorithms.GetOrderOfMagnitude(target);
+                int numDigitsLastNumber = CommonAlgorithms.GetOrderOfMagnitude(lastNumber) + 1;
                  
                 int nextOOMJump = (int)Math.Pow(10, numDigitsLastNumber);
                 int countOfIntsUntilNextOOMJump = nextOOMJump - lastNumber - 1;
@@ -191,7 +191,7 @@ namespace EulerProblems.Problems
                 // position, we need to find out which position of that number
                 // is the one that crosses the line
 
-                int[] numAsArray = MathHelper.ConvertIntToIntArray(numberAtNextOOM);
+                int[] numAsArray = CommonAlgorithms.ConvertIntToIntArray(numberAtNextOOM);
                 int positionAfterThisHit = lastPosition + (numberNeededAtThisOOM * numDigitsLastNumber)
                     + (numberNeededAtNextOOM * (numDigitsLastNumber + 1));
 
@@ -252,14 +252,14 @@ namespace EulerProblems.Problems
 
             for (int i = 1; i < 300000; i++)
             {
-                int oom = MathHelper.GetOrderOfMagnitudeOfInt(i);
+                int oom = CommonAlgorithms.GetOrderOfMagnitude(i);
                 int numDigits = oom + 1;
                 placeCurrent = placePrior + numDigits;
                 for (int j = 0; j < checkVals.Length; j++)
                 {
                     if (placeCurrent >= checkVals[j] && placePrior < checkVals[j])
                     {
-                        int[] iAsArray = MathHelper.ConvertIntToIntArray(i);
+                        int[] iAsArray = CommonAlgorithms.ConvertIntToIntArray(i);
                         Array.Reverse(iAsArray);    // makes it easier to pull the right digit
                         int positionInArray = placeCurrent - checkVals[j];
                         int digit = iAsArray[positionInArray];

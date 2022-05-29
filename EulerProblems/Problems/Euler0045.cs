@@ -34,7 +34,7 @@ namespace EulerProblems.Problems
 			while (true)
             {
 				long h_n = n * ((2 * n) - 1);
-				if(WeirdAlgorithms.IsPentagonal(h_n))
+				if(CommonAlgorithms.IsPentagonal(h_n))
                 {
 					PrintSolution(h_n.ToString());
 					return;

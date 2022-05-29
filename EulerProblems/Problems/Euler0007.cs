@@ -18,7 +18,7 @@ namespace EulerProblems.Problems
         public override void Run()
         {
             int n = 10001;
-            var primes = PrimeHelper.GetFirstNPrimes(n);
+            var primes = CommonAlgorithms.GetFirstNPrimes(n);
             PrintSolution(primes[n - 1].ToString());
             return;
         }

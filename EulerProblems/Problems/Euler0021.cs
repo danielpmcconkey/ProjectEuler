@@ -19,7 +19,7 @@ namespace EulerProblems.Problems
 
             for (long i = lowestNum; i <= highestNum; i++)
             {
-                if(WeirdAlgorithms.IsAmicableNumber(i))
+                if(CommonAlgorithms.IsAmicableNumber(i))
                 {
                     amicableNumbers.Add(i);
 #if DEBUG

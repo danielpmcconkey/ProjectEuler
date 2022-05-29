@@ -34,7 +34,7 @@ namespace EulerProblems.Problems
                 {
                     for (int c = b + 1; c < squares.Count; c++)
                     {
-                        if(WeirdAlgorithms.IsPythagoreanTriplet(a, b, c))
+                        if(CommonAlgorithms.IsPythagoreanTriplet(a, b, c))
                         {
                             if(a + b + c == finalSumExpectation)
                             {

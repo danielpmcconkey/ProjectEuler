@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EulerProblems.Lib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,7 @@ namespace EulerProblems.Problems
                 if(initialValue % checkLowFactor == 0)
                 {
                     long highFactor = initialValue / checkLowFactor;
-                    if(Lib.PrimeHelper.IsPrime(highFactor))
+                    if(CommonAlgorithms.IsPrime(highFactor))
                     {
                         isSolved = true;
                         PrintSolution(highFactor.ToString());
