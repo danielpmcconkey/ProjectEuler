@@ -12,29 +12,40 @@ namespace EulerProblems.Problems
 		}
 		public override void Run()
 		{
-			int[] primes = CommonAlgorithms.GetPrimesUpToN(100000);
+			int targetPrimeCount = 4;
+			// get y'all an easy to reference list of primes so the prime factors call
+			// goes all fast and stuff
+			bool[] primes = CommonAlgorithms.GetPrimesUpToNAsBoolArray(1000000);
+
+			// create a starting point that mimics the end of the last iteration
 			int startingNumber = 646;
-			int[] factorsOfI = new int[0];
-			int[] factorsOfIMinus1 = CommonAlgorithms.GetFactors(startingNumber - 1);
-			int[] factorsOfIMinus2 = CommonAlgorithms.GetFactors(startingNumber - 2);
-			int[] factorsOfIMinus3 = CommonAlgorithms.GetFactors(startingNumber - 3);
+			int[] primeFactorsOfI = new int[0];
+			int[] primeFactorsOfIMinus1 = CommonAlgorithms.GetPrimeFactors(startingNumber - 1, primes);
+			int[] primeFactorsOfIMinus2 = CommonAlgorithms.GetPrimeFactors(startingNumber - 2, primes);
+			int[] primeFactorsOfIMinus3 = CommonAlgorithms.GetPrimeFactors(startingNumber - 3, primes);
 
 			for (int i = startingNumber; true; i++)
             {
 				if (i > int.MaxValue) throw new OverflowException();
 
 				// update factors of i
-				factorsOfI = CommonAlgorithms.GetFactors(i);
-
+				primeFactorsOfI = CommonAlgorithms.GetPrimeFactors(i, primes);
+				if(
+					primeFactorsOfI.Length >= targetPrimeCount
+					&& primeFactorsOfIMinus1.Length >= targetPrimeCount
+					&& primeFactorsOfIMinus2.Length >= targetPrimeCount
+					&& primeFactorsOfIMinus3.Length >= targetPrimeCount
+				)
+                {
+					PrintSolution((i - 3).ToString());
+					return;
+				}
 
 				// move the factors arrays down
-				factorsOfIMinus3 = factorsOfIMinus2;
-				factorsOfIMinus2 = factorsOfIMinus1;
-				factorsOfIMinus1 = factorsOfI;
+				primeFactorsOfIMinus3 = primeFactorsOfIMinus2;
+				primeFactorsOfIMinus2 = primeFactorsOfIMinus1;
+				primeFactorsOfIMinus1 = primeFactorsOfI;
 			}
-			int answer = 0;
-			PrintSolution(answer.ToString());
-			return;
 		}
 	}
 }

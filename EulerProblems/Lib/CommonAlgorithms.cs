@@ -400,6 +400,16 @@ namespace EulerProblems.Lib
             }
             return currentOOM;
         }
+        internal static int[] GetPrimeFactors(int n, bool[] primes)
+        {
+            int[] factors = GetFactors(n);
+            List<int> primeFactors = new List<int>();
+            foreach(int f in factors)
+            {
+                if (primes[f]) primeFactors.Add(f);
+            }
+            return primeFactors.ToArray();
+        }
         internal static long[] GetPrimesUpToN(long n)
         {
             // this will take a long time to run. Use the integer function if you can help it
@@ -470,6 +480,22 @@ namespace EulerProblems.Lib
                 }
             }
             return primes.ToArray();
+        }
+        /// <summary>
+        /// gets an array of bools of size n + 1. a true at index Y in this 
+        /// array would mean that Y is prime. A false at index Y means that
+        /// Y is not prime
+        /// </summary>
+        internal static bool[] GetPrimesUpToNAsBoolArray(int n)
+        {
+            int[] primesArray = GetPrimesUpToN(n);
+            int maxPrime = primesArray[primesArray.Length - 1];
+            bool[] bools = new bool[maxPrime + 1];
+            foreach(var p in primesArray)
+            {
+                bools[p] = true;
+            }
+            return bools;
         }
         /// <summary>
         /// returns a list of all proper divisors ordered least to greatest.
