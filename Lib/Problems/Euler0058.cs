@@ -1,3 +1,4 @@
+//#define VERBOSEOUTPUT
 namespace EulerProblems.Lib.Problems
 {
 	public class Euler0058 : Euler
@@ -6,7 +7,6 @@ namespace EulerProblems.Lib.Problems
 		{
 			title = "Template";
 			problemNumber = 58;
-			
 		}
 		protected override void Run()
 		{

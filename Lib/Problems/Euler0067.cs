@@ -1,7 +1,4 @@
-﻿using EulerProblems.Lib;
-using System.Text.RegularExpressions;
-
-namespace EulerProblems.Lib.Problems
+﻿namespace EulerProblems.Lib.Problems
 {
     public class Euler0067 : Euler
     {

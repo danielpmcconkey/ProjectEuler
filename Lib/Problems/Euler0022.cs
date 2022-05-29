@@ -1,4 +1,5 @@
-﻿using EulerProblems.Lib;
+﻿//#define VERBOSEOUTPUT
+using EulerProblems.Lib;
 using System.Text.RegularExpressions;
 
 namespace EulerProblems.Lib.Problems
@@ -30,7 +31,7 @@ namespace EulerProblems.Lib.Problems
             {
                 var thisName = namesSorted[i];
                 var thisScore = GetNameScore(thisName);
-#if DEBUG
+#if VERBOSEOUTPUT
                 if (thisName == "COLIN")
                 {
                     Console.WriteLine(String.Format("COLIN is in position {0} in the list", i + 1));

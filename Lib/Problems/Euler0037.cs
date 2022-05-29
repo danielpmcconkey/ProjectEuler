@@ -1,6 +1,8 @@
-﻿namespace EulerProblems.Lib.Problems
+﻿//#define VERBOSEOUTPUT
+namespace EulerProblems.Lib.Problems
 {
-    public class Euler0037 : Euler
+
+	public class Euler0037 : Euler
 	{
 		public Euler0037() : base()
 		{
@@ -20,7 +22,9 @@
 				if(CommonAlgorithms.IsTruncatablePrime(primes[i], primes))
                 {
 					answer += primes[i];
-					Console.WriteLine(primes[i]);
+#if VERBOSEOUTPUT
+                    Console.WriteLine(primes[i]); 
+#endif
 					goal--;
 				}
             }	

@@ -1,4 +1,5 @@
-﻿using EulerProblems.Lib;
+﻿//#define VERBOSEOUTPUT
+using EulerProblems.Lib;
 using System.Text;
 
 namespace EulerProblems.Lib.Problems
@@ -49,7 +50,7 @@ namespace EulerProblems.Lib.Problems
             int lastNumber = 0;
             int lastPosition = 0;
 
-#if DEBUG
+#if VERBOSEOUTPUT
             Dictionary<string, int> outputColumns = new Dictionary<string, int>();
             outputColumns.Add("targetOOM", 7);
             outputColumns.Add("target", 13);
@@ -202,7 +203,7 @@ namespace EulerProblems.Lib.Problems
                 product *= digit;
 
 
-#if DEBUG
+#if VERBOSEOUTPUT
                 StringBuilder sbLine = new StringBuilder();
                 sbLine.Append(targetOOM.ToString().PadLeft(outputColumns["targetOOM"]));
                 sbLine.Append(target.ToString().PadLeft(outputColumns["target"]));
@@ -228,7 +229,7 @@ namespace EulerProblems.Lib.Problems
                 lastPosition = positionAfterThisHit;
             }
 
-#if DEBUG
+#if VERBOSEOUTPUT
             Console.WriteLine(); 
 #endif
 

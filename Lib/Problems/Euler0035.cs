@@ -1,10 +1,8 @@
-﻿using EulerProblems.Lib;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿//#define VERBOSEOUTPUT
 
 namespace EulerProblems.Lib.Problems
 {
-	public class Euler0035 : Euler
+    public class Euler0035 : Euler
 	{
 		public Euler0035() : base()
 		{
@@ -31,7 +29,9 @@ namespace EulerProblems.Lib.Problems
 			{
 				if(CommonAlgorithms.IsCircularPrime(primes[i], primes))
                 {
+#if VERBOSEOUTPUT
 					Console.WriteLine(primes[i]);
+#endif
 					answer++;					
                 }
 			}

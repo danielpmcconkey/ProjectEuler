@@ -67,7 +67,7 @@ namespace EulerProblems.Lib.Problems
                     solutionPosition = i;
                 }
             }
-            PrintSolution(greatestProduct.ToString() + " at position: " + solutionPosition.ToString());
+            PrintSolution(greatestProduct.ToString());
             return;
         }
 

@@ -1,4 +1,5 @@
-﻿using EulerProblems.Lib;
+﻿//#define VERBOSEOUTPUT
+using EulerProblems.Lib;
 using System.Numerics;
 using System.Text.RegularExpressions;
 
@@ -63,10 +64,10 @@ namespace EulerProblems.Lib.Problems
 				}
 				if (n == currentTrialNumerator)
 				{
-#if DEBUG
+#if VERBOSEOUTPUT
                     Console.WriteLine(string.Format("{0}{1}{2}", n.ToString().PadRight(10), longDivisionAnswer.PadRight(10), "          ")); 
 #endif
-                    return 0;
+					return 0;
 				}
 				if (n < currentTrialNumerator)
                 {
@@ -77,10 +78,10 @@ namespace EulerProblems.Lib.Problems
 					int remainder = currentTrialNumerator - product;
 					if (remainder == 0)
 					{
-#if DEBUG
+#if VERBOSEOUTPUT
                         Console.WriteLine(string.Format("{0}{1}{2}", n.ToString().PadRight(10), longDivisionAnswer.PadRight(10), "          ")); 
 #endif
-                        return 0;   // even division, no repeat
+						return 0;   // even division, no repeat
 					}
 					currentTrialNumerator = remainder * 10;
 					// is this new new trial numerator already in the list? if so, we've found our repeat
@@ -91,14 +92,14 @@ namespace EulerProblems.Lib.Problems
 						// and that's how large our repeater is
 						int lastPosition = trialNumerators.IndexOf(currentTrialNumerator);
 						int answer = trialNumerators.Count - lastPosition;
-#if DEBUG
+#if VERBOSEOUTPUT
                         Console.WriteLine(string.Format("{0}{1}{2}", n.ToString().PadRight(10),
                                             longDivisionAnswer.PadRight(10),
                                             answer.ToString().PadRight(10)
                                             )); 
 #endif
 
-                        return answer;
+						return answer;
                     }
 					trialNumerators.Add(currentTrialNumerator);
 				}

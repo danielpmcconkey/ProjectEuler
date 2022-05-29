@@ -1,4 +1,5 @@
-﻿using EulerProblems.Lib;
+﻿//#define VERBOSEOUTPUT
+using EulerProblems.Lib;
 using System.Text.RegularExpressions;
 
 namespace EulerProblems.Lib.Problems
@@ -22,7 +23,7 @@ namespace EulerProblems.Lib.Problems
                 if(CommonAlgorithms.IsAmicableNumber(i))
                 {
                     amicableNumbers.Add(i);
-#if DEBUG
+#if VERBOSEOUTPUT
                     Console.WriteLine(i); 
 #endif
                 }

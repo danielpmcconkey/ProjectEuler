@@ -1,4 +1,5 @@
-﻿using EulerProblems.Lib;
+﻿//#define VERBOSEOUTPUT
+using EulerProblems.Lib;
 using System.Text.RegularExpressions;
 
 namespace EulerProblems.Lib.Problems
@@ -32,16 +33,16 @@ namespace EulerProblems.Lib.Problems
 			primes = CommonAlgorithms.GetFirstNPrimes(1548);
 
 
-#if DEBUG
+#if VERBOSEOUTPUT
             long testAnswer = HowManyPrimes(1, 41);
             testAnswer = HowManyPrimes(-79, 1601); 
 #endif
 
-            // what's 4MM possibilities amongst friends?
-            // BRUTE FORCE!!!
+			// what's 4MM possibilities amongst friends?
+			// BRUTE FORCE!!!
 
 
-            for (int a = limit * -1; a < limit; a++)
+			for (int a = limit * -1; a < limit; a++)
             {
 				for (int b = limit * -1; b <= limit; b++)
 				{
@@ -55,14 +56,14 @@ namespace EulerProblems.Lib.Problems
 					counter++;
 				}
 			}
-#if DEBUG
+#if VERBOSEOUTPUT
             Console.WriteLine(string.Format("Number of primes: {0}", largestNumberOfPrimes));
             Console.WriteLine(string.Format("a: {0}", aAtLargest));
             Console.WriteLine(string.Format("b: {0}", bAtLargest));
             //Console.WriteLine(string.Format("maxPrimeCheck: {0}", maxPrimeCheck));  
 #endif
 
-            int answer = aAtLargest * bAtLargest;
+			int answer = aAtLargest * bAtLargest;
 			PrintSolution(answer.ToString());
 			return;
 		}

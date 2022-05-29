@@ -7,6 +7,7 @@ namespace EulerProblems.Lib
 		public static void CreateNewProblemFilesFromTemplate(int first, int last)
 		{
 			StringBuilder template = new StringBuilder();
+			template.AppendLine("//#define VERBOSEOUTPUT");
 			template.AppendLine("namespace EulerProblems.Lib.Problems");
 			template.AppendLine("{{");
 			template.AppendLine("	public class Euler{2} : Euler");

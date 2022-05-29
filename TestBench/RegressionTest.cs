@@ -21,6 +21,7 @@ namespace TestBench
                 var result = euler.Solve();
                 Assert.AreEqual(expectedResult.solution, result.solution);
                 Assert.IsTrue(result.runTime <= expectedResult.maxDuration);
+                Console.WriteLine();
             }
         }
     }
