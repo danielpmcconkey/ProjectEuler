@@ -13,6 +13,9 @@ namespace EulerProblems.Problems
 		}
 		public override void Run()
         {
+			// two ways to solve. both take about the same time
+
+
 			//Run_incrementing();     // runs in 11ms
 			Run_checking();	// runs in 14 ms
 		}

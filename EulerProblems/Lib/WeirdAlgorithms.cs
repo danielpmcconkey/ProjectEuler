@@ -173,6 +173,16 @@ namespace EulerProblems.Lib
             }
             return pentagonalNumbers;
         }
+        public static long[] GetFirstNPerfectSquares(int n)
+        {
+            // excludes 0
+            long[] perfectSquares = new long[n];
+            for(long i = 0; i < n; i++)
+            {
+                perfectSquares[i] = (long) Math.Pow(i + 1, 2);
+            }
+            return perfectSquares;
+        }
         public static long[] GetFirstNTriangularNumbers(int n)
         {
             long[] triangularNumbers = new long[n];
@@ -228,6 +238,16 @@ namespace EulerProblems.Lib
 
             if (sumOfDivisorsB == a) return true;
 
+            return false;
+        }
+        public static bool IsComposite(long n)
+        {
+            if (n == 0) return false;
+            if (n == 1) return false;
+            for (long i = 2; i < n; i++)
+            {
+                if (n % i == 0) return true;
+            }
             return false;
         }
         internal static bool IsIntPalindromic(int n)

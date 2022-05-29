@@ -63,8 +63,8 @@ namespace EulerProblems.Lib
 			//This are used to detect prime numbers
 			int[] sieve = new int[limit];
 			// Loop controlling variables
-			int i = 0;
-			int j = 0;
+			long i = 0;
+			long j = 0;
 			//Set initial all the numbers are non prime
 			for (i = 0; i < limit; ++i)
 			{
@@ -89,7 +89,11 @@ namespace EulerProblems.Lib
 			{
 				if (sieve[i] == 0)
 				{
-					primes.Add((i * 2) + 1);
+					if(((i * 2) + 1) > int.MaxValue)
+                    {
+						throw new OverflowException("too big to downscale to an int");
+                    }
+					primes.Add((int)((i * 2) + 1));
 				}
 			}
 			return primes;
