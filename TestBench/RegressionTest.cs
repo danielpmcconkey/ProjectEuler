@@ -1,4 +1,5 @@
 using EulerProblems.Lib;
+using EulerProblems.Lib.DAL.Data;
 using System.Text.Json;
 
 namespace TestBench
@@ -6,23 +7,21 @@ namespace TestBench
     [TestClass]
     public class RegressionTest
     {
-        const string testExpectationsFile = @"E:\ProjectEuler\TestExpectations\TestExpectations.dat";
-
         [TestMethod]
-        public void TestMethod1()
+        public void CheckSolutions()
         {
-            string jsonResults = File.ReadAllText(testExpectationsFile);
-            List<ExpectedResult> expectedResults = JsonSerializer
-                .Deserialize<List<ExpectedResult>>(jsonResults);
-            
-            foreach (var expectedResult in expectedResults)
+            using (var db = new EulerContext())
             {
-                var euler = EulerProblemFactory.GetEulerProblemClassByNumber(expectedResult.problemNumber);
-                var result = euler.Solve();
-                Assert.AreEqual(expectedResult.solution, result.solution);
-                Assert.IsTrue(result.runTime <= expectedResult.maxDuration);
-                Console.WriteLine();
-            }
+                foreach (var row in db.Problems)
+                {
+                    Console.WriteLine(row.id);
+
+                    var euler = EulerProblemFactory.GetEulerProblemClassByNumber(row.id);
+                    var result = euler.Solve();
+                    Assert.AreEqual(row.solution, result.solution);
+                    Console.WriteLine();
+                }
+            }  
         }
     }
 }
