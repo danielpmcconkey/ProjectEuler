@@ -482,6 +482,8 @@
         /// </summary>
         internal static bool[] GetPrimesUpToNAsBoolArray(int n)
         {
+            // todo: make this create its own sieve. The end of the sieve converts from
+            // an arary of bools to an array of ints. Here we are converting it back.
             int[] primesArray = GetPrimesUpToN(n);
             int maxPrime = primesArray[primesArray.Length - 1];
             bool[] bools = new bool[maxPrime + 1];

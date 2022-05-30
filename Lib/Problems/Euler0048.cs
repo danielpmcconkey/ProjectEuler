@@ -33,7 +33,7 @@ namespace EulerProblems.Lib.Problems
 		}
 		protected void Run_bruteForce()
 		{
-			// this way take about 2 minutes to run. gots to be a better way
+			// this way takes about 2 minutes to run. gots to be a better way
 			int limit = 1000;
 			BigNumber sum = new BigNumber(0);
 
