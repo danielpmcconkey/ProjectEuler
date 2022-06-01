@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EulerCLI", "EulerCLI\EulerC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBench", "TestBench\TestBench.csproj", "{5C158D71-C5F9-4082-A93F-F0980C04C4AC}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "EulerFunctionalCLI", "EulerFunctionalCLI\EulerFunctionalCLI.fsproj", "{47C2F885-DD66-4ECD-BD02-EFAB32AE5B68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{5C158D71-C5F9-4082-A93F-F0980C04C4AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C158D71-C5F9-4082-A93F-F0980C04C4AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C158D71-C5F9-4082-A93F-F0980C04C4AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47C2F885-DD66-4ECD-BD02-EFAB32AE5B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C2F885-DD66-4ECD-BD02-EFAB32AE5B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C2F885-DD66-4ECD-BD02-EFAB32AE5B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C2F885-DD66-4ECD-BD02-EFAB32AE5B68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
