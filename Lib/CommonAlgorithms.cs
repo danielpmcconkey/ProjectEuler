@@ -1,4 +1,6 @@
-﻿namespace EulerProblems.Lib
+﻿using System.Numerics;
+
+namespace EulerProblems.Lib
 {
     internal static class CommonAlgorithms
     {
@@ -194,6 +196,27 @@
             }
             return permutations.ToArray();
         }
+        internal static BigInteger GetCombinatoricRFromN(int n, int r)
+        {
+            /*
+             * https://en.wikipedia.org/wiki/Combinatorics
+             * 
+             *      /     \
+             *      |  n  |            n!
+             *      | --- |  =   -------------
+             *      |  r  |       r! (n - r)!
+             *      \     /
+             * 
+             * */
+
+            if (r > n) throw new ArgumentException();
+
+            BigInteger nFact = GetFactorial((BigInteger)n);
+            BigInteger rFact = GetFactorial((BigInteger)r);
+            BigInteger nMinusRFact = GetFactorial((BigInteger)(n - r));
+            BigInteger answer =  nFact/ (rFact * nMinusRFact);
+            return answer;
+        }
         /// <summary>
         /// used for standard factorials on tame numbers
         /// if nubers are large, use the long form function
@@ -205,9 +228,15 @@
 
         }
         /// <summary>
-        /// used to get factorials when you know the result
-        /// will be too large for a long to hold
+        /// used for bigger numbers
         /// </summary>
+        internal static BigInteger GetFactorial(BigInteger n)
+        {
+            if (n == 0) return 1;
+            return n * GetFactorial(n - 1);
+
+        }
+        [Obsolete("GetFactorialLongForm is deprecated, please use GetFactorial (BigInteger) instead.")]
         internal static BigNumber GetFactorialLongForm(long n)
         {
             BigNumber answer = new BigNumber(new int[] { 1 });
