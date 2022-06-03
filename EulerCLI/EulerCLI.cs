@@ -6,7 +6,7 @@ using EulerProblems.Lib.DAL.Data;
 //TemplateManager.CreateNewProblemFilesFromTemplate(48, 100);
 
 
-var euler = EulerProblemFactory.GetEulerProblemClassByNumber(54);
+var euler = EulerProblemFactory.GetEulerProblemClassByNumber(55);
 euler.Solve();
 
 

@@ -1,5 +1,14 @@
-﻿open Euler001
+﻿open System
+open Euler002
+
+let stopWatch = System.Diagnostics.Stopwatch()
+stopWatch.Start()
+
 
 run()
 
-//printfn "%s" result
+
+stopWatch.Stop()
+printfn "run time: %d ms" stopWatch.ElapsedMilliseconds
+
+

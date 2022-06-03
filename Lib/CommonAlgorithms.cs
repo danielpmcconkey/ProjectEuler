@@ -656,6 +656,22 @@ namespace EulerProblems.Lib
             }
             return true;
         }
+        internal static bool IsIntPalindromic(BigNumber n)
+        {
+            int numberOfDigits = n.digits.Length;
+            int halfWayPoint = (numberOfDigits / 2) + 1;
+
+            for (int i = 0; i < halfWayPoint; i++)
+            {
+                int checkLeft = n.digits[i];
+                int checkRight = n.digits[numberOfDigits - i - 1];
+                if (checkLeft != checkRight)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         internal static bool IsIntPalindromicInBinary(int n)
         {
             string binaryString = Convert.ToString(n, 2);
