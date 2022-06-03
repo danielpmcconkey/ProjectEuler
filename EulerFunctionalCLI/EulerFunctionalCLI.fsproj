@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Euler001.fs" />
     <Compile Include="Algorithms.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

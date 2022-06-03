@@ -1,14 +1,14 @@
 ﻿module Algorithms
 
-let prefix prefixStr baseStr = 
-    prefixStr + ", " + baseStr
+//let prefix prefixStr baseStr = 
+//    prefixStr + ", " + baseStr
 
-let prefixWithHello = prefix "Hello"
+//let prefixWithHello = prefix "Hello"
 
-let exclaim s =
-    s + "!"
+//let exclaim s =
+//    s + "!"
 
-let bigHello = prefixWithHello << exclaim
+//let bigHello = prefixWithHello << exclaim
 
-let lineBreak s =
-    s + System.Environment.NewLine
+//let lineBreak s =
+//    s + System.Environment.NewLine
