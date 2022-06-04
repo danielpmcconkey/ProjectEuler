@@ -12,9 +12,9 @@ namespace EulerProblems.Lib.DAL.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-        [Column("averagedurationms", TypeName = "varchar(250)")]
+        [Column("averagedurationms", TypeName = "numeric(10,4)")]
         public double averageDuration { get; set; }
-        [Column("percentile90durationms", TypeName = "varchar(250)")]
+        [Column("percentile90durationms", TypeName = "numeric(10,4)")]
         public double percentile90Duration { get; set; }
     }
 }

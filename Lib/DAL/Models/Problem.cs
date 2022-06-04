@@ -11,11 +11,11 @@ namespace EulerProblems.Lib.DAL.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("id")]
+        [Column("id", TypeName="integer")]        
         public int id { get; set; }
-        [Column("name", TypeName = "varchar(256)")]
+        [Column("name", TypeName = "varhcar(250)")]
         public string name { get; set; } = null!;
-        [Column("solution", TypeName = "varchar(256)")]
+        [Column("solution", TypeName = "varchar(250)")]
         public string solution { get; set; } = null!;
     }
 }
