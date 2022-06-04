@@ -14,10 +14,17 @@ namespace EulerProblems.Lib
                 BenchMarkPerformanceResults(id);
             }            
         }
+        public static void AddRunsForBenchmarking()
+        {
+            Problem[] problems = ProblemDbOps.FetchSolvedProblems();
+            foreach (Problem p in problems)
+            {
+                AddRuns(p.id);
+            }
+        }
         private static void BenchMarkPerformanceResults(int problemId)
         {
             const int howManyRuns = 100;
-
             
             List<(string solution, TimeSpan runTime)> runResults = 
                 new List<(string solution, TimeSpan runTime)>();
@@ -42,6 +49,23 @@ namespace EulerProblems.Lib
                 percentile90Duration = percentile90
             };
             BaselineDbOps.WriteNewBaseline(baseline);
+        }
+        private static void AddRuns(int problemId)
+        {
+            const int howManyRuns = 100;
+
+            Console.WriteLine("Adding runs for {0}", problemId);
+
+            List<(string solution, TimeSpan runTime)> runResults =
+                new List<(string solution, TimeSpan runTime)>();
+            for (int i = 0; i < howManyRuns; i++)
+            {
+                var euler = EulerProblemFactory.GetEulerProblemClassByNumber(problemId);
+                var result = euler.Solve(true);
+                runResults.Add(result);
+                Run run = new Run() { problem = problemId, duration = result.runTime.TotalMilliseconds };
+                RunDbOps.WriteNewRun(run);
+            }            
         }
     }
 }

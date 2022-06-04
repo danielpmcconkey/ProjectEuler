@@ -3,23 +3,35 @@ using EulerProblems.Lib.DAL.Models;
 
 namespace EulerProblems.Lib.DAL.Operations
 {
-    internal static class BaselineDbOps
+    public static class BaselineDbOps
     {
-        internal static int[] FetchProblemsWithoutBaselines()
+        public static int[] FetchProblemsWithoutBaselines()
         {
             using (var db = new EulerContext())
             {
                 var problemsWithoutBaselines = from probs in db.Problems
-                                                join bases in db.Baselines
-                                                on probs.id equals bases.id
-                                                into leftSide
-                                                from rightSide in leftSide.DefaultIfEmpty()
-                                                where rightSide == null
-                                                select probs.id;
+                                               join bases in db.Baselines
+                                               on probs.id equals bases.id
+                                               into leftSide
+                                               from rightSide in leftSide.DefaultIfEmpty()
+                                               where rightSide == null
+                                               select probs.id;
                 return problemsWithoutBaselines.ToArray();
             }
         }
-        internal static void WriteNewBaseline(Baseline b)
+        public static Baseline[] FetchProblemsWithBaselines()
+        {
+            using (var db = new EulerContext())
+            {
+                var problemsWithBaselines = from probs in db.Problems
+                                            join bases in db.Baselines
+                                            on probs.id equals bases.id
+                                            select bases;
+                return problemsWithBaselines.ToArray();
+            }
+                
+        }
+        public static void WriteNewBaseline(Baseline b)
         {
             using (var db = new EulerContext())
             {
@@ -27,5 +39,6 @@ namespace EulerProblems.Lib.DAL.Operations
                 db.SaveChanges();
             }
         }
+
     }
 }

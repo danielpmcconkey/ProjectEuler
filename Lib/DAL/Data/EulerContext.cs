@@ -9,6 +9,7 @@ namespace EulerProblems.Lib.DAL.Data
     {
         public DbSet<Problem> Problems { get; set; } = null!;
         public DbSet<Baseline> Baselines { get; set; } = null!;
+        public DbSet<Run> Runs { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
