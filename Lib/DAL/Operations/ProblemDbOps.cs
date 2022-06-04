@@ -10,15 +10,19 @@ namespace EulerProblems.Lib.DAL.Operations
 {
     public static class ProblemDbOps
     {
-        public static Problem[] FetchSolvedProblems()
+        public static Problem[] ReadSolved()
         {
-            using (var db = new EulerContext())
+            using (var context = new EulerContext())
             {
-                return db.Problems
-                    .Where(p => p.solution != null)
-                    .OrderBy(x => x.id)
-                    .ToArray();
+                return ReadSolved(context);
             }
+        }
+        public static Problem[] ReadSolved(EulerContext existingContext)
+        {            
+            return existingContext.Problems
+                .Where(p => p.solution != null)
+                .OrderBy(x => x.id)
+                .ToArray();            
         }
     }
 }

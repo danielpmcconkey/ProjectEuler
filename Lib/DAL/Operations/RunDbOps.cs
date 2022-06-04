@@ -3,15 +3,42 @@ using EulerProblems.Lib.DAL.Models;
 
 namespace EulerProblems.Lib.DAL.Operations
 {
-    public class RunDbOps
+    public static class RunDbOps
     {
-        public static void WriteNewRun(Run r)
+        public static void Create(Run r)
         {
-            using (var db = new EulerContext())
+            using (var context = new EulerContext())
             {
-                db.Runs.Add(r);
-                db.SaveChanges();
+                Create(r, context);
             }
+        }
+        public static void Create(Run r, EulerContext existingContext)
+        {
+            existingContext.Runs.Add(r);
+            existingContext.SaveChanges();
+        }
+        public static void DeleteByProblem(int problem)
+        {
+            using (var context = new EulerContext())
+            {
+                DeleteByProblem(problem, context);
+            }
+        }
+        public static void DeleteByProblem(int problem, EulerContext existingContext)
+        {
+            existingContext.Runs.RemoveRange(existingContext.Runs.Where(x => x.problem == problem));
+            existingContext.SaveChanges();
+        }
+        public static Run[] ReadByProblem(int problem)
+        {
+            using (var context = new EulerContext())
+            {
+                return ReadByProblem(problem, context);
+            }
+        }
+        public static Run[] ReadByProblem(int problem, EulerContext existingContext)
+        {
+            return existingContext.Runs.Where(x => x.problem == problem).ToArray();
         }
     }
 }

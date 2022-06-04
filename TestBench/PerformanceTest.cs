@@ -13,7 +13,7 @@ namespace TestBench
         public void CheckPerformance()
         {
             const int howManyRuns = 100;
-            var baselines = BaselineDbOps.FetchProblemsWithBaselines();
+            var baselines = BaselineDbOps.Read();
 
             int numFailed = 0;
 

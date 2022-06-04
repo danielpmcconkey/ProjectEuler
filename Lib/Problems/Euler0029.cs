@@ -1,5 +1,6 @@
 ﻿using EulerProblems.Lib;
 using System.Text.RegularExpressions;
+using System.Numerics;
 
 namespace EulerProblems.Lib.Problems
 {
@@ -17,12 +18,12 @@ namespace EulerProblems.Lib.Problems
 		{
 			const int limit = 100;
 			
-			List<BigNumber> outputs = new List<BigNumber>();
+			List<BigInteger> outputs = new List<BigInteger>();
 			for (int a = 2; a <= limit; a++)
 			{
 				for (int b = 2; b <= limit; b++)
 				{
-					BigNumber n = BigNumberCalculator.Exponent(a, b);
+					BigInteger n = BigInteger.Pow(a, b);
 					if(!outputs.Contains(n)) outputs.Add(n);
 				}
 			}

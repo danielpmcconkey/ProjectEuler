@@ -5,39 +5,53 @@ namespace EulerProblems.Lib.DAL.Operations
 {
     public static class BaselineDbOps
     {
-        public static int[] FetchProblemsWithoutBaselines()
+        public static void Create(Baseline b)
         {
-            using (var db = new EulerContext())
+            using (var context = new EulerContext())
             {
-                var problemsWithoutBaselines = from probs in db.Problems
-                                               join bases in db.Baselines
-                                               on probs.id equals bases.id
-                                               into leftSide
-                                               from rightSide in leftSide.DefaultIfEmpty()
-                                               where rightSide == null
-                                               select probs.id;
-                return problemsWithoutBaselines.ToArray();
+                Create(b, context);
             }
         }
-        public static Baseline[] FetchProblemsWithBaselines()
+        public static void Create(Baseline b, EulerContext existingContext)
         {
-            using (var db = new EulerContext())
+            existingContext.Baselines.Add(b);
+            existingContext.SaveChanges();
+        }
+        public static Baseline[] Read()
+        {
+            using (var context = new EulerContext())
             {
-                var problemsWithBaselines = from probs in db.Problems
-                                            join bases in db.Baselines
+                return Read(context);
+            }
+        }
+        public static Baseline[] Read(EulerContext existingContext)
+        {
+            return existingContext.Baselines.ToArray();
+        }
+        /// <summary>
+        /// reads all problem IDs with no corresponding baselines
+        /// </summary>
+        public static int[] ReadMissing()
+        {
+            using (var context = new EulerContext())
+            {
+                return ReadMissing(context);
+            }
+        }
+        /// <summary>
+        /// reads all problem IDs with no corresponding baselines
+        /// </summary>
+        public static int[] ReadMissing(EulerContext existingContext)
+        {
+            var problemsWithoutBaselines = from probs in existingContext.Problems
+                                            join bases in existingContext.Baselines
                                             on probs.id equals bases.id
-                                            select bases;
-                return problemsWithBaselines.ToArray();
-            }
-                
-        }
-        public static void WriteNewBaseline(Baseline b)
-        {
-            using (var db = new EulerContext())
-            {
-                db.Baselines.Add(b);
-                db.SaveChanges();
-            }
+                                            into leftSide
+                                            from rightSide in leftSide.DefaultIfEmpty()
+                                            where rightSide == null
+                                            select probs.id;
+            return problemsWithoutBaselines.ToArray();
+            
         }
 
     }
