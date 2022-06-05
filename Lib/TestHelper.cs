@@ -87,9 +87,21 @@ namespace EulerProblems.Lib
                         double percentile90 = runs.OrderByDescending(x => x.duration)
                             .ToArray()[cutoffFor90].duration;
                         // update the baseline table
-                        var rowToUpdate = context.Baselines.Where(x => x.id == problemId).First();
-                        rowToUpdate.averageDuration = averageDuration;
-                        rowToUpdate.percentile90Duration = percentile90;
+                        var rowToUpdate = context.Baselines.Where(x => x.id == problemId).FirstOrDefault();
+                        if (rowToUpdate == null)
+                        {
+                            context.Add(new Baseline()
+                            {
+                                id = problemId,
+                                averageDuration = averageDuration,
+                                percentile90Duration = percentile90
+                            });
+                        }
+                        else
+                        {
+                            rowToUpdate.averageDuration = averageDuration;
+                            rowToUpdate.percentile90Duration = percentile90;
+                        }
                         context.SaveChanges();
                         dbContextTransaction.Commit();
                     }
