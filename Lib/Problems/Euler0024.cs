@@ -14,7 +14,7 @@ namespace EulerProblems.Lib.Problems
         protected override void Run()
         {
 			//Run_slow(); // 5220 ms
-			Run_elegant();
+			Run_elegant(); // 0.9 ms
         }
 		private void Run_elegant()
         {
