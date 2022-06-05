@@ -8,10 +8,10 @@ using EulerProblems.Lib.DAL.Data;
 //TemplateManager.CreateNewProblemFilesFromTemplate(48, 100);
 //TestHelper.AddRunsForBenchmarking();
 //TestHelper.AddRuns(9);
-TestHelper.ReBaselineProblem(57);
+TestHelper.ReBaselineProblem(60);
 //TestHelper.BenchMarkNewSolutions();
 
-var euler = EulerProblemFactory.GetEulerProblemClassByNumber(57);
+var euler = EulerProblemFactory.GetEulerProblemClassByNumber(60);
 euler.Solve();
 
 

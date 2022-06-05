@@ -93,7 +93,6 @@ namespace EulerProblems.Lib.Problems
 				priorDenominatorXL = newDenominatorXL;
 			}
 
-
 			PrintSolution(answer.ToString());
 			return;
 		}
