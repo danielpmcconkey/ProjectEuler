@@ -1,4 +1,4 @@
-//#define SHOULDRUNREGRESSION
+#define SHOULDRUNREGRESSION
 
 using EulerProblems.Lib;
 using EulerProblems.Lib.DAL.Data;
@@ -15,7 +15,7 @@ namespace TestBench
         [TestMethod]
         public void CheckSolutions()
         {
-            Problem[] problems = ProblemDbOps.FetchSolvedProblems();
+            Problem[] problems = ProblemDbOps.ReadSolved();
 
             foreach (var problem in problems)
             {

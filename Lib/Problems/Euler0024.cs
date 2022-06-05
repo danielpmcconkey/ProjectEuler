@@ -13,6 +13,46 @@ namespace EulerProblems.Lib.Problems
         }
         protected override void Run()
         {
+			//Run_slow(); // 5220 ms
+			Run_elegant();
+        }
+		private void Run_elegant()
+        {
+			/* 
+			 * The millionth lexographical permutation must start with a 2. A 
+			 * little mathematics tells us that the total number of 
+			 * permutations of 10 values is 10 factorial, which is 3,628,800. 
+			 * With that as the case, there must be one tenth that many 
+			 * (362,880) that start with each of the digits. 362,880 that start
+			 * with 0. 725,760 that start with 0 or 1. And so we know we must 
+			 * cross the millionth permutation threshold somewhere in the 2s.
+			 * 
+			 * ...can we apply this logic for more than the first digit?
+			 * 
+			 * */
+			string answer = string.Empty;
+			List<int> numeralsLeft = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			int startValue = 0;
+			int targetPosition = 1000000;
+			for(int howManyDigitsAreLeft = 10; howManyDigitsAreLeft > 0; howManyDigitsAreLeft--)
+            {
+				int howMuchIsLeft = targetPosition - startValue;
+				int totalNumberOfPermutations = (int)CommonAlgorithms.GetFactorial(howManyDigitsAreLeft);
+				int countPerDigit = (int)Math.Round(
+					totalNumberOfPermutations / (double)howManyDigitsAreLeft, 0);
+				int whichBlock = (int)Math.Floor((double)(howMuchIsLeft - 1)/ countPerDigit);
+				int thisDigit = numeralsLeft[whichBlock];
+				answer += thisDigit.ToString();
+				List<int> newNumeralsLeft = new List<int>();
+				foreach (var n in numeralsLeft) if (n != thisDigit) newNumeralsLeft.Add(n);
+				numeralsLeft = newNumeralsLeft;
+				startValue += (countPerDigit * whichBlock );
+			}
+			PrintSolution(answer);
+			return;
+		}
+		private void Run_slow()
+        {
 			/*
              * I just want to show off the rad SQL I wrote
              * to first solve this problem. I wrote a linq
@@ -21,7 +61,7 @@ namespace EulerProblems.Lib.Problems
              * I know there's a better way though.
              * */
 
-            #region radSQL
+			#region radSQL
 			const string radSQL = @"
                                  * 
                     drop table numerals;
@@ -126,7 +166,7 @@ namespace EulerProblems.Lib.Problems
 
 			int[] numerals = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			int[][] permutations = CommonAlgorithms.GetAllLexicographicPermutationsOfIntArray(numerals);
-			
+						
 			//Console.WriteLine(permutations.Length);
 
 			string answer = string.Empty;
