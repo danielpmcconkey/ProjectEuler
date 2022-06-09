@@ -690,6 +690,24 @@ namespace EulerProblems.Lib
             }
             return true;
         }
+        internal static bool isSGonal(int n, int s)
+        {
+            // used to determine if a number is polygonal basen on S sides
+            // so if S is 3, check is triagular. If s is 5, check is
+            // pentagonal
+
+            // 3 and 5 have easy short-cut functions
+            if (s == 3) return IsTriangular(n);
+            if (s == 5) return IsPentagonal(n);
+
+            // other sides do not
+            // take a look at https://math.stackexchange.com/questions/184417/formulas-for-finding-out-if-a-number-is-heptagonal-or-octagonal
+
+            double x = (Math.Sqrt(n * (8 * s - 16) + Math.Pow(s - 4, 2)) + s - 4) / (2 * s - 4);
+            double xMod1 = x % 1;
+            if (xMod1 == 0) return true;
+            return false; 
+        }
         internal static bool IsPandigital(long n)
         {
             int[] digits = ConvertLongToIntArray(n);
