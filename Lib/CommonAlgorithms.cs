@@ -741,6 +741,12 @@ namespace EulerProblems.Lib
             }
             return false;
         }
+        internal static bool IsPerfectCube(long n)
+        {
+            int cubeRootApprox = (int)Math.Round(Math.Pow(n, 1d / 3d));
+            if ((long)Math.Pow(cubeRootApprox, 3) == n) return true;
+            return false;
+        }
         internal static bool IsPerfectSquare(long n)
         {
             double result = Math.Sqrt(n);
