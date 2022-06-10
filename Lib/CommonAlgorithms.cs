@@ -217,6 +217,48 @@ namespace EulerProblems.Lib
             BigInteger answer =  nFact/ (rFact * nMinusRFact);
             return answer;
         }
+        internal static (int alpha_0, int[] repeatingAlphas) GetContinuedFractionOfSquareRootOfN(int n)
+        {
+            // how to find the continued fraction that represents a square root
+            // https://math.stackexchange.com/questions/265690/continued-fraction-of-a-square-root
+            // https://www.johndcook.com/blog/2020/08/04/continued-fraction-sqrt/
+            // https://en.wikipedia.org/wiki/Continued_fraction#Calculating_continued_fraction_representations
+            // https://en.wikipedia.org/wiki/Periodic_continued_fraction#Canonical_form_and_repetend
+            // https://web.archive.org/web/20151221205104/http://web.math.princeton.edu/mathlab/jr02fall/Periodicity/mariusjp.pdf
+
+            int a_0 = (int)Math.Floor(Math.Sqrt(n * 1.0));
+            int twiceAlpha_0 = a_0 * 2; // used for seeing if we've reached our stopping point
+            int b_0 = a_0;
+            int c_0 = n - (a_0 * a_0);
+
+            // initialize starter values
+            int b_i = b_0;
+            int c_i = c_0;
+            List<int> alphas = new List<int>();
+            while (true)
+            {
+                int a_i = (a_0 + b_i) / c_i;
+                alphas.Add(a_i);
+                b_i = (a_i * c_i) - b_i;
+                c_i = (n - b_i * b_i) / c_i;
+
+                // check if we're done
+                if (a_i == twiceAlpha_0)
+                {
+                    // check if the alphas form a palindrome
+                    if (alphas.Count < 2)
+                    {
+                        return (a_0, alphas.ToArray());
+                    }
+
+                    var subSet = alphas.ToArray()[0..(alphas.Count - 1)];
+                    if (IsPalindromic(subSet))
+                    {
+                        return (a_0, alphas.ToArray());
+                    }
+                }
+            }
+        }
         /// <summary>
         /// used for standard factorials on tame numbers
         /// if nubers are large, use the long form function
@@ -642,19 +684,8 @@ namespace EulerProblems.Lib
         internal static bool IsIntPalindromic(int n)
         {
             char[] intAsCharArray = n.ToString().ToCharArray();
-            int numberOfDigits = intAsCharArray.Length;
-            int halfWayPoint = (numberOfDigits / 2) + 1;
-
-            for (int i = 0; i < halfWayPoint; i++)
-            {
-                char checkLeft = intAsCharArray[i];
-                char checkRight = intAsCharArray[numberOfDigits - i - 1];
-                if (checkLeft != checkRight)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return IsPalindromic(intAsCharArray);
+            
         }
         internal static bool IsIntPalindromic(BigNumber n)
         {
@@ -684,6 +715,23 @@ namespace EulerProblems.Lib
                 char checkLeft = intAsCharArray[i];
                 char checkRight = intAsCharArray[numberOfDigits - i - 1];
                 if (checkLeft != checkRight)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        internal static bool IsPalindromic<T>(T[] checkList)
+        {
+            int numberOfDigits = checkList.Length;
+            int halfWayPoint = (numberOfDigits / 2) + 1;
+
+            for (int i = 0; i < halfWayPoint; i++)
+            {
+                T checkLeft = checkList[i];
+                T checkRight = checkList[numberOfDigits - i - 1];
+                EqualityComparer<T> comparer = EqualityComparer<T>.Default;
+                if (!comparer.Equals(checkLeft, checkRight))
                 {
                     return false;
                 }

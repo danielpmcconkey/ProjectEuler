@@ -11,7 +11,7 @@ using EulerProblems.Lib.DAL.Data;
 //TestHelper.ReBaselineProblem(60);
 //TestHelper.BenchMarkNewSolutions();
 
-var euler = EulerProblemFactory.GetEulerProblemClassByNumber(62);
+var euler = EulerProblemFactory.GetEulerProblemClassByNumber(64);
 euler.Solve();
 
 
