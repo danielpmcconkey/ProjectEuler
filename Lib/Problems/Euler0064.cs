@@ -74,6 +74,7 @@ namespace EulerProblems.Lib.Problems
 
 			// get all the perfect squares below 10,000
 			const int limit = 10000;
+			Math.Sqrt(2);
 			bool[] perfectSquareBools = new bool[limit + 1];
 			for(int i = 2; true; i++)
             {
@@ -87,7 +88,7 @@ namespace EulerProblems.Lib.Problems
             {
 				if (perfectSquareBools[n]) continue;
 				var continuedFraction = CommonAlgorithms.GetContinuedFractionOfSquareRootOfN(n);
-				int repeatLength = continuedFraction.repeatingAlphas.Length;
+				int repeatLength = continuedFraction.subsequentCoefficients.Length;
 				if (repeatLength % 2 == 1)
 				{
 					answer++;

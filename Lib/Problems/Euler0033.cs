@@ -63,7 +63,8 @@ namespace EulerProblems.Lib.Problems
 				productDenominator *= fraction.denominator;
 			}
 			Fraction product = new Fraction(productNumerator, productDenominator);
-			product.Reduce();
+			product = FractionCalculator.Reduce(product);
+			
 			PrintSolution(product.denominator.ToString());
 			return;
 		}

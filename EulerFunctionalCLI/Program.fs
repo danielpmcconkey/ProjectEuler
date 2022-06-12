@@ -1,5 +1,5 @@
 ﻿open System
-open Euler002
+open Test
 
 let stopWatch = System.Diagnostics.Stopwatch()
 stopWatch.Start()

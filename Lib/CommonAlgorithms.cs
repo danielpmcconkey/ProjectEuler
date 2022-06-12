@@ -40,6 +40,16 @@ namespace EulerProblems.Lib
             }
             return newArray;
         }
+        internal static int[] ConvertBigToIntArray(BigInteger n)
+        {
+            char[] chars = n.ToString().ToCharArray();
+            int[] digits = new int[chars.Length];
+            for(int i = 0; i < chars.Length; i++)
+            {
+                digits[i] = int.Parse(chars[i].ToString());
+            }
+            return digits;
+        }
         internal static int ConvertIntArrayToInt(int[] array)
         {
             int outVal = 0;
@@ -217,7 +227,7 @@ namespace EulerProblems.Lib
             BigInteger answer =  nFact/ (rFact * nMinusRFact);
             return answer;
         }
-        internal static (int alpha_0, int[] repeatingAlphas) GetContinuedFractionOfSquareRootOfN(int n)
+        internal static ContinuedFraction GetContinuedFractionOfSquareRootOfN(int n)
         {
             // how to find the continued fraction that represents a square root
             // https://math.stackexchange.com/questions/265690/continued-fraction-of-a-square-root
@@ -226,7 +236,7 @@ namespace EulerProblems.Lib
             // https://en.wikipedia.org/wiki/Periodic_continued_fraction#Canonical_form_and_repetend
             // https://web.archive.org/web/20151221205104/http://web.math.princeton.edu/mathlab/jr02fall/Periodicity/mariusjp.pdf
 
-            int a_0 = (int)Math.Floor(Math.Sqrt(n * 1.0));
+            int a_0 = (int)Math.Floor(Math.Sqrt(n));
             int twiceAlpha_0 = a_0 * 2; // used for seeing if we've reached our stopping point
             int b_0 = a_0;
             int c_0 = n - (a_0 * a_0);
@@ -248,13 +258,23 @@ namespace EulerProblems.Lib
                     // check if the alphas form a palindrome
                     if (alphas.Count < 2)
                     {
-                        return (a_0, alphas.ToArray());
+                        return new ContinuedFraction()
+                        {
+                            firstCoefficient = a_0,
+                            subsequentCoefficients = alphas.ToArray(),
+                            doCoefficientsRepeat = true
+                        };
                     }
 
                     var subSet = alphas.ToArray()[0..(alphas.Count - 1)];
                     if (IsPalindromic(subSet))
                     {
-                        return (a_0, alphas.ToArray());
+                        return new ContinuedFraction()
+                        {
+                            firstCoefficient = a_0,
+                            subsequentCoefficients = alphas.ToArray(),
+                            doCoefficientsRepeat = true
+                        };
                     }
                 }
             }
@@ -288,6 +308,37 @@ namespace EulerProblems.Lib
                 answer = BigNumberCalculator.Multiply(answer, multiplier);
             }
             return answer;
+        }
+        internal static BigInteger[] GetFactors(BigInteger n)
+        {
+            if (n <= 0) throw new ArgumentException("n must be greater than 0");
+
+            List<BigInteger> factors = new List<BigInteger>();
+            if (n == 1)
+            {
+                factors.Add(1);
+                return factors.ToArray();
+            }
+
+            BigInteger maxVal = n / 2; // no sense looking at anything above half
+            BigInteger lowestOppositeFactor = n;
+
+            for (long i = 1; i <= maxVal; i++)
+            {
+                if (i >= lowestOppositeFactor) return factors.ToArray();
+                if (n % i == 0)
+                {
+                    factors.Add(i);
+                    // also add the opposite factor
+                    BigInteger oppositeFactor = n / i;
+                    if (oppositeFactor != i)
+                    {
+                        factors.Add(oppositeFactor);
+                    }
+                    lowestOppositeFactor = oppositeFactor;
+                }
+            }
+            return factors.ToArray();
         }
         internal static long[] GetFactors(long n)
         {
