@@ -6,10 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Problems\Test.fs" />
+    <Compile Include="Algorithms.fs" />
     <Compile Include="Problems\Euler001.fs" />
     <Compile Include="Problems\Euler002.fs" />
-    <Compile Include="Algorithms.fs" />
+    <Compile Include="Problems\Euler003.fs" />
+    <Compile Include="Problems\Euler004.fs" />
+    <Compile Include="Problems\Euler065.fs" />
+    <Compile Include="Problems\Test.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
