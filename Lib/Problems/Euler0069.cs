@@ -24,9 +24,10 @@ namespace EulerProblems.Lib.Problems
 			 * stole from an F# tutorial I was learning earlier this week. But
 			 * even that took almost 4 minutes just to get the cache of prime 
 			 * factors. I killed the program after it ran for another several 
-			 * minutes and n was still only up to about 100k. (I later let the 
-			 * brute force version run to completion and it took 00:00:00 to 
-			 * get the correct answer.)
+			 * minutes and n was still only up to about 100k. I later tried to
+			 * let the brute force version run to completion just to see how 
+			 * long it would actually take. I killed that run after 55 minutes
+			 * when it hadn't even gotten to n = 500,000. Not cool.
 			 * 
 			 * I knew I was doing it wrong, but it took me a bit to realize 
 			 * that I was thinking about it backwards. The goal is to find the
@@ -81,7 +82,7 @@ namespace EulerProblems.Lib.Problems
 			 * 
 			 * */
 
-			Run_bruteForce(); // never finishes
+			//Run_bruteForce(); // never finishes
 			Run_elegant();
 		}
 		private void Run_elegant()
