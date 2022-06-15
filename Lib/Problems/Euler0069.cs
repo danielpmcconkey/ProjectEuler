@@ -33,7 +33,7 @@ namespace EulerProblems.Lib.Problems
 			 * that I was thinking about it backwards. The goal is to find the
 			 * highest n divided by phi n. That means that I want to find the n
 			 * that has the fewest relative primes (totients?). And that, in 
-			 * turn means that I want to find numbers that have a LOT of 
+			 * turn, means that I want to find numbers that have a LOT of 
 			 * factors.
 			 * 
 			 * So I started thinking through numbers like 6, 12, 60, 360 but I 

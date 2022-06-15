@@ -27,6 +27,19 @@ namespace EulerProblems.Lib
             }
             return listSorted.ToArray();
         }
+        internal static bool AreTwoIntegersPermutationsOfEachOther(int n, int m)
+        {
+            var nAsArray = ConvertIntToIntArray(n);
+            var mAsArray = ConvertIntToIntArray(m);
+            if (nAsArray.Length != mAsArray.Length) return false;
+            Array.Sort(nAsArray);
+            Array.Sort(mAsArray);
+            for(int i = 0; i < nAsArray.Length; i++)
+            {
+                if (nAsArray[i] != mAsArray[i]) return false;
+            }
+            return true;
+        }
         internal static T[] ArraySwap<T>(T[] array, int indexOfSwap1, int indexOfSwap2)
         {
             T valueAtSwap1 = array[indexOfSwap1];
