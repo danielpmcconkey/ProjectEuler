@@ -93,16 +93,16 @@ namespace EulerProblems.Lib.Problems
 			// create a starting point that mimics the end of the last iteration
 			int startingNumber = 646;
 			int[] primeFactorsOfI = new int[0];
-			int[] primeFactorsOfIMinus1 = CommonAlgorithms.GetPrimeFactors(startingNumber - 1, primes);
-			int[] primeFactorsOfIMinus2 = CommonAlgorithms.GetPrimeFactors(startingNumber - 2, primes);
-			int[] primeFactorsOfIMinus3 = CommonAlgorithms.GetPrimeFactors(startingNumber - 3, primes);
+			int[] primeFactorsOfIMinus1 = CommonAlgorithms.GetPrimeFactors(startingNumber - 1);
+			int[] primeFactorsOfIMinus2 = CommonAlgorithms.GetPrimeFactors(startingNumber - 2);
+			int[] primeFactorsOfIMinus3 = CommonAlgorithms.GetPrimeFactors(startingNumber - 3);
 
 			for (int i = startingNumber; true; i++)
             {
 				if (i > int.MaxValue) throw new OverflowException();
 
 				// update factors of i
-				primeFactorsOfI = CommonAlgorithms.GetPrimeFactors(i, primes);
+				primeFactorsOfI = CommonAlgorithms.GetPrimeFactors(i);
 				if(
 					primeFactorsOfI.Length >= targetPrimeCount
 					&& primeFactorsOfIMinus1.Length >= targetPrimeCount

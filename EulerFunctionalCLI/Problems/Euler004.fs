@@ -17,9 +17,9 @@ let run () =
         let ordersOfMagnitudeToSupport = 12
         let digits = [0 .. 10]
         let OOMs = [ 0 .. ordersOfMagnitudeToSupport ]
-
-        let convergence = List.fold (fun x y -> digitsAtOOM x y) digits OOMs
-        convergence
+        OOMs
+        //let convergence = List.fold (fun x y -> digitsAtOOM x y) digits OOMs
+        //convergence
         //for i in 0..ordersOfMagnitudeToSupport do
         //    let digitCandidate = digitsAtOOM i
         //    if digitCandidate <> -1 then digitCandidate::digits

@@ -516,13 +516,16 @@ namespace EulerProblems.Lib
             }
             return currentOOM;
         }
-        internal static int[] GetPrimeFactors(int n, bool[] primes)
+        internal static int[] GetPrimeFactors(int n)
         {
-            int[] factors = GetFactors(n);
             List<int> primeFactors = new List<int>();
-            foreach(int f in factors)
+            for (var i = 2; i <= n; i++)
             {
-                if (primes[f]) primeFactors.Add(f);
+                while (n % i < 1)
+                {
+                    primeFactors.Add(i);
+                    n /= i;
+                }
             }
             return primeFactors.ToArray();
         }
