@@ -45,14 +45,14 @@ namespace EulerProblems.Lib.Problems
 			 * the brute force method had previously produced the following 
 			 * result log:
 			 * 
-			 *      n at 21 is relatively prime to 12 numbers with a DivRPCount of 1.75
-			 *      n at 291 is relatively prime to 192 numbers with a DivRPCount of 1.515625
-			 *      n at 2817 is relatively prime to 1872 numbers with a DivRPCount of 1.5048077
-			 *      n at 2991 is relatively prime to 1992 numbers with a DivRPCount of 1.501506
-			 *      n at 4435 is relatively prime to 3544 numbers with a DivRPCount of 1.2514108
-			 *      n at 20617 is relatively prime to 20176 numbers with a DivRPCount of 1.0218576
-			 *      ...
-			 *      
+			 *    n at 21 is relatively prime to 12 numbers with a DivRPCoun...
+			 *    n at 291 is relatively prime to 192 numbers with a DivRPCo...
+			 *    n at 2817 is relatively prime to 1872 numbers with a DivRP...
+			 *    n at 2991 is relatively prime to 1992 numbers with a DivRP...
+			 *    n at 4435 is relatively prime to 3544 numbers with a DivRP...
+			 *    n at 20617 is relatively prime to 20176 numbers with a Div...
+			 *    ...
+			 *    
 			 * The program logged n every time n / phi of n hit a new low. Not
 			 * shown here, but I had logged the first 23 such n values. So, 
 			 * after I'd narrowed down my phi list, I checked each of these 
@@ -62,7 +62,7 @@ namespace EulerProblems.Lib.Problems
 			 * up and just ran with a phi list that only contained primes, and
 			 * the products of 2 primes. 
 			 * 
-			 * In ran in 5 seconds and gave me a Euler-accepted answer. After 
+			 * It ran in 5 seconds and gave me a Euler-accepted answer. After 
 			 * reading the Euler thread, I was able to optimize it a bit 
 			 * further limiting my product of 2 primes to be 2 primes that 
 			 * stick close to the square root of 10MM. I never found any good
