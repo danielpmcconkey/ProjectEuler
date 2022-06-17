@@ -118,6 +118,22 @@ namespace EulerProblems.Lib.Problems
 			 * 
 			 * QED
 			 * 
+			 * Edit next morning: I had a suspicion that my 
+			 * FractionCalculator.Reduce was causing a slow-down and wondered 
+			 * if I actually needed it. That's when I saw this:
+			 * 
+			 *    FractionCalculator.Reduce(lf);
+			 * 
+			 * Not lf = FractionCal... Just a reduction w/ the output being 
+			 * ignored F# would've thrown a stern warning. C# has no problems
+			 * with such. 
+			 * 
+			 * So I actually reduced lf and it gave the wrong answer. For some
+			 * reason, my ceiling and floor swap described above was giving
+			 * weird results. The numerator was right, but the denominator was
+			 * wrong. So I was back to 20+ seconds of run. But yeah. I then 
+			 * took out the reduction and zoom. 408 milliseconds.
+			 * 
 			 * */
 
 			// Run_bruteForce(); // Elapsed time: 77691.532 milliseconds (but really 5 mins if I started at 2/5)
@@ -135,15 +151,14 @@ namespace EulerProblems.Lib.Problems
 			{
 				// what's the closest thing (but over) to current champion in this denomination?
 				decimal oneOverD = 1 / (decimal)d;
-				int start = (int)Math.Ceiling(currentChampionAsD / oneOverD);
+				int start = (int)Math.Floor(currentChampionAsD / oneOverD);
 
 				// what's the closest thing (but under) to 3/7 in this denomination?
-				int end = (int)Math.Floor(threeSeventhsAsD / oneOverD);
+				int end = (int)Math.Ceiling(threeSeventhsAsD / oneOverD);
 
 				for (int n = start + 1; n < end; n++)
 				{
 					LongFraction lf = new LongFraction(n, d);
-					FractionCalculator.Reduce(lf);
 					if (lf.numerator <= dMax && lf.denominator <= dMax)
 					{
 						if(lf.CompareTo(currentChampion) > 0 && lf.CompareTo(threeSevenths) < 0)
@@ -155,6 +170,7 @@ namespace EulerProblems.Lib.Problems
 					}
 				}
 			}
+			var test = FractionCalculator.Reduce(currentChampion);
 			long answer = currentChampion.numerator;
 			PrintSolution(answer.ToString());
 			return;
