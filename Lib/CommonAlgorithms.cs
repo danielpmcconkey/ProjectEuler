@@ -40,6 +40,23 @@ namespace EulerProblems.Lib
             }
             return true;
         }
+        internal static bool AreTwoNumbersRelativelyPrime(int m, int n, int[][] primeFactors)
+        {
+            if (m == 1 || n == 1) return true;
+            var f_n = primeFactors[n].Distinct();
+            var f_m = primeFactors[m].Distinct();
+            var factorsInCommon =
+                from f1 in f_n
+                join f2 in f_m
+                on f1 equals f2
+                select new { f1, f2 };
+
+            if (factorsInCommon.Count() == 0)
+            {
+                return true;
+            }
+            return false;
+        }
         internal static T[] ArraySwap<T>(T[] array, int indexOfSwap1, int indexOfSwap2)
         {
             T valueAtSwap1 = array[indexOfSwap1];
@@ -52,6 +69,18 @@ namespace EulerProblems.Lib
                 else newArray[i] = array[i];
             }
             return newArray;
+        }
+        internal static bool CanFractionBeReduced(Fraction f)
+		{
+            if(f.numerator % 2 == 0 && f.denominator % 2 == 0) return true;
+            if (GetGreatestCommonDivisor(f.numerator, f.denominator) == 1) return false;
+            return true;
+		}
+        internal static bool CanFractionBeReduced(LongFraction f)
+        {
+            if (f.numerator % 2 == 0 && f.denominator % 2 == 0) return true;
+            if (GetGreatestCommonDivisor(f.numerator, f.denominator) == 1) return false;
+            return true;
         }
         internal static int[] ConvertBigToIntArray(BigInteger n)
         {
@@ -485,6 +514,28 @@ namespace EulerProblems.Lib
             }
             return triangularNumbers;
         }
+        public static int GetGreatestCommonDivisor(int a, int b)
+		{
+            var r = a % b;
+            while (r != 0)
+			{
+                a = b;
+                b = r;
+                r = a % b;
+			}
+            return b;
+		}
+        public static long GetGreatestCommonDivisor(long a, long b)
+        {
+            var r = a % b;
+            while (r != 0)
+            {
+                a = b;
+                b = r;
+                r = a % b;
+            }
+            return b;
+        }
         public static int GetGridOrdinalFromPosition(int gridWidth, int row, int column)
         {
             return (row * gridWidth) + column;
@@ -661,6 +712,25 @@ namespace EulerProblems.Lib
                 sum += i;
             }
             return (long)Math.Pow(sum, 2);
+        }
+        internal static List<int>[] GetUniquePrimeFactorsUpToN(int n)
+        {
+            var primes = GetPrimesUpToN(n + 1);
+            List<int>[] arrayOfLists = new List<int>[n + 1];
+            for(int i = 0; i <= n; i++) arrayOfLists[i] = new List<int>();
+
+            // for each prime, add it to the list for all multiples of the prime
+            for(int i = 0; i < primes.Length; i++)
+			{
+                var p = primes[i];
+                var p_ = p;
+                while (p_ <= n)
+				{
+                    arrayOfLists[p_].Add(p);
+                    p_ += p;
+				}
+			}
+            return arrayOfLists;
         }
         internal static bool IsAmicableNumber(long n)
         {

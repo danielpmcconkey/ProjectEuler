@@ -14,7 +14,7 @@ namespace EulerProblems.Lib.DAL.Models
         [Column("id", TypeName="integer")]        
         public int id { get; set; }
         [Column("name", TypeName = "varhcar(250)")]
-        public string name { get; set; } = null!;
+        public string? name { get; set; } = null!;
         [Column("solution", TypeName = "varchar(250)")]
         public string solution { get; set; } = null!;
     }

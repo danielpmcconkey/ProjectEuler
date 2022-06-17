@@ -11,7 +11,7 @@ namespace EulerProblems.Lib
             int[] problemsWithoutBenchmarks = BaselineDbOps.ReadMissing();
             foreach (int id in problemsWithoutBenchmarks)
             {
-                BenchMarkPerformanceResults(id);
+                ReBaselineProblem(id);
             }
         }
         public static void AddRunsForBenchmarking()
