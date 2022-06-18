@@ -112,7 +112,7 @@ namespace EulerProblems.Lib.Problems
 			long answer = 0;
 			for (int d = 2; d <= dMax; d++)
 			{
-				var distinctPrimes = primeFactors[d].Distinct();
+				var distinctPrimes = primeFactors[d];
 				long product_pf = distinctPrimes.Aggregate(1, (n, m) => n * m);
 				long product_pfMinus = distinctPrimes.Aggregate(1, (n, m) => n * subtract1(m));
 				long newCount_calc = (long)Math.Round(d * (product_pfMinus / (float)product_pf));

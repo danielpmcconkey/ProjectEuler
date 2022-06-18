@@ -40,7 +40,7 @@ namespace EulerProblems.Lib
             }
             return true;
         }
-        internal static bool AreTwoNumbersRelativelyPrime(int m, int n, int[][] primeFactors)
+		internal static bool AreTwoNumbersRelativelyPrime(int m, int n, int[][] primeFactors)
         {
             if (m == 1 || n == 1) return true;
             var f_n = primeFactors[n].Distinct();
@@ -69,18 +69,6 @@ namespace EulerProblems.Lib
                 else newArray[i] = array[i];
             }
             return newArray;
-        }
-        internal static bool CanFractionBeReduced(Fraction f)
-		{
-            if(f.numerator % 2 == 0 && f.denominator % 2 == 0) return true;
-            if (GetGreatestCommonDivisor(f.numerator, f.denominator) == 1) return false;
-            return true;
-		}
-        internal static bool CanFractionBeReduced(LongFraction f)
-        {
-            if (f.numerator % 2 == 0 && f.denominator % 2 == 0) return true;
-            if (GetGreatestCommonDivisor(f.numerator, f.denominator) == 1) return false;
-            return true;
         }
         internal static int[] ConvertBigToIntArray(BigInteger n)
         {
@@ -514,7 +502,7 @@ namespace EulerProblems.Lib
             }
             return triangularNumbers;
         }
-        public static int GetGreatestCommonDivisor(int a, int b)
+        public static int GetGreatestCommonFactor(int a, int b)
 		{
             var r = a % b;
             while (r != 0)
@@ -525,7 +513,7 @@ namespace EulerProblems.Lib
 			}
             return b;
 		}
-        public static long GetGreatestCommonDivisor(long a, long b)
+        public static long GetGreatestCommonFactor(long a, long b)
         {
             var r = a % b;
             while (r != 0)

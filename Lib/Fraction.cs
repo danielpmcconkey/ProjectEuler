@@ -177,6 +177,34 @@ namespace EulerProblems.Lib
             if (shouldReduce) return Reduce(unReducedAddition);
             return unReducedAddition;
         }
+        internal static bool CanFractionBeReduced(Fraction f)
+        {
+            if (f.numerator % 2 == 0 && f.denominator % 2 == 0) return true;
+            if (CommonAlgorithms.GetGreatestCommonFactor(f.numerator, f.denominator) == 1) return false;
+            return true;
+        }
+        internal static bool CanFractionBeReduced(Fraction f, List<int>[] primeFactors)
+        {
+            var numeratorFactors = primeFactors[f.numerator];
+            var denominatorFactors = primeFactors[f.denominator];
+
+            for (int i = numeratorFactors.Count - 1; i >= 0; i--)
+            {
+                var n = numeratorFactors[i];
+                if (n != 1 && denominatorFactors.Contains(n))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        internal static bool CanFractionBeReduced(LongFraction f)
+        {
+            if (f.numerator % 2 == 0 && f.denominator % 2 == 0) return true;
+            if (CommonAlgorithms.GetGreatestCommonFactor(f.numerator, f.denominator) == 1) return false;
+            return true;
+        }
         public static Fraction Divide(Fraction f1, Fraction f2, bool shouldReduce = true)
         {
             var inverseF2 = Recriprocate(f2);
