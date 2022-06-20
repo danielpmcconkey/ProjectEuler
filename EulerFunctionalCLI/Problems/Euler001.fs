@@ -3,10 +3,21 @@
 
 let run () =
 
-    let multiples = seq { for i in 1..999 do if (i % 3 = 0 || i % 5 = 0) then yield i}
-    
-    
-    multiples
+    let limit = 1000
+
+    let isDiv3or5 n =
+        if n % 3 = 0 || n % 5 = 0  then true
+        else false
+
+    isDiv3or5 9
+    let allProductsOf305 = 
+        seq { 
+            for n in 1 .. (limit - 1) do
+                if isDiv3or5 n then 
+                    n
+        }
+
+    allProductsOf305
     |> Seq.sum
     
 
