@@ -1,30 +1,33 @@
 ﻿module Algorithms
 
-let convertIntToIntArray n =
+
+let convertIntToIntSequence n =  
+    seq { 
+        for pow10 in 0..12 do 
+            let floatN = float n
+            let floatPow10 = float pow10
+            if floatN > 10.0 ** pow10 then 
+                int (floor (floatN % (10.0 ** (floatPow10 + 1.0)) / (10.0 ** floatPow10)))        
+        }
+    |> Seq.rev
+
+let convertIntToArray n = n |> convertIntToIntSequence |> Seq.toArray
+
+let isPalindrome (n : int)  =
+
+    let intArray = convertIntToArray n
+    let length = intArray.Length
+    let halfWayPoint = (length / 2) + 1
+    let seqOfTruths =
+        seq {
+            for i in 0 .. halfWayPoint do
+                let checkLeft = intArray[i]
+                let checkRight = intArray[length - i - 1]
+                if checkLeft = checkRight then 0 else 1
+            }
     
-    let getDigitAtPow10 (n: int) (pow10: int) = 
-
-        let floatN = float n
-        let floatPow10 = float pow10
-        if floatN >= 10.0 ** pow10 then
-            int (floor (floatN % (10.0 ** (floatPow10 + 1.0)) / (10.0 ** floatPow10)))
-        else
-            int 0
-
-    let countSignificantDigits a b = 
-        if a > 0 then 
-            a + 1
-        else 
-            if b = 0 then 0
-            else 1
-
-    let ordersOfMagnitudeToSupport = 12;
-    let (arrayOfDigits: int[]) = [| for i in 0 .. ordersOfMagnitudeToSupport -> getDigitAtPow10 n i |]
-    let reversed = Array.rev arrayOfDigits
-    let significantDigits = (Seq.fold (fun a -> countSignificantDigits a) 0 reversed) - 1
-    let arrayStart = reversed.Length - significantDigits - 1
-    let arrayEnd = reversed.Length - 1
-    reversed[arrayStart..arrayEnd]
+    let sumOfTruths = Seq.sum seqOfTruths
+    if sumOfTruths = 0 then true else false
 
 let sumOfDigitFactorials n = 
     
@@ -35,11 +38,9 @@ let sumOfDigitFactorials n =
         | 0 | 1 -> 1
         | _ -> n * factorial(n-1)
 
-    let digits = convertIntToIntArray n
+    let digits = convertIntToArray n
     let factorialSum = (Seq.fold (fun a b -> a + factorial b) 0 digits)
     factorialSum
-
-
 
 let primeFactorsLong (n : int64) :List<int64> =
     (* 
@@ -68,7 +69,6 @@ let primeFactorsLong (n : int64) :List<int64> =
     let emptyFactorsSet : List<int64> = []
     recurse n 2L emptyFactorsSet
 
-
 let getPrimeFactorsOfInt n =
     
     // code adapted from https://www.markheath.net/post/finding-prime-factors-in-f
@@ -86,7 +86,6 @@ let getPrimeFactorsOfInt n =
     let factorize n = testFactorRecursively n 2 []
     factorize n
 
-
 let createAppendedIntArray (origArray : int[]) (newVal : int) =
 
     let newArray = Array.zeroCreate<int> (origArray.Length + 1)
@@ -96,3 +95,12 @@ let createAppendedIntArray (origArray : int[]) (newVal : int) =
             else Array.set newArray i origArray[i]
 
     newArray
+
+let getFibonacciSeq limit = 
+    (1, 1) // initial state
+    |> Seq.unfold ( 
+        fun state -> 
+            if ( fst state + snd state > limit ) 
+                then None 
+                else Some (fst state + snd state, (snd state, fst state + snd state))
+    )

@@ -1,8 +1,5 @@
 ﻿module Euler074
 
-open Algorithms
-
-
 type DigitalFactorialChain = {
     n : int;
     length : int;
@@ -26,7 +23,7 @@ let run () =
         let appendDigitalFactorialChain (newChainElement:int) (dfc:DigitalFactorialChain) =
 
             let oldElements = dfc.chain
-            let appended:int[] = createAppendedIntArray oldElements newChainElement
+            let appended:int[] = Algorithms.createAppendedIntArray oldElements newChainElement
             
 
             let newDfc : DigitalFactorialChain = {
@@ -41,7 +38,7 @@ let run () =
             // starting pos. This is the workhorse of this solution
 
             if dictionary[n] = theValueOfUnknownCount then 
-                let sumOfFacts = sumOfDigitFactorials n
+                let sumOfFacts = Algorithms.sumOfDigitFactorials n
                 let newCurrentChain = appendDigitalFactorialChain n currentChain
                 getRepeatChain sumOfFacts newCurrentChain dictionary
             else  
@@ -76,7 +73,7 @@ let run () =
             chain to. This is not very FP idiomatic and I'd like to figure out
             how to do this right
         *)
-        let biggestPossibleFatorialSum = 1 + (sumOfDigitFactorials 999999)
+        let biggestPossibleFatorialSum = 1 + (Algorithms.sumOfDigitFactorials 999999)
         let mutable mutableDict = Array.create biggestPossibleFatorialSum theValueOfUnknownCount
         // add the integers whose factorial sums are themselves (like 145 in 
         // the problem statement) to the dictionary to prevent recurrsive loops
