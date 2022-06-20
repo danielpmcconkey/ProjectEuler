@@ -1,5 +1,5 @@
 ﻿open System
-open Euler001
+open Euler002
 
 let stopWatch = System.Diagnostics.Stopwatch()
 stopWatch.Start()
