@@ -63,8 +63,8 @@ let run () =
 
     let numeratorAsChars = convergence.numerator.ToString().ToCharArray()        
          
-    let answer = Seq.fold (fun x y -> addCharNums x y) 0 numeratorAsChars
+    Seq.fold (fun x y -> addCharNums x y) 0 numeratorAsChars
 
-    printfn "answer: %d" answer
+    
 
 

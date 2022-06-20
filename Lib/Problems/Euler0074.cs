@@ -100,7 +100,7 @@ namespace EulerProblems.Lib.Problems
 				return howManyNonRepeaters(sumOfDigitFactorials(n), countSoFar + 1, newRepeaters);
 			};
 
-			int limit = 1000000;
+            int limit = 1000000;
 			int start = 1;
 
 			// add any special cases of numbers that are their own sum of factorials,

@@ -28,6 +28,7 @@ let run () =
 
     let test = convertIntToDigitsList 44506
     test
+    4
         //{
         //    ;
         //    List<int> digitsInReverse = new List<int>();
