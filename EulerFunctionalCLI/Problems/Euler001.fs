@@ -17,8 +17,11 @@ let run () =
                     n
         }
 
-    allProductsOf305
-    |> Seq.sum
+    let answer = 
+        allProductsOf305
+        |> Seq.sum
+
+    answer.ToString()
     
 
 

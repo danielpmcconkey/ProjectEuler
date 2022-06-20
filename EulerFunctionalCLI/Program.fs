@@ -1,15 +1,15 @@
 ﻿open System
-open Euler002
+open Euler065
 
 let stopWatch = System.Diagnostics.Stopwatch()
 stopWatch.Start()
 
 
 
-let (answer : int) = run() 
+let (answer : string) = run() 
 
 stopWatch.Stop()
-printfn "answer is: %d" answer
+printfn "answer is: %s" answer
 printfn "run time: %d ms" stopWatch.ElapsedMilliseconds
 
 

@@ -11,7 +11,7 @@ type DigitalFactorialChain = {
 
 
 
-let run ():int =
+let run () =
 
     let theValueOfUnknownCount = -1 // used for determining whether we know a count in the dictionary
     let limit = 1000000
@@ -115,5 +115,6 @@ let run ():int =
         let numSixties = Seq.fold (fun a -> countSixtySequenceEntries a) 0 mutableDict
         numSixties
 
-    calculate60ChainCount start limit 
+    let answer = calculate60ChainCount start limit 
+    answer.ToString()
     

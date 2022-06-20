@@ -24,7 +24,7 @@ let run () =
         |> getEvenNumberedValuesFromSeq
         |> Seq.sum
 
-    answer
+    answer.ToString()
 
 
 
