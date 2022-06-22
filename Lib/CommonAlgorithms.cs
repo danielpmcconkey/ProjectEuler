@@ -568,6 +568,17 @@ namespace EulerProblems.Lib
             }
             return currentOOM;
         }
+        public static int[] GetPerfectSquaresUpToN(int n)
+        {
+            List<int> perfectSquares = new List<int>();
+            for (int i = 0; true; i++)
+            {
+                var square = i * i;
+                if (square <= n) perfectSquares.Add(square);
+                else break;
+            }
+            return perfectSquares.ToArray();
+        }
         internal static int[] GetPrimeFactors(int n)
         {
             List<int> primeFactors = new List<int>();
