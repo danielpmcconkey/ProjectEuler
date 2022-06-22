@@ -681,6 +681,42 @@ namespace EulerProblems.Lib
             }
             return bools;
         }
+        internal static List<Triangle> GetPythagoreanTriangles(int maxPerimiter)
+        {
+            // use Euclid's formula to generate all primitives, then multiply them out
+            List<Triangle> triangles = new List<Triangle>();
+
+            int maxM = (int)Math.Ceiling(Math.Sqrt(maxPerimiter / 2.0));
+            for(int m = 2; m < maxM; m++)
+            {
+                for (int n = 1; n < m; n++)
+                {
+                    if ((m + n) % 2 == 1 && CommonAlgorithms.GetGreatestCommonFactor(n, m) == 1)
+                    {
+                        int a = (m * m) + (n * n);
+                        int b = (m * m) - (n * n);
+                        int c = 2 * m * n;
+                        int p = a + b + c;
+
+                        // this is a primitive triple now expand it out through
+                        // its multiples to produce all the non-primitives
+                        for (int k = 1; true; k++)
+                        {
+                            if (p * k > maxPerimiter) break;
+                            triangles.Add(new Triangle()
+                            {
+                                a = a * k,
+                                b = b * k,
+                                c = c * k,
+                                perimeter = p * k
+                            });
+                        }
+                    }
+
+                }
+            }
+            return triangles;
+        }
         /// <summary>
         /// returns a list of all proper divisors ordered least to greatest.
         /// a proper divisor is a number less than n which divide evenly into n
