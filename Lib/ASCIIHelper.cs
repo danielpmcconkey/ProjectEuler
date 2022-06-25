@@ -13,6 +13,7 @@ namespace EulerProblems.Lib
 		public const int lowerZ = 122;
 		public const int upperA = 65;
 		public const int upperZ = 90;
+        public const int zero = 48;
 		static ASCIIHelper()
         {
 			asciiPrintable = new Dictionary<int, char>()

@@ -34,56 +34,8 @@ namespace EulerProblems.Lib.Problems
         }
         private void Run_fast()
         {
-            Dictionary<int,int> cache = new Dictionary<int, int>();
-            cache[0] = 1;
-
-            Func<int, int> howManyWaysToSumANumber = null;
-            howManyWaysToSumANumber = (n) =>
-            {
-                /* uses a partition function as described
-                 * https://mathworld.wolfram.com/PartitionFunctionP.html
-                 * 
-                 * P(n) = 
-                 *  sum(
-                 *      for k = 1 to n, 
-                 *          (-1)^(k+1) * 
-                 *          [
-                 *              P(n-((1/2) * (k*(3*k - 1))) 
-                 *              +
-                 *              P(n-((1/2) * (k*(3*k + 1)))
-                 *          ]
-                 * */
-
-                if (n < 0)
-                {
-                    return 0;
-                }
-                
-                if(cache.ContainsKey(n)) return cache[n];
-
-                int Pn = 0;
-                for(int k = 1; k <= n; k++)
-                {
-                    int n1 = n - k * (3 * k - 1) / 2;
-                    int n2 = n - k * (3 * k + 1) / 2;
-
-                    if (n1 < 0 && n2 < 0) break; // we've refined it as far as it will go
-
-                    int Pn1 = howManyWaysToSumANumber(n1);
-                    int Pn2 = howManyWaysToSumANumber(n2);
-
-                    Pn += (int)(Math.Pow(-1, k + 1) * (Pn1 + Pn2));                    
-                }
-                
-
-#if VERBOSEOUTPUT
-                Console.WriteLine("{1} = {0}", Pn, n); 
-#endif
-                cache.Add(n, Pn);
-                return Pn;
-            };
             int target = 100;// 100;
-            int howMany = howManyWaysToSumANumber(target);
+            int howMany = CommonAlgorithms.PartitionFunction(target).count;
             // subtract 1 because the Euler problem is "How many different ways
             // can one hundred be written as a sum of at least two positive
             // integers?". Emphasis on the 2 there. that means that you can't

@@ -1062,5 +1062,177 @@ namespace EulerProblems.Lib
             if (primeToCheck < 10) return false;
             return IsTruncatableAndPrime(primeToCheck, primes);
         }
+        internal static (int count, Dictionary<int, int> cache) PartitionFunction(
+            int n,
+            Dictionary<int, int> cache = null)
+        {
+            if (cache == null)
+            {
+                cache = new Dictionary<int, int>();
+                cache[0] = 1;
+            }
+
+            Func<int, int> howManyWaysToSumANumber = null;
+            howManyWaysToSumANumber = (n) =>
+            {
+                /* uses a partition function as described
+                 * https://mathworld.wolfram.com/PartitionFunctionP.html
+                 * 
+                 * P(n) = 
+                 *  sum(
+                 *      for k = 1 to n, 
+                 *          (-1)^(k+1) * 
+                 *          [
+                 *              P(n-((1/2) * (k*(3*k - 1))) 
+                 *              +
+                 *              P(n-((1/2) * (k*(3*k + 1)))
+                 *          ]
+                 * */
+
+                if (n < 0)
+                {
+                    return 0;
+                }
+
+                if (cache.ContainsKey(n)) return cache[n];
+
+                int Pn = 0;
+                for (int k = 1; k <= n; k++)
+                {
+                    int n1 = n - k * (3 * k - 1) / 2;
+                    int n2 = n - k * (3 * k + 1) / 2;
+
+                    if (n1 < 0 && n2 < 0) break; // we've refined it as far as it will go
+
+                    int Pn1 = howManyWaysToSumANumber(n1);
+                    int Pn2 = howManyWaysToSumANumber(n2);
+
+                    Pn += (int)(Math.Pow(-1, k + 1) * (Pn1 + Pn2));
+                }
+
+                cache.Add(n, Pn);
+                return Pn;
+            };
+
+            return (howManyWaysToSumANumber(n), cache);
+
+        }
+        internal static (long count, Dictionary<long, long> cache) PartitionFunction(
+            long n,
+            Dictionary<long, long> cache = null)
+        {
+            if (cache == null)
+            {
+                cache = new Dictionary<long, long>();
+                cache[0] = 1;
+            }
+
+            Func<long, long> howManyWaysToSumANumber = null;
+            howManyWaysToSumANumber = (n) =>
+            {
+                /* uses a partition function as described
+                 * https://mathworld.wolfram.com/PartitionFunctionP.html
+                 * 
+                 * P(n) = 
+                 *  sum(
+                 *      for k = 1 to n, 
+                 *          (-1)^(k+1) * 
+                 *          [
+                 *              P(n-((1/2) * (k*(3*k - 1))) 
+                 *              +
+                 *              P(n-((1/2) * (k*(3*k + 1)))
+                 *          ]
+                 * */
+
+                if (n < 0)
+                {
+                    return 0;
+                }
+
+                if (cache.ContainsKey(n)) return cache[n];
+
+                long Pn = 0;
+                for (long k = 1; k <= n; k++)
+                {
+                    var n1 = n - k * (3 * k - 1) / 2;
+                    var n2 = n - k * (3 * k + 1) / 2;
+
+                    if (n1 < 0 && n2 < 0) break; // we've refined it as far as it will go
+
+                    var Pn1 = howManyWaysToSumANumber(n1);
+                    var Pn2 = howManyWaysToSumANumber(n2);
+
+                    Pn += (long)(Math.Pow(-1, k + 1) * (Pn1 + Pn2));
+                }
+
+                cache.Add(n, Pn);
+                return Pn;
+            };
+
+            return (howManyWaysToSumANumber(n), cache);
+
+        }
+        internal static (BigInteger count, Dictionary<BigInteger, BigInteger> cache) PartitionFunction(
+            BigInteger n,
+            Dictionary<BigInteger, BigInteger> cache = null)
+        {
+            if (cache == null)
+            {
+                cache = new Dictionary<BigInteger, BigInteger>();
+                cache[0] = 1;
+            }
+
+            Func<BigInteger, BigInteger> howManyWaysToSumANumber = null;
+            howManyWaysToSumANumber = (n) =>
+            {
+                /* uses a partition function as described
+                 * https://mathworld.wolfram.com/PartitionFunctionP.html
+                 * 
+                 * P(n) = 
+                 *  sum(
+                 *      for k = 1 to n, 
+                 *          (-1)^(k+1) * 
+                 *          [
+                 *              P(n-((1/2) * (k*(3*k - 1))) 
+                 *              +
+                 *              P(n-((1/2) * (k*(3*k + 1)))
+                 *          ]
+                 * */
+
+                if (n < 0)
+                {
+                    return 0;
+                }
+
+                if (cache.ContainsKey(n)) return cache[n];
+
+                BigInteger Pn = 0;
+                for (BigInteger k = 1; k <= n; k++)
+                {
+                    var n1 = n - k * (3 * k - 1) / 2;
+                    var n2 = n - k * (3 * k + 1) / 2;
+
+                    if (n1 < 0 && n2 < 0) break; // we've refined it as far as it will go
+
+                    var Pn1 = howManyWaysToSumANumber(n1);
+                    var Pn2 = howManyWaysToSumANumber(n2);
+
+                    var Pn_combined = (Pn1 + Pn2);
+                    if (k % 2 == 1) Pn += Pn_combined;
+                    else Pn -= Pn_combined;
+                }
+
+
+                //#if VERBOSEOUTPUT
+                //                Console.WriteLine("{1} = {0}", Pn, n); 
+                //#endif
+                cache.Add(n, Pn);
+                return Pn;
+            };
+
+            return (howManyWaysToSumANumber(n), cache);
+
+        }
+
     }
 }

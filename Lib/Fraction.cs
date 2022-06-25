@@ -247,6 +247,76 @@ namespace EulerProblems.Lib
                 );
             return currentFraction;
         }
+        /// <summary>
+        /// converts a continued fraction to an array of digits representing
+        /// its decimal form
+        /// </summary>
+        /// <param name="cf">the continued fraction to expand</param>
+        /// <param name="numDigits">numdigits only matters if repeating</param>
+        public static int[] GetContinuedFractionDecimalExpansion(ContinuedFraction cf, int numDigits = 0)
+        {
+            /* 
+             * based on https://crypto.stanford.edu/pbc/notes/contfrac/convert.html 
+             * if you can figure that nonsense out
+             * */
+
+            // set up a list of coefficients to use for getting the convergent fractions
+            int coefficientsLength = (cf.doCoefficientsRepeat) ?
+                (int)Math.Round(numDigits * 1.75) : // padding
+                cf.subsequentCoefficients.Length;
+            int[] coefficientsArray = new int[coefficientsLength];
+            for (int i = 0; i < coefficientsLength; i++)
+            {
+                int position = (cf.doCoefficientsRepeat) ?
+                    i % cf.subsequentCoefficients.Length :
+                    i;
+                coefficientsArray[i] = cf.subsequentCoefficients[position];
+            }
+
+            // now get the penultimate and ultimate convergent fractions
+            var cfUltimate = new ContinuedFraction()
+            {
+                doCoefficientsRepeat = false,
+                firstCoefficient = cf.firstCoefficient,
+                subsequentCoefficients = coefficientsArray,
+            };
+            var convergentUltimate = FractionCalculator.GetContinuedFractionConvergence(cfUltimate);
+
+            var cfPenultimate = new ContinuedFraction()
+            {
+                doCoefficientsRepeat = false,
+                firstCoefficient = cf.firstCoefficient,
+                subsequentCoefficients = coefficientsArray[0..(coefficientsLength - 1)],
+            };
+            var convergentPenultimate = FractionCalculator.GetContinuedFractionConvergence(cfPenultimate);
+
+            // set up the output array and cycle through the algorithm
+            List<int> digits = new List<int>();
+
+            var numerator_p = convergentPenultimate.numerator;
+            var denominator_p = convergentPenultimate.denominator;
+            var numerator_u = convergentUltimate.numerator;
+            var denominator_u = convergentUltimate.denominator;
+
+            while (true)
+            {
+                var floor_p = numerator_p / denominator_p;
+                var floor_u = numerator_u / denominator_u;
+                if (floor_p != floor_u)
+                {
+                    return digits.ToArray();
+                }
+
+                // add the floor to the digits list and subtract it out
+                digits.Add((int)floor_p);
+                numerator_p = numerator_p - (floor_p * denominator_p);
+                numerator_u = numerator_u - (floor_u * denominator_u);
+
+                // multiply by 10 and repeat
+                numerator_p *= 10;
+                numerator_u *= 10;
+            }
+        }
         public static Fraction Multiply(Fraction f1, Fraction f2, bool shouldReduce = true)
 		{
             Fraction product = new Fraction();
