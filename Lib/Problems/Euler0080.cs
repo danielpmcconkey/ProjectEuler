@@ -90,7 +90,6 @@ namespace EulerProblems.Lib.Problems
                 //Console.WriteLine(string.Join("", decimalsToCount));
                 sum += decimalsToCount.Sum();
             }
-
             
             PrintSolution(sum.ToString());
             return;
