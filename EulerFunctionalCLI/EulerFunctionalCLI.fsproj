@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="DomainTypes.fs" />
     <Compile Include="Algorithms.fs" />
     <Compile Include="Problems\Euler001.fs" />
     <Compile Include="Problems\Euler002.fs" />
@@ -14,6 +15,7 @@
     <Compile Include="Problems\Euler065.fs" />
     <Compile Include="Problems\Euler074.fs" />
     <Compile Include="Problems\Euler076.fs" />
+    <Compile Include="Problems\Euler077.fs" />
     <Compile Include="Problems\Test.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

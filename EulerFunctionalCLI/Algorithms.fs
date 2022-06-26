@@ -1,5 +1,7 @@
 ﻿module Algorithms
 
+open DomainTypes
+
 
 let convertIntToIntSequence n =  
     seq { 
@@ -104,3 +106,66 @@ let getFibonacciSeq limit =
                 then None 
                 else Some (fst state + snd state, (snd state, fst state + snd state))
     )
+
+let getPrimesUpToN n =
+
+    let limit = ((n - 2) / 2) + 1
+    let sieve = Array.zeroCreate limit
+    let primeBools = Array.create ((limit * 2) + 1) false
+
+    let updateSieve = 
+        let updateSieveForJVals i = 
+            let iVals = seq {i..limit}
+            let setSievePositionToOne j =
+                //printfn "i: %d || j: %d" i j
+                sieve[i + j + 2 * i * j] <- 1
+            //printfn "i: %d" i
+            let isWithinJLimit (j:uint) = 
+                // this exists to check if j is large enough to cause int overrun
+                // in f#, it seems to evaluate the (i + j + 2 * i * j) expression
+                // as an int before comparing to limit. Which means that high i and
+                // j combinations will overrun an int down to a negative int. I 
+                // don't know why I don't see this is C#
+                (uint i + j + 2u * uint i * j) < uint limit
+            let jVals =
+                iVals
+                |> Seq.takeWhile (fun j -> (isWithinJLimit (uint j)) )
+                |> Seq.iter (fun j -> setSievePositionToOne j)
+            ()
+
+        seq {1..limit}
+        |> Seq.iter (fun i -> (updateSieveForJVals i))
+        ()
+    let updatePrimeBools = 
+        primeBools[2] <- true // the below sieve won't surface 2 as a prime
+        let updatePrimeBoolForI i = 
+            if sieve[i] = 0 then
+                primeBools[(i * 2) + 1] <- true
+
+        updateSieve
+        seq{1..(limit - 1)} |> Seq.iter (fun i -> updatePrimeBoolForI i)
+        ()
+    updatePrimeBools
+    let primes =
+        (0, []) // initial state of i and an empty primes list
+        |> Seq.unfold (fun state ->
+            let i = fst state
+            let primes = snd state
+            let nextI = i + 1
+            if i >= primeBools.Length then None
+            elif primeBools[i] = false then
+                Some(state, (nextI, primes))
+            else
+                Some(state, (nextI, i::primes))
+            ) 
+        |> Seq.last
+        |> snd
+        |> Seq.rev
+
+    { primes = primes; primeBools = primeBools }
+
+let sumOfPrimeFactors n primes = 
+    let isMaFactorOfN m = n % m = 0
+    primes
+    |> Seq.filter isMaFactorOfN
+    |> Seq.sum

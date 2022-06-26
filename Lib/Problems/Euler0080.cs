@@ -74,6 +74,8 @@ namespace EulerProblems.Lib.Problems
              * The below code runs in under 50 milliseconds.
              * 
              * */
+            
+
             const int numDecimalsToCount = 100;
             const int maxN = 100;
 
@@ -93,7 +95,6 @@ namespace EulerProblems.Lib.Problems
             
             PrintSolution(sum.ToString());
             return;
-        }
-        
+        }        
     }
 }

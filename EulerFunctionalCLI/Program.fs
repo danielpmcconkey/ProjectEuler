@@ -1,12 +1,7 @@
-﻿open System
-open Euler076
-
-let stopWatch = System.Diagnostics.Stopwatch()
+﻿let stopWatch = System.Diagnostics.Stopwatch()
 stopWatch.Start()
 
-
-
-let (answer : string) = run() 
+let (answer : string) = Euler077.run() 
 
 stopWatch.Stop()
 printfn "answer is: %s" answer

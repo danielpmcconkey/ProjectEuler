@@ -1,4 +1,4 @@
-﻿#define SHOULDRUNPERFORMANCE
+﻿//#define SHOULDRUNPERFORMANCE
 
 using EulerProblems.Lib;
 using EulerProblems.Lib.DAL.Operations;

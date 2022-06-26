@@ -627,18 +627,15 @@ namespace EulerProblems.Lib
             int limit = ((n - 2) / 2) + 1;
             //This are used to detect prime numbers
             int[] sieve = new int[limit];
-            // Loop controlling variables
-            long i = 0;
-            long j = 0;
+            
             //Set initial all the numbers are non prime
-            for (i = 0; i < limit; ++i)
+            for (int i = 0; i < limit; ++i)
             {
                 sieve[i] = 0;
             }
-            for (i = 1; i < limit; ++i)
+            for (long i = 1; i < limit; ++i)
             {
-                for (j = i;
-                    (i + j + 2 * i * j) < limit; ++j)
+                for (long j = i; (i + j + 2 * i * j) < limit; ++j)
                 {
                     //(i + j + 2ij) are unset
                     sieve[(i + j + 2 * i * j)] = 1;
@@ -650,7 +647,7 @@ namespace EulerProblems.Lib
                 primes.Add(2);
             }
             //Display prime element
-            for (i = 1; i < limit; ++i)
+            for (int i = 1; i < limit; ++i)
             {
                 if (sieve[i] == 0)
                 {
