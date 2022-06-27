@@ -1,4 +1,4 @@
-#define VERBOSEOUTPUT
+//#define VERBOSEOUTPUT
 using System.Numerics;
 
 namespace EulerProblems.Lib.Problems

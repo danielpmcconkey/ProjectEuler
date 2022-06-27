@@ -16,6 +16,7 @@
     <Compile Include="Problems\Euler074.fs" />
     <Compile Include="Problems\Euler076.fs" />
     <Compile Include="Problems\Euler077.fs" />
+    <Compile Include="Problems\Euler078.fs" />
     <Compile Include="Problems\Test.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

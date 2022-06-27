@@ -1,5 +1,7 @@
 ﻿module Algorithms
 
+open System.Numerics
+open System.Collections.Generic
 open DomainTypes
 
 
@@ -43,7 +45,7 @@ let sumOfDigitFactorials n =
     let digits = convertIntToArray n
     let factorialSum = (Seq.fold (fun a b -> a + factorial b) 0 digits)
     factorialSum
-
+(*
 let primeFactorsLong (n : int64) :List<int64> =
     (* 
         https://www.markheath.net/post/finding-prime-factors-in-f 
@@ -70,6 +72,7 @@ let primeFactorsLong (n : int64) :List<int64> =
 
     let emptyFactorsSet : List<int64> = []
     recurse n 2L emptyFactorsSet
+*)
 
 let getPrimeFactorsOfInt n =
     
@@ -169,3 +172,60 @@ let sumOfPrimeFactors n primes =
     primes
     |> Seq.filter isMaFactorOfN
     |> Seq.sum
+
+let partitionFunction n (cache : int[]) = 
+            
+    cache[0] <- 1
+    let rec P n = // (n : int) :int =
+        if n < 0 then 0
+        elif cache[n] > -1 then cache[n]
+        else 
+            let result = 
+                seq<int> { 
+                    for k in 1 .. n do 
+                        let n1 = n - k * (3 * k - 1) / 2
+                        let n2 = n - k * (3 * k + 1) / 2
+                        let Pn1 = P n1
+                        let Pn2 = P n2
+                        (Pn1 + Pn2) * pown -1 (k+1)
+                } 
+                |>Seq.sum
+            cache[n] <- result
+            result
+        
+    (P n, cache)
+
+
+
+
+let partitionFunctionBig (n : BigInteger) (cache : Dictionary<BigInteger, BigInteger>) = 
+            
+    cache[0] <- 1
+    let rec P (n:BigInteger) :BigInteger = 
+        if n < BigInteger 0 then BigInteger 0
+        elif cache.ContainsKey n then 
+            cache[n]
+        else 
+            let mutable sum = BigInteger 0
+            
+                
+            for (k:BigInteger) in (BigInteger 1) .. n do 
+                let n1 = n - k * (BigInteger 3 * k - BigInteger 1) / BigInteger 2
+                let n2 = n - k * (BigInteger 3 * k + BigInteger 1) / BigInteger 2
+                let Pn1 = P n1
+                let Pn2 = P n2
+                let combined = Pn1 + Pn2
+                if (k % BigInteger 2 = BigInteger 1)
+                    then 
+                        sum <- sum + combined
+                    else 
+                        sum <- sum - combined
+                
+                
+                        
+                //}
+                //sum
+            cache[n] <- sum
+            sum
+        
+    (P n, cache)
