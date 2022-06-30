@@ -206,25 +206,24 @@ let partitionFunctionBig (n : BigInteger) (cache : Dictionary<BigInteger, BigInt
         elif cache.ContainsKey n then 
             cache[n]
         else 
-            let mutable sum = BigInteger 0
             
-                
-            for (k:BigInteger) in (BigInteger 1) .. n do 
-                let n1 = n - k * (BigInteger 3 * k - BigInteger 1) / BigInteger 2
-                let n2 = n - k * (BigInteger 3 * k + BigInteger 1) / BigInteger 2
-                let Pn1 = P n1
-                let Pn2 = P n2
-                let combined = Pn1 + Pn2
-                if (k % BigInteger 2 = BigInteger 1)
-                    then 
-                        sum <- sum + combined
-                    else 
-                        sum <- sum - combined
-                
-                
-                        
-                //}
-                //sum
+            
+            let result = //lazy( 
+                seq {
+                    for (k:BigInteger) in (BigInteger 1) .. n do 
+                        let n1 = n - k * (BigInteger 3 * k - BigInteger 1) / BigInteger 2
+                        let n2 = n - k * (BigInteger 3 * k + BigInteger 1) / BigInteger 2
+                        let Pn1 = P n1
+                        let Pn2 = P n2
+                        let combined = Pn1 + Pn2
+                        if (k % BigInteger 2 = BigInteger 1)
+                            then 
+                                combined
+                            else 
+                                BigInteger -1 * combined
+                } |> Seq.sum
+            //)
+            let sum = result//.Force()
             cache[n] <- sum
             sum
         
