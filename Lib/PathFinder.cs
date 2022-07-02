@@ -14,7 +14,9 @@ namespace EulerProblems.Lib
     {
         public int mCost { get; set; } // movement cost        
         public int hCost { get; set; } // heuristic cost, or distance to the goal
+        public int fCost { get; set; } // cost to get from start to this node
         public xyCoordinate position { get; set; }
+        public xyCoordinate arrivedAtVia { get; set; }
         public bool isEvaluated { get; set; }
     }
     public static class PathFinder
@@ -38,6 +40,7 @@ namespace EulerProblems.Lib
                     {
                         mCost = movementCosts[i][j],
                         hCost = -1,
+                        fCost = int.MaxValue,
                         isEvaluated = false,
                         position = new xyCoordinate(j, i),
                     };
@@ -127,6 +130,240 @@ namespace EulerProblems.Lib
                 if (nodes[i][0].hCost < minimum) minimum = nodes[i][0].hCost;
             }
             return minimum;
+        }
+        public static int DijkstrasLeastPathCost(Node[][] nodes)
+        {
+            xyCoordinate start = new xyCoordinate { x = 0, y = 0 };
+            xyCoordinate end = new xyCoordinate { x = nodes[0].Length - 1, y = nodes.Length - 1 };
+            return DijkstrasLeastPathCost(nodes, start, end);
+        }
+        public static int DijkstrasLeastPathCost(Node[][] nodes, xyCoordinate start, xyCoordinate end)
+        {
+            Func<Node[][], xyCoordinate, int, xyCoordinate, Node[][]> setFCost = 
+                (nodes, pos, cost, arrivedAtVia) =>
+            {
+                nodes[pos.y][pos.x].fCost = cost;
+                nodes[pos.y][pos.x].arrivedAtVia = arrivedAtVia;
+                return nodes;
+            };
+            Func<Node[][], xyCoordinate, Node> getNodeAt = (nodes, pos) =>
+            {
+                // do not use this to write
+                return nodes[pos.y][pos.x];
+            };            
+
+            var width = nodes[0].Length;
+            var height = nodes.Length;
+
+            Dictionary <xyCoordinate, int > priorityQue = new Dictionary<xyCoordinate, int>();
+            HashSet<xyCoordinate> finished = new HashSet<xyCoordinate>();
+
+            nodes = setFCost(nodes, start, 0, start);
+            priorityQue.Add(start, 0);
+#if VERBOSEOUTPUT
+            var edgesEvaluated = 0;
+            var nodesExamined = 0;
+#endif
+
+            while (true)
+            {
+                // take the lowest value in the priority queue
+                var lowestEntry = priorityQue.OrderBy(x => x.Value).First();
+
+                var thisNode = getNodeAt(nodes, lowestEntry.Key);
+                var arrivedAt = thisNode.arrivedAtVia;
+                var travelCost = thisNode.mCost + thisNode.fCost;
+                var up = new xyCoordinate(lowestEntry.Key.x, lowestEntry.Key.y - 1);
+                var down = new xyCoordinate(lowestEntry.Key.x, lowestEntry.Key.y + 1);
+                var right = new xyCoordinate(lowestEntry.Key.x + 1, lowestEntry.Key.y);
+                var left = new xyCoordinate(lowestEntry.Key.x - 1, lowestEntry.Key.y);
+
+                // get all neighbors except the one currently in the "arrived at via" location
+                var neighbors = new List<xyCoordinate>();
+                if (lowestEntry.Key.y > 0 && Equals(arrivedAt, up) == false) neighbors.Add(up);
+                if (lowestEntry.Key.y < height - 1 && Equals(arrivedAt, down) == false) neighbors.Add(down);
+                if (lowestEntry.Key.x > 0 && Equals(arrivedAt, left) == false) neighbors.Add(left);
+                if (lowestEntry.Key.x < width - 1 && Equals(arrivedAt, right) == false) neighbors.Add(right);
+
+                // evaluate all neighbors
+                foreach(var n in neighbors)
+                {
+#if VERBOSEOUTPUT
+                    edgesEvaluated++;
+#endif
+                    if (getNodeAt(nodes, n).fCost > travelCost)
+                    {
+                        // update it and put it on the priority queue
+#if VERBOSEOUTPUT
+                        Console.WriteLine("Updated {0},{1} to {2}", n.x, n.y, travelCost);
+#endif
+                        nodes = setFCost(nodes, n, travelCost, lowestEntry.Key);
+                        priorityQue[n] = travelCost;
+                    }
+                }
+                // remove this entry from our priority queue and move it to finished
+                priorityQue.Remove(lowestEntry.Key);
+                finished.Add(lowestEntry.Key);
+#if VERBOSEOUTPUT
+                nodesExamined++;
+#endif
+
+                if (Equals(lowestEntry.Key, end))
+                {
+                    // finished, now tabulate the result
+                    int sum = thisNode.mCost;
+#if VERBOSEOUTPUT
+                    Console.WriteLine("---------------------------------------------");
+                    Console.WriteLine("Sum = {0},{1} M cost of {2}  ...  {3}", end.x, end.y, sum, sum);
+#endif
+
+                    var stepC = arrivedAt;
+                    while(true)
+                    {
+                        var stepN = getNodeAt(nodes, stepC);
+                        sum += stepN.mCost;
+#if VERBOSEOUTPUT
+                        Console.WriteLine("      {0},{1} M cost of {2}  ...  {3}", 
+                            stepC.x, stepC.y, stepN.mCost, sum);
+#endif
+                        stepC = stepN.arrivedAtVia;
+
+                        if (Equals(stepN.position, start))
+                        {
+#if VERBOSEOUTPUT
+                            Console.WriteLine("Total edges evaluated: {0}", edgesEvaluated);
+                            Console.WriteLine("Total nodes examined: {0}", nodesExamined);
+#endif
+                            return sum;
+                        }
+                    }
+                }
+            }
+
+            throw new ArgumentException("This graph cannot be traversed.");
+        }
+        public static int AStarLeastPathCost(
+            Node[][] nodes, 
+            Func<Node[][], xyCoordinate, Node[][]> heuristicFunction)
+        {
+            xyCoordinate start = new xyCoordinate { x = 0, y = 0 };
+            xyCoordinate end = new xyCoordinate { x = nodes[0].Length - 1, y = nodes.Length - 1 };
+            return AStarLeastPathCost(nodes, heuristicFunction, start, end);
+        }
+
+        public static int AStarLeastPathCost(
+            Node[][] nodes, 
+            Func<Node[][], xyCoordinate, Node[][]> heuristicFunction, 
+            xyCoordinate start, 
+            xyCoordinate end)
+        {
+            var width = nodes[0].Length;
+            var height = nodes.Length;
+
+            Func<Node[][], xyCoordinate, int, xyCoordinate, Node[][]> setFCost =
+                (nodes, pos, cost, arrivedAtVia) =>
+                {
+                    nodes[pos.y][pos.x].fCost = cost;
+                    nodes[pos.y][pos.x].arrivedAtVia = arrivedAtVia;
+                    return nodes;
+                };
+            Func<Node[][], xyCoordinate, Node> getNodeAt = (nodes, pos) =>
+            {
+                // do not use this to write
+                return nodes[pos.y][pos.x];
+            };
+            
+
+
+            nodes = heuristicFunction(nodes, end);
+
+            Dictionary<xyCoordinate, int> priorityQue = new Dictionary<xyCoordinate, int>();
+            HashSet<xyCoordinate> finished = new HashSet<xyCoordinate>();
+
+            nodes = setFCost(nodes, start, 0, start);
+            priorityQue.Add(start, 0);
+#if VERBOSEOUTPUT
+            var edgesEvaluated = 0;
+            var nodesExamined = 0;
+#endif
+
+            while (true)
+            {
+                // take the lowest value in the priority queue
+                var lowestEntry = priorityQue.OrderBy(x => x.Value).First();
+
+                var thisNode = getNodeAt(nodes, lowestEntry.Key);
+                var arrivedAt = thisNode.arrivedAtVia;
+                var travelCost = thisNode.mCost + thisNode.fCost;
+                var heuristicCost = thisNode.hCost;
+                var up = new xyCoordinate(lowestEntry.Key.x, lowestEntry.Key.y - 1);
+                var down = new xyCoordinate(lowestEntry.Key.x, lowestEntry.Key.y + 1);
+                var right = new xyCoordinate(lowestEntry.Key.x + 1, lowestEntry.Key.y);
+                var left = new xyCoordinate(lowestEntry.Key.x - 1, lowestEntry.Key.y);
+
+                // get all neighbors except the one currently in the "arrived at via" location
+                var neighbors = new List<xyCoordinate>();
+                if (lowestEntry.Key.y > 0 && Equals(arrivedAt, up) == false) neighbors.Add(up);
+                if (lowestEntry.Key.y < height - 1 && Equals(arrivedAt, down) == false) neighbors.Add(down);
+                if (lowestEntry.Key.x > 0 && Equals(arrivedAt, left) == false) neighbors.Add(left);
+                if (lowestEntry.Key.x < width - 1 && Equals(arrivedAt, right) == false) neighbors.Add(right);
+
+                // evaluate all neighbors
+                foreach (var n in neighbors)
+                {
+#if VERBOSEOUTPUT
+                    edgesEvaluated++;
+#endif
+                    if (getNodeAt(nodes, n).fCost > travelCost)
+                    {
+                        // update it and put it on the priority queue
+#if VERBOSEOUTPUT
+                        Console.WriteLine("Updated {0},{1} to {2}", n.x, n.y, travelCost);
+#endif
+                        nodes = setFCost(nodes, n, travelCost, lowestEntry.Key);
+                        priorityQue[n] = travelCost + heuristicCost;
+                    }
+                }
+                // remove this entry from our priority queue and move it to finished
+                priorityQue.Remove(lowestEntry.Key);
+                finished.Add(lowestEntry.Key);
+#if VERBOSEOUTPUT
+                nodesExamined++;
+#endif
+
+                if (Equals(lowestEntry.Key, end))
+                {
+                    // finished, now tabulate the result
+                    int sum = thisNode.mCost;
+#if VERBOSEOUTPUT
+                    Console.WriteLine("---------------------------------------------");
+                    Console.WriteLine("Sum = {0},{1} M cost of {2}  ...  {3}", end.x, end.y, sum, sum);
+#endif
+
+                    var stepC = arrivedAt;
+                    while (true)
+                    {
+                        var stepN = getNodeAt(nodes, stepC);
+                        sum += stepN.mCost;
+#if VERBOSEOUTPUT
+                        Console.WriteLine("      {0},{1} M cost of {2}  ...  {3}", 
+                            stepC.x, stepC.y, stepN.mCost, sum);
+#endif
+                        stepC = stepN.arrivedAtVia;
+
+                        if (Equals(stepN.position, start))
+                        {
+#if VERBOSEOUTPUT
+                            Console.WriteLine("Total edges evaluated: {0}", edgesEvaluated);
+                            Console.WriteLine("Total nodes examined: {0}", nodesExamined);
+#endif
+                            return sum;
+                        }
+                    }
+                }
+            }
+
+            throw new ArgumentException("This graph cannot be traversed.");
         }
     }
 }
