@@ -151,6 +151,24 @@ namespace EulerProblems.Lib
             return notation;
         }
     }
+    public struct ContinuedFractionLong
+    {
+        // https://en.wikipedia.org/wiki/Continued_fraction
+        public long firstCoefficient;
+        public long[] subsequentCoefficients;
+        public bool doCoefficientsRepeat;
+
+        public override string ToString()
+        {
+            string notation = string.Format("[{0}", firstCoefficient);
+            for (int i = 0; i < subsequentCoefficients.Length; i++)
+            {
+                notation += (i == 0) ? ";" : ",";
+                notation += subsequentCoefficients[i].ToString();
+            }
+            return notation;
+        }
+    }
     public static class FractionCalculator
     { 
         public static Fraction Add(Fraction f1, Fraction f2, bool shouldReduce = true)

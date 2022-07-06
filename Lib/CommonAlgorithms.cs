@@ -309,6 +309,58 @@ namespace EulerProblems.Lib
                 }
             }
         }
+        internal static ContinuedFractionLong GetContinuedFractionOfSquareRootOfN(long n)
+        {
+            // how to find the continued fraction that represents a square root
+            // https://math.stackexchange.com/questions/265690/continued-fraction-of-a-square-root
+            // https://www.johndcook.com/blog/2020/08/04/continued-fraction-sqrt/
+            // https://en.wikipedia.org/wiki/Continued_fraction#Calculating_continued_fraction_representations
+            // https://en.wikipedia.org/wiki/Periodic_continued_fraction#Canonical_form_and_repetend
+            // https://web.archive.org/web/20151221205104/http://web.math.princeton.edu/mathlab/jr02fall/Periodicity/mariusjp.pdf
+
+            long a_0 = (long)Math.Floor(Math.Sqrt(n));
+            long twiceAlpha_0 = a_0 * 2; // used for seeing if we've reached our stopping point
+            long b_0 = a_0;
+            long c_0 = n - (a_0 * a_0);
+
+            // initialize starter values
+            long b_i = b_0;
+            long c_i = c_0;
+            List<long> alphas = new List<long>();
+            while (true)
+            {
+                long a_i = (a_0 + b_i) / c_i;
+                alphas.Add(a_i);
+                b_i = (a_i * c_i) - b_i;
+                c_i = (n - b_i * b_i) / c_i;
+
+                // check if we're done
+                if (a_i == twiceAlpha_0)
+                {
+                    // check if the alphas form a palindrome
+                    if (alphas.Count < 2)
+                    {
+                        return new ContinuedFractionLong()
+                        {
+                            firstCoefficient = a_0,
+                            subsequentCoefficients = alphas.ToArray(),
+                            doCoefficientsRepeat = true
+                        };
+                    }
+
+                    var subSet = alphas.ToArray()[0..(alphas.Count - 1)];
+                    if (IsPalindromic(subSet))
+                    {
+                        return new ContinuedFractionLong()
+                        {
+                            firstCoefficient = a_0,
+                            subsequentCoefficients = alphas.ToArray(),
+                            doCoefficientsRepeat = true
+                        };
+                    }
+                }
+            }
+        }
         /// <summary>
         /// used for standard factorials on tame numbers
         /// if nubers are large, use the long form function
@@ -849,6 +901,14 @@ namespace EulerProblems.Lib
                 if (n % i == 0) return true;
             }
             return false;
+        }
+        public static bool IsInteger(double d)
+        {
+            return Math.Abs(d % 1) <= (Double.Epsilon * 100);
+        }
+        public static bool IsInteger(decimal d)
+        {
+            return Math.Abs(d % 1) <= 0.00000000000000000001M;
         }
         internal static bool IsIntPalindromic(int n)
         {
