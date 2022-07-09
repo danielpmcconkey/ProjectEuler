@@ -11,6 +11,47 @@ namespace EulerProblems.Lib.Problems
 		}
 		protected override void Run()
 		{
+            /*
+             * Both this one and problem 88 were listed as 40% difficulty and I 
+             * think that's an excellent way to illustrate that people just 
+             * think differently from one another and one person's easy is 
+             * another's impossible. That's also probably a great example of 
+             * why diversity and inclusion initiatives are important. Anytime
+             * you can get different problem solvers together, who truly think 
+             * about the problem from a different perspective, you're likely to
+             * get a better outcome.
+             * 
+             * For me, problem 88 was near impossible. I just never managed to 
+             * think about that problem from the perspective of the factors 
+             * rather than the products. But here, I very quickly realized that
+             * I'd never solve this problem from the perpective of the dice and
+             * needed to think about the pits. Let me explain.
+             * 
+             * From the dice perspective, you have 2 dice, each with any 
+             * six-digit combination of 0 - 9 on their faces. That means you 
+             * have a 10^12 possibilities of dice prints (1 quadrillion, I 
+             * think). No you can lower that number by removing duplicates, but
+             * to try every dice combination is going to take forever.
+             * 
+             * Instead, I saw pretty quickly that each number (0 - 9) could 
+             * either be stamped on die 1, die 2, neither, or both. In fact, I
+             * refine that. 3 had to be on one or the other. Same with 0, 1, 2
+             * 4, 5 and 8. 6, 9 , and 7 still had all 4 possibilities. But that
+             * alone lowered the number of checks I had to make down to 
+             * 139,968. I could further refine further. 1 and 8 as well as 2 
+             * and 5 had to be on opposite sides of each other. I could've 
+             * written elaborate logic to really factor that. But I didn't.
+             * 
+             * From there, I was able to throw out any combos that didn't put 6
+             * numbers on each die and then I was able to check for a valid 
+             * combo. I had to also check that I hadn't already checked a dice
+             * pair in reverse. Meaning if I had 2 dice {0,1,2,3,4,5} and 
+             * {4,5,6,7,8,9} I had to also check if I'd already looked for 
+             * the pair {4,5,6,7,8,9} and {0,1,2,3,4,5} as that wouldn't count
+             * as a unique combo according to the problem definition.
+             * 
+             * */
+
             checkedVals = new HashSet<string>();
 
             bool[] left = new bool[10];
@@ -152,6 +193,9 @@ namespace EulerProblems.Lib.Problems
                 }
             }
 
+#if VERBOSEOUTPUT
+            Console.WriteLine("num checks: {0}", numChecks);
+#endif
 
             PrintSolution(answer.ToString());
 			return;

@@ -12,6 +12,20 @@ namespace EulerProblems.Lib.Problems
 		}
 		protected override void Run()
 		{
+            /*
+             * This wasn't hard in the least for me. Probably because this one, 
+             * unlike most of the others, is somewhat of a practical exercise. 
+             * I have decades of experience solving real-world business 
+             * problems through code and the Euler guys even gave us business
+             * requirements and use cases. I was at home and I think I even
+             * got this one right on the very first time I pressed F5.
+             * 
+             * Note: that's not true. I pressed F5 a couple of times to test 
+             * out my reads and writes with real numbers. But the first time I
+             * had it read the input values, I got it right, I'm pretty sure.
+             * 
+             * */
+
             const string filePath = @"E:\ProjectEuler\ExternalFiles\p089_roman.txt";
             string[] lines = File.ReadLines(filePath).ToArray();
             int answer = 0;
