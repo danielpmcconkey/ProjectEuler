@@ -13,10 +13,14 @@ namespace EulerProblems.Lib.Problems
             /*
              * This one was comically easy. I could see someone getting in the 
              * trap of cycling through for i in 1 .. numPrimes, j in 
-             * 1 .. numPrimes, k in 1 .. numPrimes 
+             * 1 .. numPrimes, k in 1 .. numPrimes, but that would only be 
+             * 748MM loops of k. Maybe it'd be longer than a minute, but it'd 
+             * still run. I don't know. I just got this one right away. Solved
+             * it on my lunch break.
              * 
              * */
-            const int limit = 50000000;
+
+            const int limit = (int)5e7;// 50000000;
             var lowestPrime = (int)Math.Floor(Math.Sqrt(limit));
             var primes = CommonAlgorithms.GetPrimesUpToN(lowestPrime);
 

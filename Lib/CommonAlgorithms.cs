@@ -816,6 +816,53 @@ namespace EulerProblems.Lib
 			}
             return arrayOfLists;
         }
+        internal static int[][] GetWaysToSumANumber(
+            int n, 
+            int[] numbersBank, 
+            Dictionary<int, int[][]> memo = null)
+        {
+            if (memo == null) memo = new Dictionary<int, int[][]>();
+            else if (memo.ContainsKey(n))
+            {
+                return memo[n];
+            }
+            // base cases
+            if (n == 0) return new int[][]{ new int[0] }; // success, we've evenly reached our original N
+            if (n < 0) return null;
+
+            Func<int, int[][], int[][]> pushNumberOntoRemainderWays = (n, rw) =>
+            {
+                var result = new int[rw.Length][];
+                for (int i = 0; i < rw.Length; i++)
+                {
+                    var thisWay = rw[i];
+                    if(thisWay == null) continue;
+                    int[] thisWayPlus = new int[thisWay.Length + 1];
+                    for(int j = 0; j < thisWay.Length; j++)
+                    {
+                        thisWayPlus[j] = thisWay[j];
+                    }
+                    thisWayPlus[thisWay.Length] = n;
+                    result[i] = thisWayPlus;
+                }
+                return result;
+            };
+            
+
+            List<int[]> resultList = new List<int[]>();
+            for(int i = 0; i < numbersBank.Length; i++)
+            {
+                var remainder = n - numbersBank[i];
+                var remainderWays = GetWaysToSumANumber(remainder, numbersBank, memo);
+                if (remainderWays == null) continue;
+                var augmentedWays = pushNumberOntoRemainderWays(numbersBank[i], remainderWays);
+                resultList.AddRange(augmentedWays);
+            }
+            //Console.WriteLine("n: {0}; return: ", n);
+            var result = resultList.ToArray();
+            memo[n] = result;
+            return result;
+        }
         internal static bool IsAmicableNumber(long n)
         {
             // using a and b makes it easier to think through the logic
