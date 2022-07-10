@@ -18,7 +18,6 @@ let run () =
     let minSolution = 
         numerators
         |> Seq.find isASolution
-        //|> Seq.min
         
     minSolution.ToString()
     

@@ -4,6 +4,10 @@ open System.Numerics
 open System.Collections.Generic
 open DomainTypes
 
+let isPrime n =
+    let rec check i =
+        i > n/2 || (n % i <> 0 && check (i + 1))
+    check 2
 
 let convertIntToIntSequence n =  
     seq { 
@@ -228,3 +232,33 @@ let partitionFunctionBig (n : BigInteger) (cache : Dictionary<BigInteger, BigInt
             sum
         
     (P n, cache)
+
+let getFirstNPrimes n =  
+
+    let primeTuples = 
+        (0, 3, 2)
+        |> Seq.unfold (fun state ->
+            let count, checkVal, lastPrime = state
+
+            if count >= n then
+                None
+            else
+                let nextCheckVal = checkVal + 1
+
+                if (isPrime checkVal) then
+                    //primes[count] <- checkVal
+                    let nextCount = count + 1
+                    Some(state, (nextCount, nextCheckVal, checkVal))
+                else
+                    Some(state, (count, nextCheckVal, lastPrime))
+        )    
+    
+
+    let primes : int[] = Array.zeroCreate n
+    for x in primeTuples do
+        let count, checkVal, lastPrime = x
+        //printfn "%d %d" count lastPrime
+        primes[count] <- lastPrime
+
+    primes
+    
