@@ -20,4 +20,17 @@ namespace EulerProblems.Lib
         public long c;
         public long perimeter;
     }
+    internal struct TrianglePoints
+    {
+        public xyCoordinate o;
+        public xyCoordinate p;
+        public xyCoordinate q;
+
+        internal TrianglePoints(xyCoordinate o, xyCoordinate p, xyCoordinate q)
+        {
+            this.o = o;
+            this.p = p;
+            this.q = q;
+        }
+    }
 }

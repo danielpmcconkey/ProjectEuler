@@ -102,23 +102,13 @@ namespace EulerProblems.Lib
         }
         internal static int[] ConvertIntToIntArray(int n)
         {
-            int ordersOfMagnitudeToSupport = 12;
-            List<int> digitsInReverse = new List<int>();
-            for (int i = 0; i < ordersOfMagnitudeToSupport; i++)
+            var chars = n.ToString().ToCharArray();
+            int[] nums = new int[chars.Length];
+            for (int i = 0; i < chars.Length; i++)
             {
-                if (n >= Math.Pow(10, i))
-                {
-                    digitsInReverse.Add(
-                       (int)(Math.Floor(
-                            n % Math.Pow(10, i + 1)
-                            /
-                            Math.Pow(10, i)
-                            )));
-                }
+                nums[i] = (int)chars[i] - (int)'0';
             }
-            // now turn it to an array and reverse
-            int[] digits = digitsInReverse.ToArray().Reverse().ToArray();
-            return digits;
+            return nums;
         }
         internal static int[] ConvertLongToIntArray(long n)
         {
