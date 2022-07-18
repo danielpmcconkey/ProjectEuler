@@ -1,4 +1,4 @@
 ﻿namespace EulerProblems.Lib
 {
-    internal enum Direction { LEFT, RIGHT }
+    public enum Direction { LEFT, RIGHT }
 }

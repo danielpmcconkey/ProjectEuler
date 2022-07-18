@@ -23,11 +23,12 @@ namespace EulerProblems.Lib.Problems
              * things:
              * 
              *    1) The ratio of blue discs to total discs will be somewhere 
-             *    close to 70.7106%. That fact ultimately didn't get used, but 
-             *    it's good to know.
+             *    close to 70.7106...%, or 1 over the square root of 2. That fact
+             *    ultimately didn't get used, but it's good to know.
              *    
              *    2) The multiple between each successive 50% odds solution 
-             *    approaches 5.8284271... That fact did get used.
+             *    approaches 5.828427..., or 2 * sqrt(2) + 3... That fact did 
+             *    get used.
              * 
              * The decimal precision bothered me for a while. I went into 
              * long-hand pencil and paper and figured that for every whole 

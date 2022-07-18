@@ -2,12 +2,12 @@
 
 namespace EulerProblems.Lib
 {
-    internal static class CommonAlgorithms
+    public static class CommonAlgorithms
     {
         /// <summary>
         /// used for sorting large string lists
         /// </summary>
-        internal static string[] AlphabeticalSort(string[] inputList)
+        public static string[] AlphabeticalSort(string[] inputList)
         {
             // just sorting these using linq takes a very long time
             // split them out by first letter, then sort
@@ -27,7 +27,7 @@ namespace EulerProblems.Lib
             }
             return listSorted.ToArray();
         }
-        internal static bool AreTwoIntegersPermutationsOfEachOther(int n, int m)
+        public static bool AreTwoIntegersPermutationsOfEachOther(int n, int m)
         {
             var nAsArray = ConvertIntToIntArray(n);
             var mAsArray = ConvertIntToIntArray(m);
@@ -40,7 +40,7 @@ namespace EulerProblems.Lib
             }
             return true;
         }
-		internal static bool AreTwoNumbersRelativelyPrime(int m, int n, int[][] primeFactors)
+		public static bool AreTwoNumbersRelativelyPrime(int m, int n, int[][] primeFactors)
         {
             if (m == 1 || n == 1) return true;
             var f_n = primeFactors[n].Distinct();
@@ -57,7 +57,7 @@ namespace EulerProblems.Lib
             }
             return false;
         }
-        internal static T[] ArraySwap<T>(T[] array, int indexOfSwap1, int indexOfSwap2)
+        public static T[] ArraySwap<T>(T[] array, int indexOfSwap1, int indexOfSwap2)
         {
             T valueAtSwap1 = array[indexOfSwap1];
             T valueAtSwap2 = array[indexOfSwap2];
@@ -70,7 +70,7 @@ namespace EulerProblems.Lib
             }
             return newArray;
         }
-        internal static int[] ConvertBigToIntArray(BigInteger n)
+        public static int[] ConvertBigToIntArray(BigInteger n)
         {
             char[] chars = n.ToString().ToCharArray();
             int[] digits = new int[chars.Length];
@@ -80,7 +80,7 @@ namespace EulerProblems.Lib
             }
             return digits;
         }
-        internal static int ConvertIntArrayToInt(int[] array)
+        public static int ConvertIntArrayToInt(int[] array)
         {
             int outVal = 0;
             for (int i = 0; i < array.Length; i++)
@@ -90,7 +90,7 @@ namespace EulerProblems.Lib
             }
             return outVal;
         }
-        internal static long ConvertIntArrayToLong(int[] array)
+        public static long ConvertIntArrayToLong(int[] array)
         {
             long outVal = 0;
             for (int i = 0; i < array.Length; i++)
@@ -100,7 +100,7 @@ namespace EulerProblems.Lib
             }
             return outVal;
         }
-        internal static int[] ConvertIntToIntArray(int n)
+        public static int[] ConvertIntToIntArray(int n)
         {
             var chars = n.ToString().ToCharArray();
             int[] nums = new int[chars.Length];
@@ -110,7 +110,7 @@ namespace EulerProblems.Lib
             }
             return nums;
         }
-        internal static int[] ConvertLongToIntArray(long n)
+        public static int[] ConvertLongToIntArray(long n)
         {
             int ordersOfMagnitudeToSupport = 12;
             List<int> digitsInReverse = new List<int>();
@@ -134,7 +134,7 @@ namespace EulerProblems.Lib
 		/// recursive function for determining all the permutations of
 		/// an array of integers, returning them in order
 		/// </summary>        
-		internal static int[][] GetAllLexicographicPermutationsOfIntArray(int[] orderedNumerals)
+		public static int[][] GetAllLexicographicPermutationsOfIntArray(int[] orderedNumerals)
         {
             if (orderedNumerals.Length == 1)
             {
@@ -186,7 +186,7 @@ namespace EulerProblems.Lib
         /// whose values are not distict and also doesn't require the array to be
         /// sorted
         /// </summary>        
-        internal static T[][] GetAllPermutationsOfArray<T>(T[] array)
+        public static T[][] GetAllPermutationsOfArray<T>(T[] array)
         {
             int n = array.Length;
 
@@ -226,7 +226,7 @@ namespace EulerProblems.Lib
             }
             return permutations.ToArray();
         }
-        internal static BigInteger GetCombinatoricRFromN(int n, int r)
+        public static BigInteger GetCombinatoricRFromN(int n, int r)
         {
             /*
              * https://en.wikipedia.org/wiki/Combinatorics
@@ -247,7 +247,7 @@ namespace EulerProblems.Lib
             BigInteger answer =  nFact/ (rFact * nMinusRFact);
             return answer;
         }
-        internal static ContinuedFraction GetContinuedFractionOfSquareRootOfN(int n)
+        public static ContinuedFraction GetContinuedFractionOfSquareRootOfN(int n)
         {
             // how to find the continued fraction that represents a square root
             // https://math.stackexchange.com/questions/265690/continued-fraction-of-a-square-root
@@ -299,7 +299,7 @@ namespace EulerProblems.Lib
                 }
             }
         }
-        internal static ContinuedFractionLong GetContinuedFractionOfSquareRootOfN(long n)
+        public static ContinuedFractionLong GetContinuedFractionOfSquareRootOfN(long n)
         {
             // how to find the continued fraction that represents a square root
             // https://math.stackexchange.com/questions/265690/continued-fraction-of-a-square-root
@@ -355,7 +355,7 @@ namespace EulerProblems.Lib
         /// used for standard factorials on tame numbers
         /// if nubers are large, use the long form function
         /// </summary>
-        internal static long GetFactorial(int n)
+        public static long GetFactorial(int n)
         {
             if (n == 0) return 1;
             return (long)n * GetFactorial(n - 1);
@@ -364,14 +364,14 @@ namespace EulerProblems.Lib
         /// <summary>
         /// used for bigger numbers
         /// </summary>
-        internal static BigInteger GetFactorial(BigInteger n)
+        public static BigInteger GetFactorial(BigInteger n)
         {
             if (n == 0) return 1;
             return n * GetFactorial(n - 1);
 
         }
         [Obsolete("GetFactorialLongForm is deprecated, please use GetFactorial (BigInteger) instead.")]
-        internal static BigNumber GetFactorialLongForm(long n)
+        public static BigNumber GetFactorialLongForm(long n)
         {
             BigNumber answer = new BigNumber(new int[] { 1 });
             for (long i = n; i > 0; i--)
@@ -381,7 +381,7 @@ namespace EulerProblems.Lib
             }
             return answer;
         }
-        internal static BigInteger[] GetFactors(BigInteger n)
+        public static BigInteger[] GetFactors(BigInteger n)
         {
             if (n <= 0) throw new ArgumentException("n must be greater than 0");
 
@@ -412,7 +412,7 @@ namespace EulerProblems.Lib
             }
             return factors.ToArray();
         }
-        internal static long[] GetFactors(long n)
+        public static long[] GetFactors(long n)
         {
             if (n <= 0) throw new ArgumentException("n must be greater than 0");
 
@@ -443,7 +443,7 @@ namespace EulerProblems.Lib
             }
             return factors.ToArray();
         }
-        internal static int[] GetFactors(int n)
+        public static int[] GetFactors(int n)
         {
             if (n <= 0) throw new ArgumentException("n must be greater than 0");
 
@@ -479,7 +479,7 @@ namespace EulerProblems.Lib
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
-        internal static long GetFinoacciSequenceValueAtPositionN(int n)
+        public static long GetFinoacciSequenceValueAtPositionN(int n)
         {
             /* 
              * formula used is here 
@@ -517,7 +517,7 @@ namespace EulerProblems.Lib
             }
             return perfectSquares;
         }
-        internal static long[] GetFirstNPrimes(int n)
+        public static long[] GetFirstNPrimes(int n)
         {
             long[] primes = new long[n];
             primes[0] = 2; // add 2 manually so I can easily skip all even numbers moving forward
@@ -573,7 +573,7 @@ namespace EulerProblems.Lib
         /// <summary>
         /// returns the position of a letter in a zero-indexed alphabet array
         /// </summary>
-        internal static int GetIndexOfLetterInAlphabet(char letter)
+        public static int GetIndexOfLetterInAlphabet(char letter)
         {
             /*
              * in UTF-16, you have the following hexadecimal encodings:
@@ -598,7 +598,7 @@ namespace EulerProblems.Lib
             throw new ArgumentException(
                 String.Format("Value of {0} is not supported for alphabetical indexing.", letter.ToString()));
         }
-        internal static int GetOrderOfMagnitude(int n)
+        public static int GetOrderOfMagnitude(int n)
         {
             if (n == 0 || n == 1) return 0;
             int numOOMSupported = 12;
@@ -621,7 +621,7 @@ namespace EulerProblems.Lib
             }
             return perfectSquares.ToArray();
         }
-        internal static int[] GetPrimeFactors(int n)
+        public static int[] GetPrimeFactors(int n)
         {
             List<int> primeFactors = new List<int>();
             for (var i = 2; i <= n; i++)
@@ -634,7 +634,7 @@ namespace EulerProblems.Lib
             }
             return primeFactors.ToArray();
         }
-        internal static long[] GetPrimesUpToN(long n)
+        public static long[] GetPrimesUpToN(long n)
         {
             // this will take a long time to run. Use the integer function if you can help it
             List<long> primes = new List<long>();
@@ -653,7 +653,7 @@ namespace EulerProblems.Lib
             }
             return primes.ToArray();
         }
-        internal static int[] GetPrimesUpToN(int n)
+        public static int[] GetPrimesUpToN(int n)
         {
             // https://www.baeldung.com/cs/prime-number-algorithms
             // https://kalkicode.com/sieve-of-sundaram
@@ -680,9 +680,9 @@ namespace EulerProblems.Lib
                 for (long j = i; (i + j + 2 * i * j) < limit; ++j)
                 {
                     //(i + j + 2ij) are unset
-                    sieve[(i + j + 2 * i * j)] = 1;
+                    sieve[(i + j + 2 * i * j)] = 1;                    
                 }
-            }
+            }            
             // 2 needs to be added manually
             if (n >= 2)
             {
@@ -707,7 +707,7 @@ namespace EulerProblems.Lib
         /// array would mean that Y is prime. A false at index Y means that
         /// Y is not prime
         /// </summary>
-        internal static bool[] GetPrimesUpToNAsBoolArray(int n)
+        public static bool[] GetPrimesUpToNAsBoolArray(int n)
         {
             // todo: make this create its own sieve. The end of the sieve converts from
             // an arary of bools to an array of ints. Here we are converting it back.
@@ -720,7 +720,7 @@ namespace EulerProblems.Lib
             }
             return bools;
         }
-        internal static List<Triangle> GetPythagoreanTriangles(int maxPerimiter)
+        public static List<Triangle> GetPythagoreanTriangles(int maxPerimiter)
         {
             // use Euclid's formula to generate all primitives, then multiply them out
             List<Triangle> triangles = new List<Triangle>();
@@ -760,7 +760,7 @@ namespace EulerProblems.Lib
         /// returns a list of all proper divisors ordered least to greatest.
         /// a proper divisor is a number less than n which divide evenly into n
         /// </summary>
-        internal static long[] GetProperDivisors(long n)
+        public static long[] GetProperDivisors(long n)
         {
             long[] factors = GetFactors(n);
             long[] properDivisors = factors
@@ -769,7 +769,7 @@ namespace EulerProblems.Lib
                 .ToArray();
             return properDivisors;
         }
-        internal static long GetSumOfSquares(long n)
+        public static long GetSumOfSquares(long n)
         {
             long sum = 0;
             for (long i = 1; i <= n; i++)
@@ -778,7 +778,7 @@ namespace EulerProblems.Lib
             }
             return sum;
         }
-        internal static long GetSquareOfSum(long n)
+        public static long GetSquareOfSum(long n)
         {
             long sum = 0;
             for (long i = 1; i <= n; i++)
@@ -787,7 +787,7 @@ namespace EulerProblems.Lib
             }
             return (long)Math.Pow(sum, 2);
         }
-        internal static List<int>[] GetUniquePrimeFactorsUpToN(int n)
+        public static List<int>[] GetUniquePrimeFactorsUpToN(int n)
         {
             var primes = GetPrimesUpToN(n + 1);
             List<int>[] arrayOfLists = new List<int>[n + 1];
@@ -806,7 +806,7 @@ namespace EulerProblems.Lib
 			}
             return arrayOfLists;
         }
-        internal static int[][] GetWaysToSumANumber(
+        public static int[][] GetWaysToSumANumber(
             int n, 
             int[] numbersBank, 
             Dictionary<int, int[][]> memo = null)
@@ -853,7 +853,7 @@ namespace EulerProblems.Lib
             memo[n] = result;
             return result;
         }
-        internal static bool IsAmicableNumber(long n)
+        public static bool IsAmicableNumber(long n)
         {
             // using a and b makes it easier to think through the logic
             long a = n;
@@ -879,7 +879,7 @@ namespace EulerProblems.Lib
 		/// <param name="primeToCheck">A number that you already know is prime</param>
 		/// <param name="primes">array of ints you already know are primes</param>
 		/// <returns></returns>
-		internal static bool IsCircularPrime(long primeToCheck, long[] primes)
+		public static bool IsCircularPrime(long primeToCheck, long[] primes)
         {
             if (primeToCheck == 2) return true; // the lower part of this algorithm would throw out 2
             if (primeToCheck == 5) return true; // the lower part of this algorithm would throw out 2
@@ -947,13 +947,13 @@ namespace EulerProblems.Lib
         {
             return Math.Abs(d % 1) <= 0.00000000000000000001M;
         }
-        internal static bool IsIntPalindromic(int n)
+        public static bool IsIntPalindromic(int n)
         {
             char[] intAsCharArray = n.ToString().ToCharArray();
             return IsPalindromic(intAsCharArray);
             
         }
-        internal static bool IsIntPalindromic(BigNumber n)
+        public static bool IsIntPalindromic(BigNumber n)
         {
             int numberOfDigits = n.digits.Length;
             int halfWayPoint = (numberOfDigits / 2) + 1;
@@ -969,7 +969,7 @@ namespace EulerProblems.Lib
             }
             return true;
         }
-        internal static bool IsIntPalindromicInBinary(int n)
+        public static bool IsIntPalindromicInBinary(int n)
         {
             string binaryString = Convert.ToString(n, 2);
             char[] intAsCharArray = binaryString.ToCharArray();
@@ -987,7 +987,7 @@ namespace EulerProblems.Lib
             }
             return true;
         }
-        internal static bool IsPalindromic<T>(T[] checkList)
+        public static bool IsPalindromic<T>(T[] checkList)
         {
             int numberOfDigits = checkList.Length;
             int halfWayPoint = (numberOfDigits / 2) + 1;
@@ -1004,7 +1004,7 @@ namespace EulerProblems.Lib
             }
             return true;
         }
-        internal static bool isSGonal(int n, int s)
+        public static bool isSGonal(int n, int s)
         {
             // used to determine if a number is polygonal basen on S sides
             // so if S is 3, check is triagular. If s is 5, check is
@@ -1022,7 +1022,7 @@ namespace EulerProblems.Lib
             if (xMod1 == 0) return true;
             return false; 
         }
-        internal static bool IsPandigital(long n)
+        public static bool IsPandigital(long n)
         {
             int[] digits = ConvertLongToIntArray(n);
             if (digits.Length != 9) return false;
@@ -1040,7 +1040,7 @@ namespace EulerProblems.Lib
                                             }
             return false;
         }
-        internal static bool IsPentagonal(long n, bool isGeneral = false)
+        public static bool IsPentagonal(long n, bool isGeneral = false)
         {
             // https://www.divye.in/2012/07/how-do-you-determine-if-number-n-is.html
             
@@ -1055,18 +1055,18 @@ namespace EulerProblems.Lib
             }
             return false;
         }
-        internal static bool IsPerfectCube(long n)
+        public static bool IsPerfectCube(long n)
         {
             int cubeRootApprox = (int)Math.Round(Math.Pow(n, 1d / 3d));
             if ((long)Math.Pow(cubeRootApprox, 3) == n) return true;
             return false;
         }
-        internal static bool IsPerfectSquare(long n)
+        public static bool IsPerfectSquare(long n)
         {
             double result = Math.Sqrt(n);
             return (result % 1 == 0);
         }
-        internal static bool IsPrime(long x)
+        public static bool IsPrime(long x)
         {
             if (x == 1) return false;
             if (x == 2) return true;
@@ -1098,7 +1098,7 @@ namespace EulerProblems.Lib
             if (Math.Pow(a, 2) + Math.Pow(b, 2) == Math.Pow(c, 2)) return true;
             return false;
         }
-        internal static bool IsTriangular(long n)
+        public static bool IsTriangular(long n)
         {
             // https://en.wikipedia.org/wiki/Triangular_number
             if (IsPerfectSquare(1 + (8 * n))) return true;
@@ -1113,7 +1113,7 @@ namespace EulerProblems.Lib
 		/// <param name="direction">if null, then go both left and right. 
 		/// should be reserved reserved for the top level call</param>
 		/// <returns></returns>
-		internal static bool IsTruncatableAndPrime(long valueToCheck, long[] primes, Direction? direction = null)
+		public static bool IsTruncatableAndPrime(long valueToCheck, long[] primes, Direction? direction = null)
         {
             if (!primes.Contains(valueToCheck)) return false;
             if (valueToCheck < 10) return primes.Contains(valueToCheck);
@@ -1151,12 +1151,12 @@ namespace EulerProblems.Lib
 
             return true;
         }
-        internal static bool IsTruncatablePrime(long primeToCheck, long[] primes)
+        public static bool IsTruncatablePrime(long primeToCheck, long[] primes)
         {
             if (primeToCheck < 10) return false;
             return IsTruncatableAndPrime(primeToCheck, primes);
         }
-        internal static (int count, Dictionary<int, int> cache) PartitionFunction(
+        public static (int count, Dictionary<int, int> cache) PartitionFunction(
             int n,
             Dictionary<int, int> cache = null)
         {
@@ -1211,7 +1211,7 @@ namespace EulerProblems.Lib
             return (howManyWaysToSumANumber(n), cache);
 
         }
-        internal static (long count, Dictionary<long, long> cache) PartitionFunction(
+        public static (long count, Dictionary<long, long> cache) PartitionFunction(
             long n,
             Dictionary<long, long> cache = null)
         {
@@ -1266,7 +1266,7 @@ namespace EulerProblems.Lib
             return (howManyWaysToSumANumber(n), cache);
 
         }
-        internal static (BigInteger count, Dictionary<BigInteger, BigInteger> cache) PartitionFunction(
+        public static (BigInteger count, Dictionary<BigInteger, BigInteger> cache) PartitionFunction(
             BigInteger n,
             Dictionary<BigInteger, BigInteger> cache = null)
         {

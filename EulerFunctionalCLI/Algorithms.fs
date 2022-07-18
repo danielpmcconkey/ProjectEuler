@@ -120,39 +120,39 @@ let getPrimesUpToN n =
     let sieve = Array.zeroCreate limit
     let primeBools = Array.create ((limit * 2) + 1) false
 
-    let updateSieve = 
+    let updateSieve () = 
         let updateSieveForJVals i = 
-            let iVals = seq {i..limit}
+            let iVals = seq {i..(limit - 1)}
             let setSievePositionToOne j =
                 //printfn "i: %d || j: %d" i j
                 sieve[i + j + 2 * i * j] <- 1
             //printfn "i: %d" i
-            let isWithinJLimit (j:uint) = 
+            let isWithinJLimit (i:uint64) (j:uint64) = 
                 // this exists to check if j is large enough to cause int overrun
                 // in f#, it seems to evaluate the (i + j + 2 * i * j) expression
                 // as an int before comparing to limit. Which means that high i and
                 // j combinations will overrun an int down to a negative int. I 
                 // don't know why I don't see this is C#
-                (uint i + j + 2u * uint i * j) < uint limit
+                ( i + j + 2UL *  i * j) < uint64 limit
             let jVals =
                 iVals
-                |> Seq.takeWhile (fun j -> (isWithinJLimit (uint j)) )
+                |> Seq.takeWhile (fun j -> (isWithinJLimit (uint64 i) (uint64 j)) )
                 |> Seq.iter (fun j -> setSievePositionToOne j)
             ()
 
-        seq {1..limit}
+        seq {1..(limit - 1)}
         |> Seq.iter (fun i -> (updateSieveForJVals i))
         ()
-    let updatePrimeBools = 
+    let updatePrimeBools () = 
         primeBools[2] <- true // the below sieve won't surface 2 as a prime
         let updatePrimeBoolForI i = 
             if sieve[i] = 0 then
                 primeBools[(i * 2) + 1] <- true
 
-        updateSieve
+        updateSieve ()
         seq{1..(limit - 1)} |> Seq.iter (fun i -> updatePrimeBoolForI i)
         ()
-    updatePrimeBools
+    updatePrimeBools ()
     let primes =
         (0, []) // initial state of i and an empty primes list
         |> Seq.unfold (fun state ->

@@ -17,13 +17,14 @@ namespace EulerProblems.Lib.Problems
         }
         protected override void Run()
         {
-            long x = 2000000;
-            long[] primes = CommonAlgorithms.GetPrimesUpToN(x);
+            const int limit = 2000000;
+            var primes = CommonAlgorithms.GetPrimesUpToN(limit);
             long sum = 0;
             for (int i = 0; i < primes.Length; i++)
             {
-                if(primes[i] <= x) sum += primes[i];
-            }
+                sum += primes[i];
+            }           
+
             PrintSolution(sum.ToString());
             return;
         }
