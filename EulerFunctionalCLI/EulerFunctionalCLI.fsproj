@@ -18,6 +18,7 @@
     <Compile Include="Problems\Euler008.fs" />
     <Compile Include="Problems\Euler009.fs" />
     <Compile Include="Problems\Euler010.fs" />
+    <Compile Include="Problems\Euler011.fs" />
     <Compile Include="Problems\Euler065.fs" />
     <Compile Include="Problems\Euler074.fs" />
     <Compile Include="Problems\Euler076.fs" />
