@@ -5,10 +5,10 @@ open System.Text.RegularExpressions
 let run () =
 
     (*
-     * this was the first of the F# Euler problems where I felt like I was 
-     * doing functional right. It's very satisfying to create a pipeline like
-     *
-     *      let numbers = 
+     this was the first of the F# Euler problems where I felt like I was 
+     doing functional right. It's very satisfying to create a pipeline like
+     
+           let numbers = 
                 inputString
                 |> removeFirstLineBreak
                 |> removeLastLineBreak
@@ -16,7 +16,7 @@ let run () =
                 |> removeIndents
                 |> splitSpaces
                 |> convertToNumbers
-     *
+     
      *)
  
     let inputString = @"

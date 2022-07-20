@@ -55,7 +55,7 @@
             short tens = Int16.Parse(nAsCharArray[2].ToString());
             short ones = Int16.Parse(nAsCharArray[3].ToString());
 
-            if(n < 1000 & n >= 100)
+            if(n < 1000 && n >= 100)
             {
                 // add the hundreds 
                 if(hundreds > 0)
