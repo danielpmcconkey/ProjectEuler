@@ -9,6 +9,17 @@ type Span = Span of TimeSpan with
 
 let run () =
 
+    (*
+    This is a straight port from the C# code. The only interesting part is how 
+    I create the initial date list. I figured it'd be quicker to use a 
+    range / skip operation than to unfold a sequence of dates but I didn't 
+    realize that skips with timespans are so tricky. Take a look at this
+    stackoverflow page:
+
+    https://stackoverflow.com/questions/11176471/f-generate-a-sequence-array-of-dates
+
+    *)
+
     let isSundayTheFirst (date:DateTime) =
         if date.Day = 1 && date.DayOfWeek = DayOfWeek.Sunday then true else false
 
