@@ -21,7 +21,7 @@ namespace EulerProblems.Lib.Problems
 			for(int i = 2; i <= limit; i++)
             {
 				int localAnswer = unitFractionDivisor(i);
-				if (localAnswer > maximumRepeat)
+                if (localAnswer > maximumRepeat)
 				{
 					answer = i;
 					maximumRepeat = localAnswer;
@@ -62,14 +62,14 @@ namespace EulerProblems.Lib.Problems
 					longDivisionAnswer += "0";
 					trialNumerators.Add(currentTrialNumerator);
 				}
-				if (n == currentTrialNumerator)
+				else if (n == currentTrialNumerator)
 				{
 #if VERBOSEOUTPUT
                     Console.WriteLine(string.Format("{0}{1}{2}", n.ToString().PadRight(10), longDivisionAnswer.PadRight(10), "          ")); 
 #endif
 					return 0;
 				}
-				if (n < currentTrialNumerator)
+				else if (n < currentTrialNumerator)
                 {
 					// how many times will n go into currentTrialDenominator
 					int numberOfTimes = currentTrialNumerator / n;
