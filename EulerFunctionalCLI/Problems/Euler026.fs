@@ -8,7 +8,6 @@ let run () =
     way to stop looping code logic once a desired result has been found. And 
     what this algorithm needs to do is perform gradeschool style long division
     until you've found a repeating remainder. Like so:
-
         
          let n = 11
          
