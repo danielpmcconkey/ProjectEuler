@@ -21,12 +21,12 @@ let run () =
                         1 <-- you've identified a repeat because 1 here is the same as when you started
                      
     And, BTW, this runs about 50 times slower than the C# version. Another
-    indicator that I'm doing it wrong.
+    indicator that I'm doing it wrong. Update: I took out an extraneous 
+    function call in my tryFindIndex and now it only runs 3 times slower :)
 
     *)
 
 
-    let isEqual n m = n = m
     let maxI l = l |> List.maxBy (fun (x, y) -> y) |> fst
     let unitFractionDivisor n =
         if n = 1 then 0 
@@ -59,7 +59,7 @@ let run () =
                                 let newTrialNumerator = remainder * 10
                                 // now check if this new trial numerator is already in the list
                                 // if so, you have identified your repeat
-                                match List.tryFindIndex (isEqual newTrialNumerator) trialNumerators with
+                                match List.tryFindIndex (fun x -> x = newTrialNumerator) trialNumerators with
                                 | Some lastPosition -> 
                                     let nextAccumulator = (newTrialNumerator, trialNumerators, lastPosition + 1)
                                     Some(nextAccumulator, nextAccumulator)
