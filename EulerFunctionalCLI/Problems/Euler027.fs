@@ -3,13 +3,12 @@
 let run () = 
 
     (*
-    This one was a pain in the arse to port from C#. Anything that involves 
-    traversing the same list twice is for me. I've not found a good way to do 
-    it yet. I also had tons of errors while creating this one. One was my dumb
-    ass trusting past me to code properly. The C# comments say I only need to 
-    get primes up to 12989 so I used my getPrimesUpToN function. Only problem 
-    is that that code has a bug in it and only returns primes *under* N. Yeah
-    that took frickin' forever to figure out.
+    This one was a pain in the arse to port from C#. I had tons of errors while 
+    creating this one. One was my dumb ass trusting past me to code properly. 
+    The C# comments say I only need to get primes up to 12989 so I used my 
+    getPrimesUpToN function. Only problem is that that code has a bug in it and 
+    only returns primes *under* N. Yeah, that took frickin' forever to figure 
+    out.
 
     I also don't like how slow this runs. It takes 2155 milliseconds. Mind, the
     C# version takes 1658 milliseconds, so it's not bad. But I feel like there
@@ -18,8 +17,8 @@ let run () =
     there's a trick...
     
     *)
-
-    let toString n = n.ToString()
+    let crossJoin lx ly =
+        lx |> List.collect (fun x -> ly |> List.map (fun y -> x, y))
 
     let limit = 1000
     let numPrimes = 13001
@@ -40,18 +39,11 @@ let run () =
             lastN - 1
         else 0
 
-    let arrayLength = (limit * 2 + 1) * (limit * 2 + 1)  
-    let resultsArray = Array.create (arrayLength) (0, 0)
-
-    for i in (limit * - 1)..(limit - 1) do
-        for j in (limit * - 1)..(limit - 1) do
-            let primeCount = howManyPrimes i j
-            let position = ((i + limit) * (2 * limit + 1)) + (j + limit)
-            resultsArray[position] <- (i * j, primeCount)
-
-    resultsArray 
-    |> Array.toList 
-    |> List.maxBy (fun (x, y) -> y) 
-    |> fst
-    |> toString
+    let values = [(limit * - 1)..limit] 
+    let maxSet = 
+        crossJoin values values 
+        |> List.maxBy (fun (x, y) -> howManyPrimes x y)
+    
+    let answer = (fst maxSet) * (snd maxSet)
+    answer.ToString()
 
