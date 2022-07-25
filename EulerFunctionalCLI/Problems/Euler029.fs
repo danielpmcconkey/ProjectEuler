@@ -10,7 +10,7 @@ let run () =
     loops through the possible numbers in favor of my newly found cross-joining
     skills. I could've combined my cross join and my map down below, but I like
     leaving the cross join on its own. This code also runs significantly faster
-    than the .NET, BTW, so yay!
+    than the C# version, BTW, so yay!
     *)
 
     let toString n = n.ToString()

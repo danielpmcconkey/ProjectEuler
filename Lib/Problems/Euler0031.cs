@@ -18,19 +18,19 @@ namespace EulerProblems.Lib.Problems
 		}
 		protected override void Run()
 		{
-			/* 
+            /* 
 			 * Run_bruteForce() and Run_elegant both take about 
 			 * the same time to run. Elegant looks a lot prettier
 			 * */
 
-			//Run_bruteForce();	
-			Run_elegant();
+            //Run_bruteForce();	
+            Run_elegant();
 		}
 		private void Run_elegant()
         {
 			int target = 200;
 			int[] allCoins = { 200, 100, 50, 20, 10, 5, 2, 1 };
-			int howMany = HowManyWaysToSpendWhatsLeft(target, allCoins);
+            int howMany = HowManyWaysToSpendWhatsLeft(target, allCoins);
 			PrintSolution(howMany.ToString());
 			return;
 		}

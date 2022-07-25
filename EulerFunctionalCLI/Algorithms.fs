@@ -116,6 +116,8 @@ let getFibonacciSeq limit =
 
 let getPrimesUpToN n =
 
+    // note this has a bug and only returns primes *under* n
+
     let limit = ((n - 2) / 2) + 1
     let sieve = Array.zeroCreate limit
     let primeBools = Array.create ((limit * 2) + 1) false
