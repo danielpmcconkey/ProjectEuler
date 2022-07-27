@@ -113,22 +113,16 @@ let getFibonacciSeq limit =
                 then None 
                 else Some (fst state + snd state, (snd state, fst state + snd state))
     )
-
 let getPrimesUpToN n =
 
-    // note this has a bug and only returns primes *under* n
-
     let limit = ((n - 2) / 2) + 1
-    let sieve = Array.zeroCreate limit
-    let primeBools = Array.create ((limit * 2) + 1) false
+    let sieve = Array.zeroCreate (limit + 1)
 
     let updateSieve () = 
         let updateSieveForJVals i = 
             let iVals = seq {i..(limit - 1)}
             let setSievePositionToOne j =
-                //printfn "i: %d || j: %d" i j
                 sieve[i + j + 2 * i * j] <- 1
-            //printfn "i: %d" i
             let isWithinJLimit (i:uint64) (j:uint64) = 
                 // this exists to check if j is large enough to cause int overrun
                 // in f#, it seems to evaluate the (i + j + 2 * i * j) expression
@@ -145,31 +139,21 @@ let getPrimesUpToN n =
         seq {1..(limit - 1)}
         |> Seq.iter (fun i -> (updateSieveForJVals i))
         ()
-    let updatePrimeBools () = 
-        primeBools[2] <- true // the below sieve won't surface 2 as a prime
-        let updatePrimeBoolForI i = 
-            if sieve[i] = 0 then
-                primeBools[(i * 2) + 1] <- true
-
-        updateSieve ()
-        seq{1..(limit - 1)} |> Seq.iter (fun i -> updatePrimeBoolForI i)
-        ()
-    updatePrimeBools ()
-    let primes =
-        (0, []) // initial state of i and an empty primes list
-        |> Seq.unfold (fun state ->
-            let i = fst state
-            let primes = snd state
-            let nextI = i + 1
-            if i >= primeBools.Length then None
-            elif primeBools[i] = false then
-                Some(state, (nextI, primes))
+    updateSieve ()
+    
+    let primeBools = 
+        [0..n]
+        |> List.map (fun x -> 
+            if x = 1 then false
+            elif x = 2 then true 
             else
-                Some(state, (nextI, i::primes))
-            ) 
-        |> Seq.last
-        |> snd
-        |> Seq.rev
+                let sievePlaceF = (((float)x) - 1.0) * 0.5
+                if sievePlaceF % 1.0 = 0 then
+                    let sievePlaceI = (int)sievePlaceF
+                    if sieve[sievePlaceI] = 0 then true else false
+                else false
+        )
+    let primes = [2..n] |> List.filter (fun x -> primeBools[x])
 
     { primes = primes; primeBools = primeBools }
 

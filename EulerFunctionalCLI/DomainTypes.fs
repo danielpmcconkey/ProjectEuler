@@ -2,5 +2,5 @@
 
 type PrimeStarterPack = {
     primes:seq<int>;
-    primeBools:bool[];
+    primeBools:List<bool>;
 }

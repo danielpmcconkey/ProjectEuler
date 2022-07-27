@@ -19,10 +19,10 @@ namespace EulerProblems.Lib.Problems
 			AssignFactorials();
 			int min = 3;
 			/* 
-			 * how big should I check? 9! = 362880, which has 5 
+			 * how big should I check? 9! = 362880, which has 6 
 			 * digits. so anything bigger than 10^7 would be
 			 * impossible. 999,999 would be 6 * (9!) or 2,177,280
-			 * but 7 ^ (9!) would be only 2,540,160.
+			 * but 7 * (9!) would be only 2,540,160.
 			 * */
 			int max = 7 * (int)CommonAlgorithms.GetFactorial(9);
 			
