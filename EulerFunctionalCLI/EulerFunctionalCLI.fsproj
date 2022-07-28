@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Include="DomainTypes.fs" />
     <Compile Include="Algorithms.fs" />
+    <Compile Include="FractionCalculator.fs" />
     <Compile Include="Problems\Euler001.fs" />
     <Compile Include="Problems\Euler002.fs" />
     <Compile Include="Problems\Euler003.fs" />
