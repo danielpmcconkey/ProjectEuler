@@ -1,4 +1,5 @@
 ﻿module Euler027
+open Primes
 
 let run () = 
 
@@ -22,7 +23,7 @@ let run () =
 
     let limit = 1000
     let numPrimes = 13001
-    let primes = Algorithms.getPrimesUpToNSieve numPrimes
+    let primes = getPrimesUpToNSieve numPrimes
 
     let howManyPrimes a b =
         let l =

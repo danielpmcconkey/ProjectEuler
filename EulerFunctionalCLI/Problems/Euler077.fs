@@ -1,24 +1,32 @@
 ﻿module Euler077
+open Primes
 
 
 let run () =
     
     let target = 5000
-    let primesPack = Algorithms.getPrimesUpToNSieve target
+    let primesPack = getPrimesUpToNSieve target
     let primes = primesPack.primes
     let primeBools = primesPack.primeBools
+    
+
+    let sumOfPrimeFactors n primes = 
+        let isMaFactorOfN m = n % m = 0
+        primes
+        |> Seq.filter isMaFactorOfN
+        |> Seq.sum
 
     let cache = Array.create target -1
     let rec primePartition n primes =
         if n = 1 then 0
         elif cache[n] <> -1 then cache[n]
         else 
-            let sopfN = Algorithms.sumOfPrimeFactors n primes
+            let sopfN = sumOfPrimeFactors n primes
             let stateForward state j sum =
                 let nextJ = j - 1
                 if j < 1 then None
                 else
-                    let sopfJ = Algorithms.sumOfPrimeFactors j primes
+                    let sopfJ = sumOfPrimeFactors j primes
                     let subPrimePartition = primePartition (n - j) primes
                     //printfn "j = %d | sopfJ = %d | partition = %d" j sopfJ subPrimePartition
                     let product = sopfJ * subPrimePartition

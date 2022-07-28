@@ -9,7 +9,16 @@ type DigitalFactorialChain = {
 
 
 let run () =
+    
+    let createAppendedIntArray (origArray : int[]) (newVal : int) =
+        // this needs to be replaced
+        let newArray = Array.zeroCreate<int> (origArray.Length + 1)
+        for i in 0 .. newArray.Length - 1 do
+            if i = (newArray.Length - 1) 
+                then Array.set newArray i newVal
+                else Array.set newArray i origArray[i]
 
+        newArray
     let theValueOfUnknownCount = -1 // used for determining whether we know a count in the dictionary
     let limit = 1000000
     let start = 1
@@ -23,7 +32,7 @@ let run () =
         let appendDigitalFactorialChain (newChainElement:int) (dfc:DigitalFactorialChain) =
 
             let oldElements = dfc.chain
-            let appended:int[] = Algorithms.createAppendedIntArray oldElements newChainElement
+            let appended:int[] = createAppendedIntArray oldElements newChainElement
             
 
             let newDfc : DigitalFactorialChain = {

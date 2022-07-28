@@ -1,5 +1,6 @@
 ﻿module Euler035
 open DomainTypes
+open Primes
 
 let run () = 
     
@@ -32,7 +33,7 @@ let run () =
                 |> List.forall (fun x -> primesBools[x])
 
     let limit = (int)1e6
-    let primeStarterPack = Algorithms.getPrimesUpToNSieve limit
+    let primeStarterPack = getPrimesUpToNSieve limit
     let primes = primeStarterPack.primes
     let primeBools = primeStarterPack.primeBools
     primes |> Array.filter (fun x -> isCircularPrime x primeBools) |> Seq.length |> toString

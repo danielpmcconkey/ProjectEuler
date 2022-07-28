@@ -9,7 +9,7 @@ let run () =
         for i in threeDigitNums do 
             for j in threeDigitNums do 
                 let product = i * j
-                if product |> Algorithms.isPalindrome then product }
+                if product |> Algorithms.isPalindromeBase10 then product }
     
     let answer = Seq.max palindromeProducts
     answer.ToString()
