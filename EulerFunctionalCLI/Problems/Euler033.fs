@@ -1,6 +1,7 @@
 ﻿module Euler033
 open DomainTypes
 open FractionCalculator
+open Conversions
 
 let run () = 
 
@@ -22,12 +23,12 @@ let run () =
             let numeratorOnes = f.numerator % 10
             let denominatorOnes = f.denominator % 10
             if numeratorTens = denominatorOnes && denominatorTens <> 0 then
-                let newFraction = reduce (toFraction numeratorOnes denominatorTens)
+                let newFraction = reduce (intToFraction numeratorOnes denominatorTens)
                 if (newFraction.numerator = origFraction.numerator) 
                     && (newFraction.denominator = origFraction.denominator) then true 
                 else false
             elif (denominatorTens = numeratorOnes && denominatorOnes <> 0) then
-                let newFraction = reduce (toFraction numeratorTens denominatorOnes)
+                let newFraction = reduce (intToFraction numeratorTens denominatorOnes)
                 if (newFraction.numerator = origFraction.numerator) 
                     && (newFraction.denominator = origFraction.denominator) then true
                 else false
@@ -42,11 +43,11 @@ let run () =
         fun numerator -> 
             numbers 
             |> List.filter (fun x -> x > numerator) 
-            |> List.map (fun denominator -> toFraction numerator denominator))
+            |> List.map (fun denominator -> intToFraction numerator denominator))
     |> List.filter (fun f -> isDigitCancelling f)
     |> List.fold (fun acc elem -> 
-        toFraction (acc.numerator * elem.numerator) (acc.denominator * elem.denominator)
-        ) (toFraction 1 1)
+        intToFraction (acc.numerator * elem.numerator) (acc.denominator * elem.denominator)
+        ) (intToFraction 1 1)
     |> FractionCalculator.reduce
     |> getDenominator
     |> toString

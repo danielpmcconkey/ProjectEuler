@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Include="DomainTypes.fs" />
     <Compile Include="Algorithms.fs" />
+    <Compile Include="Conversions.fs" />
     <Compile Include="FractionCalculator.fs" />
     <Compile Include="Problems\Euler001.fs" />
     <Compile Include="Problems\Euler002.fs" />
@@ -44,6 +45,7 @@
     <Compile Include="Problems\Euler033.fs" />
     <Compile Include="Problems\Euler034.fs" />
     <Compile Include="Problems\Euler035.fs" />
+    <Compile Include="Problems\Euler036.fs" />
     <Compile Include="Problems\Euler065.fs" />
     <Compile Include="Problems\Euler074.fs" />
     <Compile Include="Problems\Euler076.fs" />

@@ -1,8 +1,10 @@
 ﻿module FractionCalculator
 open DomainTypes
+open Conversions
  
 
-let toFraction n d = {numerator = n; denominator = d}
+
+
 let reduce f = 
     if f.numerator = 0 || f.denominator = 0 then f
     else
@@ -14,5 +16,5 @@ let reduce f =
             |> List.filter (fun (x, y) -> x = y)
             |> List.maxBy (fun (x, y) -> x)
             |> fst
-        {numerator = f.numerator / gcf; denominator = f.denominator / gcf}
+        intToFraction (f.numerator / gcf) (f.denominator / gcf)
 

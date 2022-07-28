@@ -30,8 +30,6 @@ let run () =
                 |> getRotations 
                 |> List.map (fun l -> l |> toInt)
                 |> List.forall (fun x -> primesBools[x])
-            
-
 
     let limit = (int)1e6
     let primeStarterPack = Algorithms.getPrimesUpToNSieve limit
