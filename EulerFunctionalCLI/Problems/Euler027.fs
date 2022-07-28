@@ -22,7 +22,7 @@ let run () =
 
     let limit = 1000
     let numPrimes = 13001
-    let primes = Algorithms.getPrimesUpToN numPrimes
+    let primes = Algorithms.getPrimesUpToNSieve numPrimes
 
     let howManyPrimes a b =
         let l =

@@ -4,7 +4,7 @@
 let run () =
     
     let target = 5000
-    let primesPack = Algorithms.getPrimesUpToN target
+    let primesPack = Algorithms.getPrimesUpToNSieve target
     let primes = primesPack.primes
     let primeBools = primesPack.primeBools
 

@@ -113,7 +113,18 @@ let getFibonacciSeq limit =
                 then None 
                 else Some (fst state + snd state, (snd state, fst state + snd state))
     )
-let getPrimesUpToN n =
+
+let getPrimesUpToNSimple n = 
+    let isPrime n = 
+        if n = 2 then true
+        else
+            let sqrtN = (int)(ceil (sqrt ((float)n)))
+            [|2..sqrtN|] |> Array.forall (fun x -> n % x <> 0)
+    let primeBools = [|0..n|] |> Array.map (fun x -> isPrime x)
+    let primes = [|2..n|] |> Array.filter (fun x -> primeBools[x])
+    (primes, primeBools )
+
+let getPrimesUpToNSieve n =
 
     let limit = ((n - 2) / 2) + 1
     let sieve = Array.zeroCreate (limit + 1)
@@ -142,8 +153,8 @@ let getPrimesUpToN n =
     updateSieve ()
     
     let primeBools = 
-        [0..n]
-        |> List.map (fun x -> 
+        [|0..n|]
+        |> Array.map (fun x -> 
             if x = 1 then false
             elif x = 2 then true 
             else
@@ -153,9 +164,10 @@ let getPrimesUpToN n =
                     if sieve[sievePlaceI] = 0 then true else false
                 else false
         )
-    let primes = [2..n] |> List.filter (fun x -> primeBools[x])
+    let primes = [|2..n|] |> Array.filter (fun x -> primeBools[x])
 
     { primes = primes; primeBools = primeBools }
+
 
 let sumOfPrimeFactors n primes = 
     let isMaFactorOfN m = n % m = 0

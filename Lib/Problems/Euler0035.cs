@@ -6,11 +6,11 @@ namespace EulerProblems.Lib.Problems
 	{
 		public Euler0035() : base()
 		{
-			title = "Digit factorials";
+			title = "Circular primes";
 			problemNumber = 35;
 			
 		}
-		protected override void Run()
+        protected override void Run() 
 		{
 			// this is more efficient with a prime number sieve algorithm
 			// but you need to know how many primes you want to create
