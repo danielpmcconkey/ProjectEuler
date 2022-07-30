@@ -8,3 +8,9 @@ type Fraction = {
     numerator:int;
     denominator:int;
 }
+type IntegerTriangle = {
+    aLength:int;
+    bLength:int;
+    cLength:int;
+    perimeter:int;
+}

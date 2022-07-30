@@ -10,6 +10,7 @@
 		}
 		protected override void Run()
 		{
+            var burp = CommonAlgorithms.GetGreatestCommonFactor(504,633);
 			int maxPerimeter = 1000;
 			Dictionary<int, List<(int a, int b, int c)>> solutions = new Dictionary<int, List<(int a, int b, int c)>>();
 			int maxC = 640; // may be a bad guess. but { 384, 512, 640 } sums to 1536

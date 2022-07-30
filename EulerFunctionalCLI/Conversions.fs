@@ -9,3 +9,6 @@ let intToFraction n d = {numerator = n; denominator = d}
 let stringToInt s = System.Int32.Parse(s)
 let listIntToInt (l:List<int>) = l |> List.fold (fun acc elem -> sprintf "%s%d" acc elem) "" |> stringToInt
 let intArrayToInt (l:int[]) = l |> Array.fold (fun acc elem -> sprintf "%s%d" acc elem) "" |> stringToInt
+let intToListInt n = n.ToString().ToCharArray() |> Array.toList |> List.map (fun c -> (int)c - (int)'0')
+let combineListOfLists (ll:List<List<'T>>) = ll |> List.fold (fun acc elem -> acc @ elem) []
+let floatToInt (f:float) = (int)f

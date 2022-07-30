@@ -1,10 +1,10 @@
 ﻿module Euler032
+open Conversions
 
 let run () = 
 
-    let intToDigitList n = n.ToString().ToCharArray() |> Array.toList |> List.map (fun c -> (int)c - (int)'0')
     let doesIntHaveDuplicates n = 
-        let a = intToDigitList n
+        let a = intToListInt n
         let d = List.distinct a
         a.Length = d.Length
     let factorPairs n = 
@@ -17,10 +17,14 @@ let run () =
                 newFactors
             else factorsList
         ) ([])
-    let isPanDigital n m =
-        let an = intToDigitList n
-        let am = intToDigitList m
-        let ap = intToDigitList (n * m)
+
+
+
+
+    let isProductPanDigital n m =
+        let an = intToListInt n
+        let am = intToListInt m
+        let ap = intToListInt (n * m)
         let a' = an @ am @ ap
         let sorted = a' |> List.sort
         if sorted[0] = 0 || sorted.Length <> 9 then false
@@ -32,7 +36,7 @@ let run () =
     |> List.filter (fun x -> doesIntHaveDuplicates x)
     |> List.collect (fun x -> factorPairs x)
     |> List.map (fun (n, m) -> (n, m, n*m))
-    |> List.filter (fun (n, m, p) -> isPanDigital n m)
+    |> List.filter (fun (n, m, p) -> isProductPanDigital n m)
     |> List.map (fun (n, m, p) -> p)
     |> List.distinct 
     |> List.sum

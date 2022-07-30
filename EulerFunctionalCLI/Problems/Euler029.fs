@@ -14,11 +14,10 @@ let run () =
     *)
 
     let toString n = n.ToString()
-    let crossJoin lx ly =
-        lx |> List.collect (fun x -> ly |> List.map (fun y -> x, y))
+
 
     let nums = [2 .. 100]
-    (crossJoin nums nums)
+    (Algorithms.crossJoinLists nums nums)
     |> List.map (fun (x, y) -> ((float)x)**((float)y))
     |> List.distinct
     |> List.length

@@ -5,6 +5,7 @@ open System.Collections.Generic
 open DomainTypes
 open Conversions
 
+let crossJoinLists lx ly = lx |> List.collect (fun x -> ly |> List.map (fun y -> x, y))
 let factorize n = 
     let sqrtN = (int)(floor (sqrt ((float)n)))  
     [1..sqrtN]
@@ -39,6 +40,49 @@ let getPrimeFactorsOfInt n =
 
     let factorize n = testFactorRecursively n 2 []
     factorize n
+let greatestCommonFactor a b =
+    // this is not FP idiomatic
+    let mutable r = a % b;
+    let mutable a' = a
+    let mutable b' = b
+    while r <> 0 do
+        a' <- b';
+        b' <- r;
+        r <- a' % b';
+    b';
+let getPythagoreanTriangles maxPerimeter =
+    // use Euclid's formula to generate all primitives
+    let maxM = (float)maxPerimeter * 0.5 |> sqrt |> ceil |> floatToInt
+    let primatives =
+        [2..maxM]
+        |> List.collect (fun m -> [1..(m - 1)] |> List.map (fun n -> m, n))
+        |> List.filter (fun (m, n) -> ((m + n) % 2 = 1 && (greatestCommonFactor n m) = 1))
+        |> List.map (fun (m, n) -> { 
+                    aLength = (m * m) - (n * n);
+                    bLength = 2 * m * n;
+                    cLength = (m * m) + (n * n);
+                    perimeter = (2 * m * n) + (m * m) + (m * m) 
+                }
+            )
+    // now expand each primative out through its multiples to produce all the non-primitives
+    let all = 
+        primatives
+        |> List.collect (fun t -> 
+                let maxK = ((float)maxPerimeter / (float)t.perimeter) |> floatToInt
+                [1..maxK] 
+                |> List.map (fun k -> {
+                    aLength = k * t.aLength; 
+                    bLength = k * t.bLength; 
+                    cLength = k * t.cLength; 
+                    perimeter = k * t.perimeter}
+                    )
+            )
+    all
+let isListPandigital l =
+    let sorted = l |> List.sort
+    if sorted[0] = 0 || sorted.Length <> 9 then false
+    elif sorted |> List.distinct |> List.length <> 9 then false
+    else true
 let isPalindromeString (s : string)  =
     let stringArray = stringToChars s
     let length = stringArray.Length
@@ -59,6 +103,12 @@ let isPalindromeString (s : string)  =
         if sumOfTruths = 0 then true else false
 let isPalindromeBase10 (n : int)  = n |> intToString |> isPalindromeString
 let isPalindromeBase2 (n : int)  = n |> intToBase2String |> isPalindromeString
+let isPandigital n =
+    let sorted = n |> intToListInt |> List.sort
+    if sorted[0] = 0 || sorted.Length <> 9 then false
+    elif sorted |> List.distinct |> List.length <> 9 then false
+    else true
+let orderOfMagnitude (n:int) = (n.ToString().Length) - 1
 let partitionFunction n (cache : int[]) = 
             
     cache[0] <- 1
@@ -110,12 +160,6 @@ let partitionFunctionBig (n : BigInteger) (cache : Dictionary<BigInteger, BigInt
             sum
         
     (P n, cache)
-
-
-
-
-
-
 let sumOfDigitFactorials n = 
     
     let factorials = [ 1; 1; 2; 6; 24; 120; 720; 5040; 40320; 362880 ]
@@ -128,6 +172,12 @@ let sumOfDigitFactorials n =
     let digits = intToIntArray n
     let factorialSum = (Seq.fold (fun a b -> a + factorial b) 0 digits)
     factorialSum
+
+
+
+
+
+
 
 
 
