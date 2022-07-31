@@ -12,3 +12,4 @@ let intArrayToInt (l:int[]) = l |> Array.fold (fun acc elem -> sprintf "%s%d" ac
 let intToListInt n = n.ToString().ToCharArray() |> Array.toList |> List.map (fun c -> (int)c - (int)'0')
 let combineListOfLists (ll:List<List<'T>>) = ll |> List.fold (fun acc elem -> acc @ elem) []
 let floatToInt (f:float) = (int)f
+let charsArrayToListInt (chars:char[]) = [for i in 0..(chars.Length - 1) do (int)chars[i] - (int)'A' + 1]

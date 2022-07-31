@@ -11,6 +11,7 @@
     <Compile Include="Algorithms.fs" />
     <Compile Include="FractionCalculator.fs" />
     <Compile Include="Primes.fs" />
+    <Compile Include="IO.fs" />
     <Compile Include="Problems\Euler001.fs" />
     <Compile Include="Problems\Euler002.fs" />
     <Compile Include="Problems\Euler003.fs" />
@@ -51,6 +52,8 @@
     <Compile Include="Problems\Euler038.fs" />
     <Compile Include="Problems\Euler039.fs" />
     <Compile Include="Problems\Euler040.fs" />
+    <Compile Include="Problems\Euler041.fs" />
+    <Compile Include="Problems\Euler042.fs" />
     <Compile Include="Problems\Euler065.fs" />
     <Compile Include="Problems\Euler074.fs" />
     <Compile Include="Problems\Euler076.fs" />
