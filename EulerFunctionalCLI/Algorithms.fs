@@ -16,6 +16,17 @@ let factorize n =
             newFactors
         else factorsList
     ) ([])
+let getAllPermutationsOfList l =
+    // this code stolen from https://stackoverflow.com/questions/1526046/f-permutations
+    let rec distribute e = function
+    | [] -> [[e]]
+    | x::xs' as xs -> (e::xs)::[for xs in distribute e xs' -> x::xs]
+
+    let rec permute = function
+    | [] -> [[]]
+    | e::xs -> List.collect (distribute e) (permute xs)
+
+    permute l
 let getFibonacciSeq limit = 
     (1, 1) // initial state
     |> Seq.unfold ( 
