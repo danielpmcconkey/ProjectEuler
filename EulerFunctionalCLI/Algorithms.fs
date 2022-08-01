@@ -6,6 +6,7 @@ open DomainTypes
 open Conversions
 
 let crossJoinLists lx ly = lx |> List.collect (fun x -> ly |> List.map (fun y -> x, y))
+let crossJoinArrays lx ly = lx |> Array.collect (fun x -> ly |> Array.map (fun y -> x, y))
 let factorize n = 
     let sqrtN = (int)(floor (sqrt ((float)n)))  
     [1..sqrtN]
@@ -35,6 +36,9 @@ let getFibonacciSeq limit =
                 then None 
                 else Some (fst state + snd state, (snd state, fst state + snd state))
     )
+let getPerfectSquaresUpToN n =
+    let limit = (int)(floor (sqrt ((float)n)))
+    [|1..limit|] |> Array.map (fun i -> i * i)
 let getPrimeFactorsOfInt n =
     
     // code adapted from https://www.markheath.net/post/finding-prime-factors-in-f
@@ -119,6 +123,7 @@ let isPandigital n =
     if sorted[0] = 0 || sorted.Length <> 9 then false
     elif sorted |> List.distinct |> List.length <> 9 then false
     else true
+let isPentagonal n = (sqrt (1.0 + (24.0 * (float)n))) % 6.0 = 5
 let orderOfMagnitude (n:int) = (n.ToString().Length) - 1
 let partitionFunction n (cache : int[]) = 
             
