@@ -15,7 +15,7 @@ let run () =
     let multiplyAndCrop (l1: int64) (l2: int64) = (l1 * l2) % (int64) 1e10
     let raiseToSelf i = 
         Array.create i i 
-        |> Array.fold (fun acc elem -> multiplyAndCrop ((int64)acc)  ((int64)elem)) 1L
+        |> Array.fold (fun acc elem -> multiplyAndCrop ((int64)acc) ((int64)elem)) 1L
     [|1..1000|] 
     |> Array.fold (fun acc elem -> addAndCrop acc (raiseToSelf elem)) 0L
     |> longToPaddedString
