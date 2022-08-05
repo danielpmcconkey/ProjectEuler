@@ -7,6 +7,7 @@ open Conversions
 
 let crossJoinLists lx ly = lx |> List.collect (fun x -> ly |> List.map (fun y -> x, y))
 let crossJoinArrays lx ly = lx |> Array.collect (fun x -> ly |> Array.map (fun y -> x, y))
+let crossJoinSequences lx ly = lx |> Seq.collect (fun x -> ly |> Seq.map (fun y -> x, y))
 let factorize n = 
     let sqrtN = (int)(floor (sqrt ((float)n)))  
     [1..sqrtN]
@@ -98,6 +99,23 @@ let isListPandigital l =
     if sorted[0] = 0 || sorted.Length <> 9 then false
     elif sorted |> List.distinct |> List.length <> 9 then false
     else true
+let isPalindromeChars (chars : char[])  =
+        let length = chars.Length
+        if length = 1 then true
+        elif length = 2 then 
+            if chars[0] = chars[1] then true else false
+        else
+            let halfWayPoint = (length / 2) + 1
+            let seqOfTruths =
+                seq {
+                    for i in 0 .. halfWayPoint do
+                        let checkLeft = chars[i]
+                        let checkRight = chars[length - i - 1]
+                        if checkLeft = checkRight then 0 else 1
+                    }
+        
+            let sumOfTruths = Seq.sum seqOfTruths
+            if sumOfTruths = 0 then true else false
 let isPalindromeString (s : string)  =
     let stringArray = stringToChars s
     let length = stringArray.Length

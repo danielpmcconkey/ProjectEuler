@@ -19,3 +19,7 @@ let longToString (l:int64) = l.ToString()
 let charsArrayToListLong (chars:char[]) = chars |> Array.map (fun x -> (int64)(((int)x) - ((int)'0'))) |> Array.toList
 let listLongToLong (l:List<int64>) = l |> List.fold (fun acc elem -> sprintf "%s%d" acc elem) "" |> stringToLong
 let longToListLong n = n.ToString().ToCharArray() |> Array.toList |> List.map (fun c -> (int64)((int)c - (int)'0'))
+let bigIntToString (n:bigint) = n.ToString()
+let bigIntToCharArray (n:bigint) = n |> bigIntToString |> stringToChars 
+let bigIntToListInt (n: bigint) = n |> bigIntToCharArray |> Array.map (fun c -> (int) c - (int) '0') |> Array.toList
+let bigIntToIntArray (n: bigint) = n |> bigIntToCharArray |> Array.map (fun c -> (int) c - (int) '0')

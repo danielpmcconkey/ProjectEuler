@@ -10,6 +10,7 @@ namespace EulerProblems.Lib.Problems
 		}
 		protected override void Run()
 		{
+            var sb = new System.Text.StringBuilder();
 			int limit = 10000;
 			int cycleLimit = 50;
 			int howManyLychrels = 0;
@@ -29,9 +30,11 @@ namespace EulerProblems.Lib.Problems
                 }
 				if (isPotentialLychrel)
 				{
+                    sb.AppendLine(i.ToString());
 					howManyLychrels++;
 				}
             }
+            Console.WriteLine(sb.ToString());
 			PrintSolution(howManyLychrels.ToString());
 			return;
 		}

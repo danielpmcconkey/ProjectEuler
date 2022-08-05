@@ -4,8 +4,11 @@ open System.Text.RegularExpressions
 
 // formatting helper functions
 let getAllText filePath = File.ReadAllText(filePath)
+let getAllLines filePath = File.ReadAllLines(filePath)
 let removeQuotes s = Regex.Replace(s, "\"", "")
 let split (s:string) = s.Split ","
+let splitOnSpace (s:string) = s.Split " "
+
 // end formatting helpers
 
 let get22Input () =
@@ -18,3 +21,6 @@ let get42Input () =
     |> getAllText 
     |> removeQuotes
     |> split
+let get54Input () =
+    @"E:\ProjectEuler\ExternalFiles\p054_poker.txt"
+    |> getAllLines

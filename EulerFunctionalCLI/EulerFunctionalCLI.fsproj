@@ -65,6 +65,9 @@
     <Compile Include="Problems\Euler051.fs" />
     <Compile Include="Problems\Euler052.fs" />
     <Compile Include="Problems\Euler053.fs" />
+    <Compile Include="Problems\Euler054.fs" />
+    <Compile Include="Problems\Euler055.fs" />
+    <Compile Include="Problems\Euler056.fs" />
     <Compile Include="Problems\Euler065.fs" />
     <Compile Include="Problems\Euler074.fs" />
     <Compile Include="Problems\Euler076.fs" />
