@@ -24,3 +24,7 @@ let get42Input () =
 let get54Input () =
     @"E:\ProjectEuler\ExternalFiles\p054_poker.txt"
     |> getAllLines
+let get59Input () =
+    @"E:\ProjectEuler\ExternalFiles\p059_cipher.txt"
+    |> getAllText
+    |> split
