@@ -10,8 +10,7 @@ namespace EulerProblems.Lib.Problems
 		}
 		protected override void Run()
 		{
-            var sb = new System.Text.StringBuilder();
-			int limit = 10000;
+            int limit = 10000;
 			int cycleLimit = 50;
 			int howManyLychrels = 0;
 			for(int i = 1; i < limit; i++)
@@ -30,12 +29,10 @@ namespace EulerProblems.Lib.Problems
                 }
 				if (isPotentialLychrel)
 				{
-                    sb.AppendLine(i.ToString());
-					howManyLychrels++;
+                    howManyLychrels++;
 				}
             }
-            Console.WriteLine(sb.ToString());
-			PrintSolution(howManyLychrels.ToString());
+            PrintSolution(howManyLychrels.ToString());
 			return;
 		}
 		private BigNumber GetReverse(BigNumber n)
