@@ -13,7 +13,7 @@ using EulerProblems.Lib.DAL.Operations;
 //TestHelper.BenchMarkNewSolutions();
 
 
-var euler = EulerProblemFactory.GetEulerProblemClassByNumber(59);
+var euler = EulerProblemFactory.GetEulerProblemClassByNumber(61);
 euler.Solve();
 
 

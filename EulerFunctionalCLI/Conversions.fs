@@ -24,3 +24,7 @@ let bigIntToCharArray (n:bigint) = n |> bigIntToString |> stringToChars
 let bigIntToListInt (n: bigint) = n |> bigIntToCharArray |> Array.map (fun c -> (int) c - (int) '0') |> Array.toList
 let bigIntToIntArray (n: bigint) = n |> bigIntToCharArray |> Array.map (fun c -> (int) c - (int) '0')
 let charToUpper c = System.Char.ToUpper(c)
+let seqToBoolsArray sequence max =
+    let bools = Array.create (max + 1) false
+    sequence |> Seq.iter (fun i -> bools[i] <- true)
+    bools

@@ -27,7 +27,7 @@ let run () =
             abs (expected - ratio)
             )
         |> Array.sum
-    let expectedLetterFrequencies: IDictionary<char, float> = //:Dictionary<char, float> =
+    let expectedLetterFrequencies: IDictionary<char, float> = 
         dict[
         // https://en.wikipedia.org/wiki/Letter_frequency
         'A', 0.082
