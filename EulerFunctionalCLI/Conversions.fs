@@ -28,3 +28,5 @@ let seqToBoolsArray sequence max =
     let bools = Array.create (max + 1) false
     sequence |> Seq.iter (fun i -> bools[i] <- true)
     bools
+let charArrayToString (chars: char []) = chars |> Array.fold (fun acc elem -> sprintf "%s%c" acc elem) ""
+let longToCharArray n = n.ToString().ToCharArray()
