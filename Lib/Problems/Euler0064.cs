@@ -10,7 +10,7 @@ namespace EulerProblems.Lib.Problems
 		}
 		protected override void Run()
 		{
-			/*
+            /*
 			 * This one kicked my ass. First off, I hate these close 
 			 * approximation of irrational numbers fractions. I just don't 
 			 * think that way, it seems. But the real problem is that there's
@@ -72,8 +72,8 @@ namespace EulerProblems.Lib.Problems
 			 * 
 			 * */
 
-			// get all the perfect squares below 10,000
-			const int limit = 10000;
+            // get all the perfect squares below 10,000
+            const int limit = 10000;
 			Math.Sqrt(2);
 			bool[] perfectSquareBools = new bool[limit + 1];
 			for(int i = 2; true; i++)

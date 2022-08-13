@@ -28,3 +28,8 @@ type PokerHand =
     | FULL_HOUSE = 6
     | FOUR_OF_A_KIND = 7
     | STRAIGHT_FLUSH = 8
+type ContinuedFraction = { 
+    firstCoefficient: int
+    subsequentCoefficients: int []
+    doCoefficientsRepeat: bool 
+}

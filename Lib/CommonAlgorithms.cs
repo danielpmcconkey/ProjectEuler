@@ -275,6 +275,12 @@ namespace EulerProblems.Lib
                 // check if we're done
                 if (a_i == twiceAlpha_0)
                 {
+                    return new ContinuedFraction()
+                        {
+                            firstCoefficient = a_0,
+                            subsequentCoefficients = alphas.ToArray(),
+                            doCoefficientsRepeat = true
+                        };
                     // check if the alphas form a palindrome
                     if (alphas.Count < 2)
                     {
