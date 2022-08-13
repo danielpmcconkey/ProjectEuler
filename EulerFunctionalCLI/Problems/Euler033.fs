@@ -14,7 +14,7 @@ let run () =
     *)
  
 
-    let isDigitCancelling f =
+    let isDigitCancelling (f:Fraction) =
         if ((f.numerator % 10 = 0) && (f.denominator % 10 = 0)) then false // example of trivial reduction
         else
             let origFraction = reduce f
@@ -35,7 +35,7 @@ let run () =
             else false
 
     let toString n = n.ToString()
-    let getDenominator f = f.denominator
+    let getDenominator (f:Fraction) = f.denominator
 
     let numbers = [10..99]    
     numbers

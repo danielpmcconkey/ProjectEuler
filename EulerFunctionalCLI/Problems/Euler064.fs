@@ -2,6 +2,7 @@
 
 open DomainTypes
 open Algorithms
+open FractionCalculator
 open Conversions
 
 let run () =

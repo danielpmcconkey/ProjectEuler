@@ -8,6 +8,10 @@ type Fraction = {
     numerator:int;
     denominator:int;
 }
+type FractionBig = {
+    numerator:bigint;
+    denominator:bigint;
+}
 type IntegerTriangle = {
     aLength:int;
     bLength:int;
@@ -28,6 +32,7 @@ type PokerHand =
     | FULL_HOUSE = 6
     | FOUR_OF_A_KIND = 7
     | STRAIGHT_FLUSH = 8
+
 type ContinuedFraction = { 
     firstCoefficient: int
     subsequentCoefficients: int []

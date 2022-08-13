@@ -5,28 +5,6 @@ open System.Collections.Generic
 open DomainTypes
 open Conversions
 
-let continuedFractionOfSqrtN n =
-    let rec checkAlpha a_0 twiceAlpha_0 b_i c_i alphas =
-        let a_i = (a_0 + b_i) / c_i
-        let newAlphas = Array.concat [|alphas; [|a_i|]|]
-        let newB_i = (a_i * c_i) - b_i
-        let newC_i = (n - newB_i * newB_i) / c_i
-        // check if we're done
-        if a_i = twiceAlpha_0 
-            then { 
-                firstCoefficient = a_0 
-                subsequentCoefficients = newAlphas 
-                doCoefficientsRepeat = true 
-                }
-            else checkAlpha a_0 twiceAlpha_0 newB_i newC_i newAlphas
-    // init static values
-    let a_0 = (int)(floor (sqrt ((float)n)))
-    let twiceAlpha_0 = a_0 * 2 
-    // init starter values
-    let b_i = a_0
-    let c_i = n - (a_0 * a_0)
-    let alphas = [||]
-    checkAlpha a_0 twiceAlpha_0 b_i c_i alphas
 let crossJoinLists lx ly = lx |> List.collect (fun x -> ly |> List.map (fun y -> x, y))
 let crossJoinArrays lx ly = lx |> Array.collect (fun x -> ly |> Array.map (fun y -> x, y))
 let crossJoinSequences lx ly = lx |> Seq.collect (fun x -> ly |> Seq.map (fun y -> x, y))
@@ -35,6 +13,20 @@ let factorize n =
     [1..sqrtN]
     |> List.fold ( fun factorsList i -> 
         if n % i = 0 then
+            let opposite = n / i
+            let newFactors = if opposite = i then factorsList @ [i] else factorsList @ [i; opposite] 
+            newFactors
+        else factorsList
+    ) ([])
+let factorizeBig (n:bigint) = 
+    // find a close approximation of square root to use as a limit because bigint doesn't support sqrt functions
+    let numDigitsN = n.ToString().Length
+    let pow10 = ((float)numDigitsN - 1.0) / 2.0
+    let maxSqrt = (int)(3.2 * (10.0**pow10))
+    let max = BigInteger((int64)(floor (sqrt ((float)n))))
+    [1I..max]
+    |> List.fold ( fun factorsList i -> 
+        if n % i = 0I then
             let opposite = n / i
             let newFactors = if opposite = i then factorsList @ [i] else factorsList @ [i; opposite] 
             newFactors
