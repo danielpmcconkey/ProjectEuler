@@ -5,10 +5,9 @@ let intToString n = n.ToString()
 let stringToChars (s:string) = s.ToCharArray()
 let intToIntArray n = n |> intToString |> stringToChars |> Array.map (fun x -> ((int)x) - ((int)'0'))
 let intToBase2String (n:int) = System.Convert.ToString(n, 2)
-let intToFraction (n:int) (d:int) = 
-    let f:Fraction = {numerator = n; denominator = d}
-    f
-let intToFractionBig (n:bigint) (d:bigint) = {numerator = n; denominator = d}
+let intToFraction (n:int) (d:int) = {numerator = n; denominator = d}
+let intToFractionLong (n:int64) (d:int64) = {numeratorLong = n; denominatorLong = d}
+let intToFractionBig (n:bigint) (d:bigint) = {numeratorBig = n; denominatorBig = d}
 let stringToInt s = System.Int32.Parse(s)
 let listIntToInt (l:List<int>) = l |> List.fold (fun acc elem -> sprintf "%s%d" acc elem) "" |> stringToInt
 let intArrayToInt (l:int[]) = l |> Array.fold (fun acc elem -> sprintf "%s%d" acc elem) "" |> stringToInt

@@ -28,3 +28,11 @@ let get59Input () =
     @"E:\ProjectEuler\ExternalFiles\p059_cipher.txt"
     |> getAllText
     |> split
+let get68Input () =
+    @"E:\ProjectEuler\ExternalFiles\p067_triangle.txt"
+    |> getAllLines
+    |> Array.map (fun line ->
+        line 
+        |> splitOnSpace
+        |> Array.map (fun s -> System.Int32.Parse s)
+        )

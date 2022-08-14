@@ -8,9 +8,13 @@ type Fraction = {
     numerator:int;
     denominator:int;
 }
+type FractionLong = {
+    numeratorLong:int64;
+    denominatorLong:int64;
+}
 type FractionBig = {
-    numerator:bigint;
-    denominator:bigint;
+    numeratorBig:bigint;
+    denominatorBig:bigint;
 }
 type IntegerTriangle = {
     aLength:int;

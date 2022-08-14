@@ -5,14 +5,15 @@ namespace EulerProblems.Lib.Problems
 {
 	public class Euler0066 : Euler
 	{
-		public Euler0066() : base()
+        private static int highestLoop = 0;
+        public Euler0066() : base()
 		{
 			title = "Diophantine equation";
 			problemNumber = 66;
 		}
 		protected override void Run()
 		{
-			/*
+            /*
 			 * I don't know how I feel about this one. On one hand, I'm quite 
 			 * proud of finding the solution. One the other hand, though, I 
 			 * feel like we've definitely entered the realm of esoteric 
@@ -40,7 +41,9 @@ namespace EulerProblems.Lib.Problems
 			 * fraction from that were easy combinations of those 2 problems.
 			 * 
 			 * */
-			int limit = 1000;
+
+
+            int limit = 1000;
 			BigInteger maxMinX = 0;
 			int dAtMaxX = 0;
 			for (int D = 2; D <= limit; D++)
@@ -61,12 +64,14 @@ namespace EulerProblems.Lib.Problems
 			PrintSolution(dAtMaxX.ToString());
 			return;
 		}
+        
 		private BigInteger GetFundamentalX(int D, int loop = 0)
         {
 			ContinuedFraction cf = CommonAlgorithms.GetContinuedFractionOfSquareRootOfN(D);
 			int repeatLength = cf.subsequentCoefficients.Length;
 			if(loop > 0)
             {
+                if (loop > highestLoop) highestLoop++;
 				List<int> newCoefficients = cf.subsequentCoefficients.ToList();
 				for (int l = 0; l < loop; l++)
                 {

@@ -18,6 +18,17 @@ let factorize n =
             newFactors
         else factorsList
     ) ([])
+let factorizeLong (n:int64) = 
+    // find a close approximation of square root to use as a limit because Longint doesn't support sqrt functions
+    let sqrtN = (int64)(floor (sqrt ((float)n)))
+    [1L..sqrtN]
+    |> List.fold ( fun factorsList i -> 
+        if n % i = 0L then
+            let opposite = n / i
+            let newFactors = if opposite = i then factorsList @ [i] else factorsList @ [i; opposite] 
+            newFactors
+        else factorsList
+    ) ([])
 let factorizeBig (n:bigint) = 
     // find a close approximation of square root to use as a limit because bigint doesn't support sqrt functions
     let numDigitsN = n.ToString().Length
@@ -43,6 +54,8 @@ let getAllPermutationsOfList l =
     | e::xs -> List.collect (distribute e) (permute xs)
 
     permute l
+let getAnswerFromIntOption o = match o with | Some(x)  -> x; | None -> -1
+let getAnswerFromFractionOption o = match o with | Some(x)  -> x; | None -> -1
 let getFibonacciSeq limit = 
     (1, 1) // initial state
     |> Seq.unfold ( 

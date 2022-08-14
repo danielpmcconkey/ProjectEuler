@@ -15,19 +15,19 @@ let run () =
     let getConvergenceAtCoefficient (priorFraction:FractionBig) (coefficient:int) = 
         // add the primary coefficient and invert
         priorFraction 
-        |> addBig { numerator = coefficient; denominator = 1 }
+        |> addBig { numeratorBig = coefficient; denominatorBig = 1 }
         |> reciprocateBig
 
 
     let targetPosition = 100
-    let starterFraction = { numerator = 0I; denominator = 1I }
+    let starterFraction = { numeratorBig = 0I; denominatorBig = 1I }
     
     {1 .. (targetPosition - 1)}
     |> Seq.map (fun i -> getECoefficientAtPosition i)
     |> Seq.rev
     |> Seq.fold (fun x y -> getConvergenceAtCoefficient x y) starterFraction
-    |> addBig { numerator = 2I; denominator = 1I }
-    |> (fun f -> f.numerator)
+    |> addBig { numeratorBig = 2I; denominatorBig = 1I }
+    |> (fun f -> f.numeratorBig)
     |> bigIntToIntArray
     |> Array.sum
     |> intToString
