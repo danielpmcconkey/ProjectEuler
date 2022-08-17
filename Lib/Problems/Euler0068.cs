@@ -180,7 +180,7 @@ namespace EulerProblems.Lib.Problems
 		}
 		protected override void Run()
 		{
-			long answer = 0;
+            long answer = 0;
 			
 			int[] digits1through9 = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			int[][] permutations = CommonAlgorithms.GetAllPermutationsOfArray(digits1through9);

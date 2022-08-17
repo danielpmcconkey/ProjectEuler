@@ -234,7 +234,58 @@ let sumOfDigitFactorials n =
     let digits = intToIntArray n
     let factorialSum = (Seq.fold (fun a b -> a + factorial b) 0 digits)
     factorialSum
-
+let factorial n = 
+    [1..n] |> List.fold (fun acc elem -> acc * elem) 1
+let arraySwap place1 place2 (A:'T[]) =
+    A |> Array.mapi (fun i v ->
+        match i with 
+        | _ when i = place1 -> A[place2]
+        | _ when i = place2 -> A[place1]
+        | _ -> v
+        )
+let factorialsUpToN n =
+    (0, 1) 
+    |> Array.unfold (fun (i, fact) -> 
+        if i > n then None
+        elif i = 0 then Some((i, fact), (1, 1))
+        else
+            Some((i, fact), (i + 1, fact * (i + 1)))
+        )
+    |> Array.map (fun t -> snd t)
+let permuteArray (array:'T[]) =
+    let mod6Swaps i fs = 
+        // pos 2 is the position of the largest of the factorials for which i mod it is 0
+        let pos2 = 
+            fs 
+            |> Array.mapi (fun iter v -> (iter, i % v))
+            |> Array.filter (fun (iter, modulo) -> modulo = 0)
+            |> Array.maxBy (fun t -> fst t)
+            |> fst
+        let pos1 = 
+            if pos2 % 2 = 0 then 0
+            else
+                ((i / fs[pos2]) % (pos2 + 1)) - 1
+        pos1, pos2
+    let length = array.Length 
+    let factorials = factorialsUpToN length
+    let max = factorials[length] 
+    let period = 6 // don't know why it's 6, but it is
+    (1, array)
+    |> Array.unfold (fun (i, lastPermutation) ->
+        if i > max then None
+        else 
+            let modI = i % 2
+            let modPeriod = i % period
+            let pos1, pos2 =
+                if modPeriod = 0 then mod6Swaps i factorials
+                elif modI % 2 = 1 then 0, 1 
+                else 0, 2
+            let nextArray = 
+                if i = max then lastPermutation // you can't make anymore swaps and this gets thrown away
+                else arraySwap pos1 pos2 lastPermutation
+            Some((i, lastPermutation), (i + 1, nextArray))
+        )
+    |> Array.map (fun (i, p) -> p)
 
 
 

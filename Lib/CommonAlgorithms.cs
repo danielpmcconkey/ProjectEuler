@@ -207,7 +207,7 @@ namespace EulerProblems.Lib
                 {
                     if (i % 2 == 0)
                     {
-                        array = ArraySwap(array, 0, i);
+                        array = ArraySwap(array, 0, i);                        
                     }
                     else
                     {
