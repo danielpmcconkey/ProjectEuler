@@ -1,4 +1,4 @@
-﻿//#define VERBOSEOUTPUT
+﻿#define VERBOSEOUTPUT
 using System.Diagnostics;
 
 namespace EulerProblems.Lib.Problems
@@ -6,7 +6,7 @@ namespace EulerProblems.Lib.Problems
 	public class Euler0070 : Euler
 	{
 		Dictionary<int, int> phi;
-		const int limit = 10000000;
+        const int limit = 10000000;
 
 		public Euler0070() : base()
 		{

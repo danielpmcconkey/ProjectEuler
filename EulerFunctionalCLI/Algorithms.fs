@@ -286,6 +286,11 @@ let permuteArray (array:'T[]) =
             Some((i, lastPermutation), (i + 1, nextArray))
         )
     |> Array.map (fun (i, p) -> p)
+let areIntegersPermutations m n = 
+    let mChars = m |> intToString |> stringToChars |> Array.sort
+    let nChars = n |> intToString |> stringToChars |> Array.sort
+    Array.zip mChars nChars
+    |> Array.forall (fun (m, n) -> m = n)
 
 
 
