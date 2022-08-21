@@ -67,22 +67,6 @@ let getFibonacciSeq limit =
 let getPerfectSquaresUpToN n =
     let limit = (int)(floor (sqrt ((float)n)))
     [|1..limit|] |> Array.map (fun i -> i * i)
-let getPrimeFactorsOfInt n =
-    
-    // code adapted from https://www.markheath.net/post/finding-prime-factors-in-f
-    let rec testFactorRecursively n potentialFactorToTest knownFactorsSoFar =
-        if potentialFactorToTest = n then
-            potentialFactorToTest::knownFactorsSoFar
-        else if n % potentialFactorToTest = 0 then
-            testFactorRecursively 
-                (n/potentialFactorToTest) 
-                potentialFactorToTest 
-                (potentialFactorToTest::knownFactorsSoFar)
-        else
-            testFactorRecursively n (potentialFactorToTest + 1) knownFactorsSoFar
-
-    let factorize n = testFactorRecursively n 2 []
-    factorize n
 let greatestCommonFactor a b =
     // this is not FP idiomatic
     let mutable r = a % b;

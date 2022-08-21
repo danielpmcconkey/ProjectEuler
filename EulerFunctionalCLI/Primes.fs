@@ -82,3 +82,30 @@ let getFirstNPrimes n =
         primes[count] <- lastPrime
 
     primes
+let primeFactors n =
+    
+    // code adapted from https://www.markheath.net/post/finding-prime-factors-in-f
+    let rec testFactorRecursively n potentialFactorToTest knownFactorsSoFar =
+        if potentialFactorToTest = n then
+            potentialFactorToTest::knownFactorsSoFar
+        else if n % potentialFactorToTest = 0 then
+            testFactorRecursively 
+                (n/potentialFactorToTest) 
+                potentialFactorToTest 
+                (potentialFactorToTest::knownFactorsSoFar)
+        else
+            testFactorRecursively n (potentialFactorToTest + 1) knownFactorsSoFar
+
+    let factorize n = testFactorRecursively n 2 []
+    factorize n
+let primeFactorsOf0ToN (n:int) = 
+    let factors:int[][] = Array.create (n + 1) [||]
+    for i in 2 .. n do
+        let existingFactors = factors[i]
+        if existingFactors.Length > 0 then () // not prime
+        else
+            // prime, expand it into higher positions
+            for j in i .. i .. n do
+                if j > n then ()
+                else factors[j] <- Array.concat [|factors[j]; [|i|]|]
+    factors

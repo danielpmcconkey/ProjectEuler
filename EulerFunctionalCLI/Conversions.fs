@@ -1,6 +1,7 @@
 ﻿module Conversions
 open DomainTypes
 
+let intToLong n = (int64)n
 let intToString n = n.ToString()
 let stringToChars (s:string) = s.ToCharArray()
 let intToIntArray n = n |> intToString |> stringToChars |> Array.map (fun x -> ((int)x) - ((int)'0'))
