@@ -6,8 +6,6 @@ open DomainTypes
 open Primes
 open Algorithms
 open Conversions
-// open FractionCalculator
-// open IO
 
 let run () =
 
