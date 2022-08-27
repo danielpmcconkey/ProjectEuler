@@ -5,7 +5,7 @@ namespace EulerProblems.Lib.Problems
 	{
 		public Euler0076() : base()
 		{
-			title = "Template";
+			title = "Counting summations";
 			problemNumber = 76;
 		}
         protected override void Run() 
