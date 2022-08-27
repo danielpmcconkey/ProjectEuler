@@ -42,3 +42,8 @@ type ContinuedFraction = {
     subsequentCoefficients: int []
     doCoefficientsRepeat: bool 
 }
+type DigitalFactorialChain = {
+    n : int;
+    length : int;
+    chain : int[];
+}

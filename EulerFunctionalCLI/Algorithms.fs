@@ -207,17 +207,14 @@ let partitionFunctionBig (n : BigInteger) (cache : Dictionary<BigInteger, BigInt
         
     (P n, cache)
 let sumOfDigitFactorials n = 
-    
     let factorials = [ 1; 1; 2; 6; 24; 120; 720; 5040; 40320; 362880 ]
-
     let rec factorial n =
         match n with
         | 0 | 1 -> 1
         | _ -> n * factorial(n-1)
 
     let digits = intToIntArray n
-    let factorialSum = (Seq.fold (fun a b -> a + factorial b) 0 digits)
-    factorialSum
+    Seq.fold (fun a b -> a + factorial b) 0 digits
 let factorial n = 
     [1..n] |> List.fold (fun acc elem -> acc * elem) 1
 let arraySwap place1 place2 (A:'T[]) =

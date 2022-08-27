@@ -1,126 +1,88 @@
 ﻿module Euler074
 
-type DigitalFactorialChain = {
-    n : int;
-    length : int;
-    chain : int[];
-}
+open DomainTypes
+open Algorithms
+open Conversions
 
 
 
 let run () =
-    
-    let createAppendedIntArray (origArray : int[]) (newVal : int) =
-        // this needs to be replaced
-        let newArray = Array.zeroCreate<int> (origArray.Length + 1)
-        for i in 0 .. newArray.Length - 1 do
-            if i = (newArray.Length - 1) 
-                then Array.set newArray i newVal
-                else Array.set newArray i origArray[i]
 
-        newArray
-    let theValueOfUnknownCount = -1 // used for determining whether we know a count in the dictionary
-    let limit = 1000000
-    let start = 1
+    (*
+    This is a re-write of my original F# take on problem 74. Back 2 months ago,
+    when I was first learning F#, I took a stab at converting my C# solution. 
+    It was horrible. I set up a mutable dictionary that I kept overwriting with
+    every pass of a "for i in 1..1000000 do" loop.
 
-    let calculate60ChainCount start limit =
+        mutableDict <- processRow i mutableDict
 
-        (*
-            define helper functions 
-        *)
+    Something like that. Now, in truth, I'm not doing it too terribly 
+    differently, but it just feels more FP. I *do* rely on the fact that Arrays
+    in F# are inherently mutable. But I use recurrsion now to pass my updated
+    dict array to the next generation and, when I reach my base state, send it 
+    back out the stack.
 
-        let appendDigitalFactorialChain (newChainElement:int) (dfc:DigitalFactorialChain) =
+    I replaced a lot of clumsy ways of doing things with much more elegant F#.
+    Things like using pipelines or built in array functions like iteri. This is
+    also a good showcase of recursion being used instead of for loops.
+    *)
 
-            let oldElements = dfc.chain
-            let appended:int[] = createAppendedIntArray oldElements newChainElement
-            
-
-            let newDfc : DigitalFactorialChain = {
-                n = dfc.n;
-                length = dfc.length + 1;
-                chain = appended;
-            }
-            newDfc
-
-        let rec getRepeatChain n (currentChain:DigitalFactorialChain) (dictionary : int[]) = 
-            // recursive function for calculating chain length from a given 
-            // starting pos. This is the workhorse of this solution
-
-            if dictionary[n] = theValueOfUnknownCount then 
-                let sumOfFacts = Algorithms.sumOfDigitFactorials n
-                let newCurrentChain = appendDigitalFactorialChain n currentChain
-                getRepeatChain sumOfFacts newCurrentChain dictionary
-            else  
-                { 
-                    n = currentChain.n; 
-                    length = (currentChain.length + dictionary[n]); 
-                    chain = currentChain.chain;
+    let rec getRepeatChain n unknownValue (currentChain:DigitalFactorialChain) (dict: int[]) =
+        if dict[n] = unknownValue then
+            let digitFact = sumOfDigitFactorials n
+            let newCurrentChain = {
+                n = currentChain.n
+                length = currentChain.length + 1
+                chain = Array.concat [|currentChain.chain; [|n|]|]
                 }
+            getRepeatChain digitFact unknownValue newCurrentChain dict
+        else ({
+                n = currentChain.n
+                length = currentChain.length + dict[n]
+                chain = currentChain.chain
+            }, dict)
 
-        let processRow n dictionary = 
-            let startChain : DigitalFactorialChain = {
-                n = n; 
-                length = 0;
-                chain = [||];    
-            }
-            let dfc = getRepeatChain n startChain dictionary
-            // now add the chain elements to the dictionary addChainElementsToDictionary varl dict
-            let chainLength = dfc.chain.Length
-            for i in 0 .. chainLength - 1 do        
-                dictionary[dfc.chain[i]] <- dfc.length - i
-            dictionary
-
-        let countSixtySequenceEntries (countSoFar : int) (thisChainLength : int) = 
-            if thisChainLength = 60 then 
-                countSoFar + 1
+    let rec processRow i (dict:int[]) limit unknownValue =
+        if i > limit then dict
+        else
+            if dict[i] = unknownValue then
+                // process value
+                let startChain = {n = i; length = 0; chain = [||]}
+                let (dfc, newDict) = getRepeatChain i unknownValue startChain dict
+                // add new chain elements to newDict
+                dfc.chain
+                |> Array.iteri (fun i chainVal -> newDict[chainVal] <- dfc.length - i)
+                // process the next row
+                processRow (i + 1) newDict limit unknownValue 
             else 
-                countSoFar
+                // row already processed, move to the next
+                processRow (i + 1) dict limit unknownValue
 
+    let limit = (int)1e6
+    let start = 1
+    let target = 60
+    let maxFactorialSum = 1 + sumOfDigitFactorials (limit - 1)
+    let unknownValue = -1
+    let dict = Array.create maxFactorialSum unknownValue
+    // add the integers whose factorial sums are themselves (like 145 in 
+    // the problem statement) to the dictionary to prevent recurrsive loops
+    dict[1]      <- 1
+    dict[2]      <- 1
+    dict[145]    <- 1
+    dict[40585]  <- 1
 
-        (* 
-            Set up a mutable dictionary that each iteration will add its entire
-            chain to. This is not very FP idiomatic and I'd like to figure out
-            how to do this right
-        *)
-        let biggestPossibleFatorialSum = 1 + (Algorithms.sumOfDigitFactorials 999999)
-        let mutable mutableDict = Array.create biggestPossibleFatorialSum theValueOfUnknownCount
-        // add the integers whose factorial sums are themselves (like 145 in 
-        // the problem statement) to the dictionary to prevent recurrsive loops
-        mutableDict[1]      <- 1
-        mutableDict[2]      <- 1
-        mutableDict[145]    <- 1
-        mutableDict[40585]  <- 1
-        
-        // now add the integers whose chain lengths are given in the problem 
-        // statement
-        mutableDict[169]    <- 3
-        mutableDict[871]    <- 2
-        mutableDict[872]    <- 2
-        mutableDict[1454]   <- 3
-        mutableDict[45361]  <- 2
-        mutableDict[45362]  <- 2
-        mutableDict[363601] <- 3
+    // now add the integers whose chain lengths are given in the problem 
+    // statement
+    dict[169]    <- 3
+    dict[871]    <- 2
+    dict[872]    <- 2
+    dict[1454]   <- 3
+    dict[45361]  <- 2
+    dict[45362]  <- 2
+    dict[363601] <- 3
 
-         
-        (* 
-            Now put it all together. Iterater from start through limit and 
-            determine the chain length for each element. All the while, update
-            your dictionary for values in that element's chain so that A) you
-            won't have to recalculate them; and B) to make it faster to find
-            future chain lengths (the factorial summing stops when you've 
-            found a "known" value)
-        *)
-        for i in start .. limit do
-            // don't process this row if i has already been determined
-            if mutableDict[i] = theValueOfUnknownCount then 
-                mutableDict <- processRow i mutableDict
-                ()
-            else 
-                () // skip processing
-
-        let numSixties = Seq.fold (fun a -> countSixtySequenceEntries a) 0 mutableDict
-        numSixties
-
-    let answer = calculate60ChainCount start limit 
-    answer.ToString()
+    processRow start dict limit unknownValue
+    |> Array.filter (fun x -> x = target)
+    |> Array.length
+    |> intToString
     
