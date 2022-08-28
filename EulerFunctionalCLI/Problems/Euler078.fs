@@ -1,33 +1,43 @@
 ﻿module Euler078
 open System.Collections.Generic
 open System.Numerics
+open Conversions
 
 let run () =
     
-    let target = BigInteger 100
-    let cache:Dictionary<BigInteger, BigInteger> = new Dictionary<BigInteger,BigInteger>()
-    cache[0] <- 1
+    (*
+    This forced me to finally write an FP-idiomatic partition function. I'd 
+    been avoiding it every way I could. I don't like the way the cache is 
+    implemented here but it's the lesser of the few evils I could think of.
+    *)
 
-    let start:BigInteger = BigInteger 1
-    let targetDivisor:BigInteger = BigInteger 1000000
+    let cache = new Dictionary<bigint,bigint>()
+    cache[0I] <- 1I
 
-    let findAnswer =
-        start 
-        |> Seq.unfold(fun state ->
-            let i = state
-            let partition = Algorithms.partitionFunctionBig i cache
-            let howMany = fst partition
-            let nextI = i + BigInteger 1
-            if howMany % targetDivisor = BigInteger 0 then 
-                printfn "%s : %s" (i.ToString()) (howMany.ToString())
-                None
-            elif howMany < BigInteger 0 then 
-                None
+
+    let rec partitionFunctionBig (n:bigint) =
+        let rec subPartition (k:bigint) (Pn:bigint) (n:bigint) = 
+            let n1 = n - k * (3I * k - 1I) / 2I
+            let n2 = n - k * (3I * k + 1I) / 2I
+            if n1 < 0I && n2 < 0I then Pn
             else
-                Some(state, nextI)
-        )
-    let add1 (n: BigInteger) = n + BigInteger 1
+                let Pn1 = partitionFunctionBig n1
+                let Pn2 = partitionFunctionBig n2
+                let Pn_combined = Pn1 + Pn2
+                let newPn = if k % 2I = 1I then Pn + Pn_combined else Pn - Pn_combined
+                subPartition (k + 1I) newPn n
+        if n < 0I then 0I
+        elif cache.ContainsKey n then cache[n]
+        else
+            let initialK = 1I
+            let initialPn = 0I
+            let result = subPartition initialK initialPn n
+            cache[n] <- result
+            result
 
-    let answer = findAnswer |> Seq.last |> add1
-    answer.ToString()
+    let start = 1I
+    let targetDivisor = 1000000I
+    [|start..targetDivisor|]
+    |> Array.find (fun i -> (partitionFunctionBig i) % targetDivisor = 0I)
+    |> intToString    
     

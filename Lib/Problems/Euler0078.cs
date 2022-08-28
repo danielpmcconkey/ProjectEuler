@@ -32,7 +32,7 @@ namespace EulerProblems.Lib.Problems
              * */
 
             Dictionary<BigInteger, BigInteger> cache = new Dictionary<BigInteger, BigInteger>();
-            cache[0] = 1;            
+            cache[0] = 1;
 
             BigInteger start = 1;
             BigInteger targetDivisor = 1000000;// 100;

@@ -156,7 +156,7 @@ let isPentagonal n = (sqrt (1.0 + (24.0 * (float)n))) % 6.0 = 5
 let isPerfectSquare (n:int) = (sqrt ((float)n)) % 1.0 = 0.0
 let orderOfMagnitude (n:int) = (n.ToString().Length) - 1
 let partitionFunction n (cache : int[]) = 
-            
+    // see problem 78 for an (maybe more) FP idiomatic partition function
     cache[0] <- 1
     let rec P n = // (n : int) :int =
         if n < 0 then 0
@@ -174,36 +174,6 @@ let partitionFunction n (cache : int[]) =
                 |>Seq.sum
             cache[n] <- result
             result
-        
-    (P n, cache)
-let partitionFunctionBig (n : BigInteger) (cache : Dictionary<BigInteger, BigInteger>) = 
-            
-    cache[0] <- 1
-    let rec P (n:BigInteger) :BigInteger = 
-        if n < BigInteger 0 then BigInteger 0
-        elif cache.ContainsKey n then 
-            cache[n]
-        else 
-            
-            
-            let result = //lazy( 
-                seq {
-                    for (k:BigInteger) in (BigInteger 1) .. n do 
-                        let n1 = n - k * (BigInteger 3 * k - BigInteger 1) / BigInteger 2
-                        let n2 = n - k * (BigInteger 3 * k + BigInteger 1) / BigInteger 2
-                        let Pn1 = P n1
-                        let Pn2 = P n2
-                        let combined = Pn1 + Pn2
-                        if (k % BigInteger 2 = BigInteger 1)
-                            then 
-                                combined
-                            else 
-                                BigInteger -1 * combined
-                } |> Seq.sum
-            //)
-            let sum = result//.Force()
-            cache[n] <- sum
-            sum
         
     (P n, cache)
 let sumOfDigitFactorials n = 
