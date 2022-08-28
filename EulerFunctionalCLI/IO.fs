@@ -1,6 +1,7 @@
 ﻿module IO
 open System.IO
 open System.Text.RegularExpressions
+open Conversions
 
 // formatting helper functions
 let getAllText filePath = File.ReadAllText(filePath)
@@ -35,4 +36,12 @@ let get68Input () =
         line 
         |> splitOnSpace
         |> Array.map (fun s -> System.Int32.Parse s)
+        )
+let get79Input () =
+    @"E:\ProjectEuler\ExternalFiles\p079_keylog.txt"
+    |> getAllLines
+    |> Array.map (fun line ->
+        line 
+        |> stringToInt
+        |> intToIntArray
         )

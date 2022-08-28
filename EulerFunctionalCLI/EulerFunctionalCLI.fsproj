@@ -90,6 +90,7 @@
     <Compile Include="Problems\Euler076.fs" />
     <Compile Include="Problems\Euler077.fs" />
     <Compile Include="Problems\Euler078.fs" />
+    <Compile Include="Problems\Euler079.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
