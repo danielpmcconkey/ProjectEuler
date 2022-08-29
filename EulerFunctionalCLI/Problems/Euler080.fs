@@ -19,7 +19,17 @@ let run () =
     
     That part was tricky because I didn't know how many times I had to loop 
     through the repeating coefficients in my continued fraction. I arrived at 
-    175 coefficients through trial and error.
+    175 coefficients through trial and error while solving the C# version.
+
+    Note from the next day: In my original C# version of decimal expansion, I
+    exit the loop when floor_p is no longer equal to floor_u, indicating that 
+    we've met our limit of precision given the number of coefficients. This
+    yields decimals of greater than 100 length that we later need to cut down
+    before summing. Here, since I'd already worked out that the 1.75 pad was 
+    enough to ensure 100 digits of precision, I didn't need that check and 
+    can just exit after 100 digts. This allows me to save a little time.
+    
+    Runs in 57 ms
     *)
 
     let expandCoefficients (coefficients:int[]) (countNeeded:int) =
@@ -31,10 +41,10 @@ let run () =
         add coefficients
     let decimalExpansion (cf:ContinuedFraction) numDigits (padding:float) =
         let rec expand (p:FractionBig) (u:FractionBig) (digits:bigint[]) =
-            let floor_p = p.numeratorBig / p.denominatorBig
-            let floor_u = u.numeratorBig / u.denominatorBig
-            if floor_p <> floor_u then digits
+            if digits.Length = numDigits then digits
             else
+                let floor_p = p.numeratorBig / p.denominatorBig
+                let floor_u = u.numeratorBig / u.denominatorBig
                 let newDigits = Array.concat [|digits; [|floor_p|]|]
                 let newP = {
                     numeratorBig = 10I * (p.numeratorBig - (floor_p * p.denominatorBig))
@@ -70,7 +80,6 @@ let run () =
     |> Array.filter (fun x -> isPerfectSquare x = false)
     |> Array.map (fun x -> continuedFractionOfSqrtN x)
     |> Array.map (fun cf -> decimalExpansion cf numDigits padding)
-    |> Array.map (fun digits -> digits[0..(numDigits - 1)])
     |> Array.map (fun digits -> Array.sum digits)
     |> Array.sum
     |> bigIntToString
