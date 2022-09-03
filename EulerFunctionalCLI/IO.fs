@@ -45,3 +45,11 @@ let get79Input () =
         |> stringToInt
         |> intToIntArray
         )
+let get81Input () =
+    @"E:\ProjectEuler\ExternalFiles\p081_matrix.txt"
+    |> getAllLines
+    |> Array.map (fun line -> 
+        split line
+        |> Array.map (fun s -> stringToInt s)
+        )
+

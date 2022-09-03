@@ -47,3 +47,21 @@ type DigitalFactorialChain = {
     length : int;
     chain : int[];
 }
+type XyCoordinate = {
+    x: int
+    y: int
+}
+type Route = {
+    cost: int
+    destination: XyCoordinate
+}
+type Node = {
+    position: XyCoordinate
+    heuristicCost: int option
+    distanceTo: int option
+    pathVia: XyCoordinate option
+    r_up: Route option
+    r_right: Route option
+    r_down: Route option
+    r_left: Route option
+}
