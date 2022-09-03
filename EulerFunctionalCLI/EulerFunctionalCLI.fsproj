@@ -12,6 +12,7 @@
     <Compile Include="FractionCalculator.fs" />
     <Compile Include="Primes.fs" />
     <Compile Include="IO.fs" />
+    <Compile Include="PathFinder.fs" />
     <Compile Include="Problems\Euler001.fs" />
     <Compile Include="Problems\Euler002.fs" />
     <Compile Include="Problems\Euler003.fs" />
