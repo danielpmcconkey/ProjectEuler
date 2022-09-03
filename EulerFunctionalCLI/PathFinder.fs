@@ -1,6 +1,7 @@
 ﻿module PathFinder
 open DomainTypes
 
+
 let nodesFromInput (input:int[][]) start hFunction canUp canRight canDown canLeft =
     let height = input.Length
     let width = input[0].Length
@@ -30,14 +31,11 @@ let nodesFromInput (input:int[][]) start hFunction canUp canRight canDown canLef
 let nodesFromInput2Ways (input:int[][]) start hFunction =
     nodesFromInput input start hFunction false true true false
 let nodeTryFindByPosition (position:XyCoordinate) (nodes:Node[]) =
-    // use for when you don't know if it's in the queue
+    // use for when you don't know if it's in the list
     nodes |> Array.tryFind (fun n -> n.position = position)
 let nodeFindByPositon (position:XyCoordinate) (nodes:Node[]) =
     // use for when you're certain you know it's in the list
-    let tryFindResult = nodeTryFindByPosition position nodes
-    match tryFindResult with
-    | None -> failwith "node not found in list"
-    | Some(x) -> x
+    nodes |> Array.find (fun n -> n.position = position)
 let rec aStarIteration (nodes:Node[]) (queue:Node[]) (finished:Node[]) goalPosition = 
     let evaluateRouteOption (r:option<Route>) (currentNode:Node) (queue:Node[]) =
         match r with
