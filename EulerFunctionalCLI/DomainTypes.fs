@@ -59,7 +59,6 @@ type Node = {
     position: XyCoordinate
     heuristicCost: int option
     distanceTo: int option
-    //combinedCost: int option
     pathVia: XyCoordinate option
     r_up: Route option
     r_right: Route option

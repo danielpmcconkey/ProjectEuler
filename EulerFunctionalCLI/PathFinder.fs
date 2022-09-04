@@ -1,7 +1,10 @@
 ﻿module PathFinder
 open DomainTypes
 
-
+let heuristicCostModifiedManhattan averageMCost goalX goalY x y =
+    let heuristicModifier = 0.5
+    let manhattanDistance = (float)((abs (goalX - x)) + (abs (goalY - y)))
+    (int)(round (manhattanDistance * heuristicModifier * averageMCost))
 let nodesFromInput (input:int[][]) start hFunction canUp canRight canDown canLeft =
     let height = input.Length
     let width = input[0].Length
@@ -42,8 +45,8 @@ let rec aStarIteration (nodes:Node[]) (queue:Node[]) (finished:Node[]) goalPosit
         | None -> queue
         | Some(route) -> 
             let cost = route.cost
-            // see if the destination is already in queue
-            let destinationMatch = nodeTryFindByPosition route.destination queue
+            // see if the destination is already in queue or finished
+            let destinationMatch = nodeTryFindByPosition route.destination (Array.concat [|queue;finished|])
             match destinationMatch with
             | None ->
                 // copy from nodes, update values, add to return queue, and return
@@ -65,7 +68,8 @@ let rec aStarIteration (nodes:Node[]) (queue:Node[]) (finished:Node[]) goalPosit
                 let newDistanceTo = Some(cost + currentNode.distanceTo.Value)
                 if newDistanceTo.Value < currentDistanceTo.Value
                     then 
-                        // replace and return
+                        // replace and return if we took it from the queue
+                        // add and return if we took it from finished
                         let newNode = {
                             position = dNode.position
                             heuristicCost = dNode.heuristicCost
@@ -76,11 +80,14 @@ let rec aStarIteration (nodes:Node[]) (queue:Node[]) (finished:Node[]) goalPosit
                             r_down = dNode.r_down
                             r_left = dNode.r_left
                         }
-                        let indexOfMatch = queue |> Array.findIndex (fun n -> n.position = route.destination)
-                        Array.concat [|
-                            queue[0..(indexOfMatch - 1)];
-                            [|newNode|];
-                            queue[(indexOfMatch + 1)..(queue.Length - 1)]|]
+                        let indexOfMatch = queue |> Array.tryFindIndex (fun n -> n.position = route.destination)
+                        match indexOfMatch with
+                        | Some(i) ->
+                            Array.concat [|
+                                queue[0..(i - 1)];
+                                [|newNode|];
+                                queue[(i + 1)..(queue.Length - 1)]|]
+                        | None -> Array.concat [|queue; [|newNode|]|]
                     else queue
 
     if finished.Length > 0 && (finished[finished.Length - 1]).position = goalPosition 
