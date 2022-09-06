@@ -8,7 +8,6 @@ let heuristicCostModifiedManhattan averageMCost goalX goalY x y =
 let nodesFromInput (input:int[][]) start hFunction canUp canRight canDown canLeft =
     let height = input.Length
     let width = input[0].Length
-    let infinityInt = System.Int32.MaxValue
     input
     |> Array.mapi (fun y row -> 
         row |> Array.mapi (fun x cost -> 
@@ -17,7 +16,10 @@ let nodesFromInput (input:int[][]) start hFunction canUp canRight canDown canLef
                 heuristicCost = Some(hFunction x y)
                 distanceTo = if x = start.x && y = start.y then Some(input[y][x]) else None
                 pathVia = None
-                r_up = None
+                r_up = 
+                    if canUp && y > 0 
+                    then Some({cost = input[y - 1][x]; destination = {x = x; y = y - 1}}) 
+                    else None
                 r_right = 
                     if canRight && x < (width - 1)
                     then Some({cost = input[y][x + 1]; destination = {x = x + 1; y = y}}) 
@@ -26,13 +28,18 @@ let nodesFromInput (input:int[][]) start hFunction canUp canRight canDown canLef
                     if canDown && y < height - 1 
                     then Some({cost = input[y + 1][x]; destination = {x = x; y = y + 1}}) 
                     else None
-                r_left = None
+                r_left = 
+                    if canLeft && x > 0
+                    then Some({cost = input[y][x - 1]; destination = {x = x - 1; y = y}}) 
+                    else None
             }
             )
         )
     |> Array.concat
 let nodesFromInput2Ways (input:int[][]) start hFunction =
     nodesFromInput input start hFunction false true true false
+let nodesFromInput3Ways (input:int[][]) start hFunction =
+    nodesFromInput input start hFunction true true true false
 let nodeTryFindByPosition (position:XyCoordinate) (nodes:Node[]) =
     // use for when you don't know if it's in the list
     nodes |> Array.tryFind (fun n -> n.position = position)
@@ -105,6 +112,7 @@ let rec aStarIteration (nodes:Node[]) (queue:Node[]) (finished:Node[]) goalPosit
                 hCost + dCost
                 )
             let first = sortedQueue[0]
+            //printfn "evaluating (%d, %d)" first.position.x first.position.y
             // expand the first in queue
             let queueAfterUp = evaluateRouteOption first.r_up first sortedQueue
             let queueAfterRight = evaluateRouteOption first.r_right first queueAfterUp
@@ -113,9 +121,17 @@ let rec aStarIteration (nodes:Node[]) (queue:Node[]) (finished:Node[]) goalPosit
 
             // take first off the queue and move it to finished
             let nextQueue = queueAfterLeft[1..(queueAfterLeft.Length - 1)]
+            //printfn "Queue after processing"
+            //nextQueue 
+            //|> Array.iter (fun e ->
+            //    printfn "     (%d, %d) %d" e.position.x e.position.y (e.heuristicCost.Value + e.distanceTo.Value)
+            //    )
             let nextFinished = Array.concat [|finished; [|first|]|]
             aStarIteration nodes nextQueue nextFinished goalPosition
 let aStarLeastCost (nodes:Node[]) (queue:Node[]) (finished:Node[]) goalPosition = 
-    let finished = aStarIteration nodes queue finished goalPosition
-    finished[finished.Length - 1].distanceTo
+    try
+        let finished = aStarIteration nodes queue finished goalPosition
+        finished[finished.Length - 1].distanceTo.Value
+    with
+        | ex -> printfn "burp"; System.Int32.MaxValue
     

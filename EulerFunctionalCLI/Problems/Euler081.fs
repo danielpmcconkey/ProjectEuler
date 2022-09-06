@@ -35,5 +35,4 @@ let run () =
     let hFuction = heuristicCostModifiedManhattan averageMCost goal.x goal.y
     let nodes = nodesFromInput2Ways input start hFuction
     aStarLeastCost nodes [|nodes[0]|] [||] goal
-    |> (fun a -> a.Value)
     |> intToString
