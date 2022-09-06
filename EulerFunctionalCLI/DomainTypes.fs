@@ -65,3 +65,19 @@ type Node = {
     r_down: Route option
     r_left: Route option
 }
+type MonopolySquare = {
+    position: string
+    name: string
+    endTurnFunc: MonopolyGame -> MonopolyGame
+    numTurnEnds: int
+}
+and MonopolyCard = {
+    name: string
+    cardFunc: MonopolyGame -> MonopolyGame
+}
+and MonopolyGame = {
+    board: List<MonopolySquare>
+    currentPos: int
+    chanceDeck: List<MonopolyCard>
+    communityChestDeck: List<MonopolyCard>
+}

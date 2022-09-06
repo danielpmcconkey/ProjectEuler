@@ -40,6 +40,8 @@ let nodesFromInput2Ways (input:int[][]) start hFunction =
     nodesFromInput input start hFunction false true true false
 let nodesFromInput3Ways (input:int[][]) start hFunction =
     nodesFromInput input start hFunction true true true false
+let nodesFromInput4Ways (input:int[][]) start hFunction =
+    nodesFromInput input start hFunction true true true true
 let nodeTryFindByPosition (position:XyCoordinate) (nodes:Node[]) =
     // use for when you don't know if it's in the list
     nodes |> Array.tryFind (fun n -> n.position = position)
@@ -134,4 +136,56 @@ let aStarLeastCost (nodes:Node[]) (queue:Node[]) (finished:Node[]) goalPosition 
         finished[finished.Length - 1].distanceTo.Value
     with
         | ex -> printfn "burp"; System.Int32.MaxValue
-    
+let pathSum3Ways (input:int[][]) height width maxInt maxRowsToTravel =
+
+    let getColumn x = [|0..(height - 1)|] |> Array.map (fun i -> input[i][x])
+    let processNode x y (thisColumn:int[]) (nextColumn:int[]) = 
+        let minMaxAtOffset offset = 
+            if offset <= 0
+            then
+                (offset + maxRowsToTravel), maxRowsToTravel
+            else
+                maxRowsToTravel, (offset + maxRowsToTravel)
+        let sumMinToMax minPlace maxPlace (valsToSum:int[]) = 
+            valsToSum[minPlace..maxPlace]
+            |> Array.sum
+        let sumsUpAndDown (valsToSum:int[]) = 
+            [|(maxRowsToTravel * -1)..maxRowsToTravel|]
+            |> Array.map (fun offset ->
+                let minPlace, maxPlace = minMaxAtOffset offset
+                let sumAtOffset = sumMinToMax minPlace maxPlace valsToSum
+                sumAtOffset
+                )
+        let valsThisColumn () = 
+            [|(maxRowsToTravel * -1)..maxRowsToTravel|]
+            // first get the input value at (x, y + offset)
+            |> Array.map (fun offset ->
+                let targetRow = y + offset
+                if targetRow < 0 || targetRow >= height then maxInt
+                else thisColumn[targetRow]
+                )
+        let valInRightColumn i =
+            let offsetPos = y - maxRowsToTravel + i
+            if offsetPos < 0 || offsetPos >= height then maxInt
+            else nextColumn[offsetPos]
+        let addNextColumn (sumValsAtOffset:int[]) = 
+            sumValsAtOffset
+            |> Array.mapi (fun i verticalSum -> (valInRightColumn i) + verticalSum)
+        
+        valsThisColumn ()
+        |> sumsUpAndDown 
+        |> addNextColumn             
+        |> Array.min
+
+    let rec processColumn x (nextColumn:int[]) = 
+        if x = -1 then nextColumn
+        else
+            let thisColumn = getColumn x 
+            let newNextColumn = 
+                [|0..(height - 1)|]
+                |> Array.map (fun y -> processNode x y thisColumn nextColumn)
+            processColumn (x - 1) newNextColumn
+
+    let lastColumn = getColumn (width - 1)
+    processColumn (width - 2) lastColumn
+    |> Array.min

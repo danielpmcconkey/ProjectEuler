@@ -95,6 +95,8 @@
     <Compile Include="Problems\Euler080.fs" />
     <Compile Include="Problems\Euler081.fs" />
     <Compile Include="Problems\Euler082.fs" />
+    <Compile Include="Problems\Euler083.fs" />
+    <Compile Include="Problems\Euler084.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
