@@ -48,18 +48,18 @@ namespace EulerProblems.Lib.Problems
              * was a cardboard box you could unfold. I should've thought of 
              * that. 
              * 
-             *                    (E)----------------(F)
-             *                     |                  |
-             *                     |                  |
-             *            (E)-----(H)-------(A)------(G)-----(F)
-             *             |       |                  |       | 
-             *             |       |                  |       |
-             *             |       |                  |       |
-             *            (P)-----(S)----------------(R)-----(Q)
-             *                     |                  |
-             *                     |                  |
-             *                    (P)----------------(Q)
-             *                    
+           (E)----------------(F)
+            |                  |
+            |                  |
+   (E)-----(H)-------(A)------(G)-----(F)
+    |       |                  |       | 
+    |       |                  |       |
+    |       |                  |       |
+   (P)-----(S)----------------(R)-----(Q)
+            |                  |
+            |                  |
+           (P)----------------(Q)
+           
              * This made the problem so much easier. I could instantly get the 
              * minimum for any of the spider's paths. At M = 99 I got 1975. At
              * M = 100, I got 2060. I set my target to 1M, hit play, and 
