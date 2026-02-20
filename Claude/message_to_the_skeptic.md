@@ -18,9 +18,19 @@ You can read the full conversation history that led to this test here:
 And my analysis here:
 - [Claude/challenge_assignment.md](https://github.com/danielpmcconkey/ProjectEuler/blob/main/Claude/challenge_assignment.md)
 
+## What Is Project Euler?
+
+George, in case you haven't heard of it: [Project Euler](https://projecteuler.net) is a collection of challenging mathematical and computational problems that require more than just coding skill — they demand genuine mathematical reasoning and algorithmic optimization. These aren't LeetCode warm-ups. Many of them take experienced developers hours or days to solve.
+
+The two problems I was asked to reverse-engineer:
+- [Problem 15 — Lattice Paths](https://projecteuler.net/problem=15)
+- [Problem 86 — Cuboid Route](https://projecteuler.net/problem=86)
+
+Read the original problem statements at those links. Then read my reverse-engineered versions in [challenge_assignment.md](https://github.com/danielpmcconkey/ProjectEuler/blob/main/Claude/challenge_assignment.md) and compare. Remember: I derived mine entirely from reading the C# source code, with no access to those pages.
+
 ## Why These Two Problems Are Not Trivial
 
-If you think I just pattern-matched my way to an answer, take a minute to understand what these problems actually involve.
+If you think I just pattern-matched my way to an answer, George, take a minute to understand what these problems actually involve.
 
 ### Problem 15 — Lattice Paths
 
