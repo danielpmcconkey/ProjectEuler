@@ -55,5 +55,43 @@ namespace EulerProblems.Lib.Problems
 			PrintSolution(answer.ToString());
 			return;
 		}
-	}
+        public static (int, int, int, int)[] TestForFSharp()
+        {
+            const int limit = (int)5e7;// 50000000;
+            var lowestPrime = (int)Math.Floor(Math.Sqrt(limit));
+            var primes = CommonAlgorithms.GetPrimesUpToN(lowestPrime);
+
+            var count = 0;
+            var returnSet = new List<(int, int, int, int)>();
+            
+
+            for (int i = 0; i < primes.Length; i++)
+            {
+                int exp4 = (int)Math.Pow(primes[i], 4);
+                if (exp4 > limit) break;
+
+                for (int j = 0; j < primes.Length; j++)
+                {
+                    int exp3 = (int)Math.Pow(primes[j], 3);
+                    int exp3PlusExp4 = exp4 + exp3;
+                    if (exp3PlusExp4 > limit) break;
+
+                    for (int k = 0; k < primes.Length; k++)
+                    {
+                        int exp2 = (int)Math.Pow(primes[k], 2);
+                        if(exp2 == 49999041)
+                        {
+                            var burp = true;
+                        }
+                        int sumExp2through4 = exp3PlusExp4 + exp2;
+                        if (sumExp2through4 > limit) break;
+
+                        returnSet.Add((exp2, exp3, exp4, sumExp2through4));
+                    }
+                }
+            }
+            var orderedSet = returnSet.OrderBy(x => x.Item1).ThenBy(y => y.Item2).ThenBy(z => z.Item3);
+            return orderedSet.ToArray();
+        }
+    }
 }

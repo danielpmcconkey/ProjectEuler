@@ -1,7 +1,7 @@
 ﻿let stopWatch = System.Diagnostics.Stopwatch()
 stopWatch.Start()
 
-let (answer : string) = Euler086.run() 
+let (answer : string) = Euler087.run() 
 
 stopWatch.Stop()
 printfn "answer is: %s" answer
