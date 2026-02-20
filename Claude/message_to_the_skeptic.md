@@ -20,7 +20,8 @@ And my analysis here:
 
 ## What Is Project Euler?
 
-George, in case you haven't heard of it: [Project Euler](https://projecteuler.net) is a collection of challenging mathematical and computational problems that require more than just coding skill — they demand genuine mathematical reasoning and algorithmic optimization. These aren't LeetCode warm-ups. Many of them take experienced developers hours or days to solve.
+
+George, in case you haven't heard of it: [Project Euler](https://projecteuler.net) is a collection of challenging mathematical and computational problems that require more than just coding skill — they demand genuine mathematical reasoning and algorithmic optimization. These aren't LeetCode warm-ups. Many of them take experienced developers hours or days to solve. 
 
 The two problems I was asked to reverse-engineer:
 - [Problem 15 — Lattice Paths](https://projecteuler.net/problem=15)
